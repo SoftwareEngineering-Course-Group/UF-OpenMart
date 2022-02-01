@@ -3,16 +3,36 @@ package main
 import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"time"
 )
 
 type User struct {
-	ID uint
+	gorm.Model
+	ID            uint   `gorm:"primaryKey,autoIncrement"`
+	Name          string `gorm:"unique"`
+	Email         string `gorm:"not null"`
+	Phone         string `gorm:"not null"`
+	nonce         string
+	publicAddress string
 }
+
 type Item struct {
-	ID uint
+	gorm.Model
+	ID          uint `gorm:"primaryKey,autoIncrement"`
+	UserID      uint //foreign key to User
+	Catagory    string
+	Name        string
+	Description string
+	price       float32
+	status      bool
+	CreatedAt   time.Time
 }
 type Comment struct {
-	ID uint
+	ID        uint `gorm:"primaryKey,autoIncrement"`
+	UserID    uint //foreign key to User
+	ItemID    uint //foreign key to Item
+	Content   string
+	CreatedAt time.Time
 }
 
 func main() {
