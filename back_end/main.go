@@ -12,7 +12,6 @@ import (
 )
 
 type User struct {
-	gorm.Model
 	ID            uint   `gorm:"primaryKey,autoIncrement"`
 	Name          string `gorm:"unique"`
 	Password      string `gorm:"not null"`
@@ -23,7 +22,6 @@ type User struct {
 }
 
 type Item struct {
-	gorm.Model
 	ID          uint `gorm:"primaryKey,autoIncrement"`
 	UserID      uint //foreign key to User
 	Catagory    string
@@ -34,7 +32,6 @@ type Item struct {
 	CreatedAt   time.Time
 }
 type Comment struct {
-	gorm.Model
 	ID        uint `gorm:"primaryKey,autoIncrement"`
 	UserID    uint //foreign key to User
 	ItemID    uint //foreign key to Item
@@ -57,9 +54,18 @@ func main() {
 	handler := newHandler(db)
 	r := gin.New()
 	r.POST("/login", handler.loginHandler)
+	r.POST("/create", handler.createUser)
 	//protected := r.Group("/", authorizationMiddleware)
 	//protected.GET("/item", handler.listBooksHandler)
 	r.Run()
+}
+
+type Handler struct {
+	db *gorm.DB
+}
+
+func newHandler(db *gorm.DB) *Handler {
+	return &Handler{db}
 }
 
 func authorizationMiddleware(c *gin.Context) {
@@ -83,14 +89,6 @@ func validateToken(token string) error {
 	})
 
 	return err
-}
-
-type Handler struct {
-	db *gorm.DB
-}
-
-func newHandler(db *gorm.DB) *Handler {
-	return &Handler{db}
 }
 
 func (h *Handler) QueryUserByEmailAndPassword(email, password string) (user User, err error) {
@@ -117,7 +115,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 		ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
 	})
 
-	ss, err := token.SignedString([]byte("MySignature"))
+	ss, err := token.SignedString([]byte("Openmart"))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -127,4 +125,15 @@ func (h *Handler) loginHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"token": ss,
 	})
+}
+
+func (h *Handler) createUser(c *gin.Context) {
+	var user User
+	if err := c.BindJSON(&user); err != nil {
+		return
+	}
+	if result := h.db.Create(&user); result.Error != nil {
+		return
+	}
+	c.JSON(http.StatusCreated, &user)
 }
