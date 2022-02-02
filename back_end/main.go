@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"time"
@@ -28,6 +29,7 @@ type Item struct {
 	CreatedAt   time.Time
 }
 type Comment struct {
+	gorm.Model
 	ID        uint `gorm:"primaryKey,autoIncrement"`
 	UserID    uint //foreign key to User
 	ItemID    uint //foreign key to Item
@@ -36,7 +38,9 @@ type Comment struct {
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("sqlite.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("sqlite.db"), &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: true,
+	})
 
 	if err != nil {
 		panic("failed to connect database")
@@ -45,5 +49,15 @@ func main() {
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Item{})
 	db.AutoMigrate(&Comment{})
+	handler := newHandler(db)
+	r := gin.New()
+	r.Run()
+}
 
+type Handler struct {
+	db *gorm.DB
+}
+
+func newHandler(db *gorm.DB) *Handler {
+	return &Handler{db}
 }
