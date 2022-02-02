@@ -49,7 +49,6 @@ func main() {
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Item{})
 	db.AutoMigrate(&Comment{})
-	handler := newHandler(db)
 	r := gin.New()
 	r.Run()
 }
