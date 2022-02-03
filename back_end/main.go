@@ -15,17 +15,17 @@ import (
 )
 
 type User struct {
-	ID            uint   `gorm:"primaryKey,autoIncrement"`
-	Name          string `gorm:"not null,unique"`
+	ID            uint   `gorm:"primaryKey;autoIncrement"`
+	Name          string `gorm:"not null;unique"`
 	Password      string `gorm:"not null"`
-	Email         string `gorm:"not null,unique"`
+	Email         string `gorm:"not null;unique"`
 	Phone         string `gorm:"not null"`
 	nonce         string
 	publicAddress string
 }
 
 type Item struct {
-	ID          uint `gorm:"primaryKey,autoIncrement"`
+	ID          uint `gorm:"primaryKey;autoIncrement"`
 	UserID      uint //foreign key to User
 	Catagory    string
 	Name        string
@@ -36,7 +36,7 @@ type Item struct {
 	CreatedAt   time.Time
 }
 type Comment struct {
-	ID        uint `gorm:"primaryKey,autoIncrement"`
+	ID        uint `gorm:"primaryKey;autoIncrement"`
 	UserID    uint //foreign key to User
 	ItemID    uint //foreign key to Item
 	Content   string
