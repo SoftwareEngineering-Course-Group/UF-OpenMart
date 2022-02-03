@@ -146,7 +146,9 @@ func (h *Handler) createUser(c *gin.Context) {
 			})
 			return
 		}
-		c.JSON(http.StatusCreated, &user)
+		c.JSON(http.StatusCreated, gin.H{
+			"message": "success!",
+		})
 		return
 	}
 	c.JSON(http.StatusBadRequest, gin.H{
