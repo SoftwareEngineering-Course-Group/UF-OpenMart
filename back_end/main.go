@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -57,6 +58,7 @@ func main() {
 	r := gin.New()
 	r.POST("/login", handler.loginHandler)
 	r.POST("/create", handler.createUser)
+	r.POST("/delete", handler.DeleteUser)
 	//protected := r.Group("/", authorizationMiddleware)
 	//protected.GET("/item", handler.listBooksHandler)
 	r.Run()
@@ -139,4 +141,24 @@ func (h *Handler) createUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusCreated, &user)
+}
+
+//Delete User
+func (h *Handler) DeleteUser(c *gin.Context) {
+	json := User{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	//Find before delete
+	dbRresult := h.db.Where("email = ?", json.Email).First(&json)
+	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
+		// handle record not found
+		c.JSON(http.StatusBadRequest, gin.H{"message": "User Not Exist!"})
+		return
+	}
+	if err := h.db.Where("email = ? ", json.Email).Delete(&json).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
