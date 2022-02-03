@@ -127,6 +127,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
+		"id":    json.ID,
 		"token": ss,
 	})
 }
