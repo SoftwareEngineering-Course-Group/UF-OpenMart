@@ -138,10 +138,21 @@ func (h *Handler) createUser(c *gin.Context) {
 	if err := c.BindJSON(&user); err != nil {
 		return
 	}
-	if result := h.db.Create(&user); result.Error != nil {
+	dbRresult := h.db.Where("email = ?", user.Email).Where("name = ?", user.Name).First(&user)
+	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
+		if result := h.db.Create(&user); result.Error != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "User already exist!",
+			})
+			return
+		}
+		c.JSON(http.StatusCreated, &user)
 		return
 	}
-	c.JSON(http.StatusCreated, &user)
+	c.JSON(http.StatusBadRequest, gin.H{
+		"error": "User already exist!",
+	})
+
 }
 
 //Delete User
