@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/qor/media"
+	"github.com/qor/media/oss"
 	"net/http"
 	"strings"
 	"time"
@@ -29,6 +31,7 @@ type Item struct {
 	Description string
 	price       float32
 	status      bool
+	Image       oss.OSS `sql:"size:4294967295;" media_library:"url:/backend/{{class}}/{{primary_key}}/{{column}}.{{extension}};path:./private"`
 	CreatedAt   time.Time
 }
 type Comment struct {
@@ -40,9 +43,8 @@ type Comment struct {
 }
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("sqlite.db"), &gorm.Config{
-		DisableForeignKeyConstraintWhenMigrating: true,
-	})
+	db, err := gorm.Open("sqlite3", "sqlite.db")
+	media.RegisterCallbacks(db)
 
 	if err != nil {
 		panic("failed to connect database")
@@ -85,7 +87,7 @@ func validateToken(token string) error {
 			return nil, fmt.Errorf("unexpected signing method: %v", t.Header["alg"])
 		}
 
-		return []byte("MySignature"), nil
+		return []byte("Openmart"), nil
 	})
 
 	return err
@@ -109,6 +111,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &jwt.StandardClaims{
