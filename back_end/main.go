@@ -104,11 +104,11 @@ func (h *Handler) loginHandler(c *gin.Context) {
 	c.BindJSON(&json)
 
 	var (
-		_   User
-		err error
+		user User
+		err  error
 	)
 
-	if _, err = h.QueryUserByEmailAndPassword(json.Email, json.Password); err != nil {
+	if user, err = h.QueryUserByEmailAndPassword(json.Email, json.Password); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"error": err.Error(),
 		})
@@ -127,7 +127,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":    json.ID,
+		"id":    user.ID,
 		"token": ss,
 	})
 }
