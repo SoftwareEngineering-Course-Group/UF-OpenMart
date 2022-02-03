@@ -60,6 +60,7 @@ func main() {
 	r.POST("/create", handler.createUser)
 	protected := r.Group("/", authorizationMiddleware)
 	protected.POST("/delete", handler.DeleteUser)
+	protected.POST("/update", handler.UpdateUser)
 	r.Run()
 }
 
@@ -150,15 +151,30 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	//Find before delete
-	dbRresult := h.db.Where("email = ?", json.Email).First(&json)
-	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
-		// handle record not found
-		c.JSON(http.StatusBadRequest, gin.H{"message": "User Not Exist!"})
-		return
-	}
-	if err := h.db.Where("email = ? ", json.Email).Delete(&json).Error; err != nil {
+	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
+}
+
+//Update User
+func (h *Handler) UpdateUser(c *gin.Context) {
+	json := User{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("phone", json.Phone).Update("password", json.Password).Error; err != nil {
+		c.JSON(http.StatusOK, gin.H{"message": "No way!"})
+	}
+	dbRresult := h.db.Where("email = ?", json.Email).Where("name = ?", json.Name).First(&json)
+	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
+		if err := h.db.Model(&json).Where("id = ?", json.ID).Update("name", json.Name).Update("email", json.Email).Update("phone", json.Phone).Update("password", json.Password).Error; err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"message": "Already exist same name or email"})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"message": "Successful update name and email"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
