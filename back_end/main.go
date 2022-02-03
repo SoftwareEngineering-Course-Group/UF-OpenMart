@@ -58,9 +58,8 @@ func main() {
 	r := gin.New()
 	r.POST("/login", handler.loginHandler)
 	r.POST("/create", handler.createUser)
-	r.POST("/delete", handler.DeleteUser)
-	//protected := r.Group("/", authorizationMiddleware)
-	//protected.GET("/item", handler.listBooksHandler)
+	protected := r.Group("/", authorizationMiddleware)
+	protected.POST("/delete", handler.DeleteUser)
 	r.Run()
 }
 
