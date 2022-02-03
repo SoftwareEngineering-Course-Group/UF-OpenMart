@@ -8,7 +8,7 @@ not already exist. Each User can only have one Account.
 
 **Method** : `POST`
 
-**Auth required** : YES
+**Auth required** : NO 
 
 **Permissions required** : None
 
@@ -18,7 +18,10 @@ Provide unique name of Account.
 
 ```json
 {
-    "name": "[must be unique]"
+    "name": "[must be unique,not null]",
+    "email": "[must be unique,not null]",
+    "password": "[not null]",
+    "phone": "[not null]"
 }
 ```
 
@@ -42,16 +45,8 @@ Provide unique name of Account.
 
 ## Error Responses
 
-**Condition** : If Account already exists for User.
+**Condition** : If Account already exists for User, which include two situation: username or email already exists.
 
-**Code** : `303 SEE OTHER`
+**Code** : `400 BadRequest`
 
-**Content** : `{}`
-
-### Or
-
-**Condition** : If fields are missed.
-
-**Code** : `400 BAD REQUEST`
-
-**Content example**
+**Content** : `{"error": "User already exist!"}`
