@@ -71,8 +71,11 @@ func main() {
 	db.AutoMigrate(&Item{})
 	db.AutoMigrate(&Comment{})
 	handler := newHandler(db)
+
 	r := gin.New()
+
 	r.Use(CORS())
+
 	r.POST("/login", handler.loginHandler)
 	r.POST("/create", handler.createUser)
 	protected := r.Group("/", authorizationMiddleware)
