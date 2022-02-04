@@ -43,6 +43,22 @@ type Comment struct {
 	CreatedAt time.Time
 }
 
+func CORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
+
 func main() {
 	db, err := gorm.Open("sqlite3", "sqlite.db")
 	media.RegisterCallbacks(db)
@@ -56,12 +72,13 @@ func main() {
 	db.AutoMigrate(&Comment{})
 	handler := newHandler(db)
 	r := gin.New()
+	r.Use(CORS())
 	r.POST("/login", handler.loginHandler)
 	r.POST("/create", handler.createUser)
 	protected := r.Group("/", authorizationMiddleware)
 	protected.POST("/delete", handler.DeleteUser)
 	protected.POST("/update", handler.UpdateUser)
-	r.Run()
+	r.Run(":12345")
 }
 
 type Handler struct {
