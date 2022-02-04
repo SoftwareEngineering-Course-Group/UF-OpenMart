@@ -9,7 +9,7 @@ const style ={
         color: 'rgba(0,0,0,1)',
         backgroundImage: `url(${imgBg})`,
         backgroundSize: '100%,100%',
-        padding:'10px'
+        padding:'20px'
     },
   }
   function Home() {
