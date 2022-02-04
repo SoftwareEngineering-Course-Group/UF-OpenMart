@@ -2,16 +2,15 @@ import React from 'react'
 import { Image,Header,List,Button,Grid } from 'semantic-ui-react'
 
 const ImageExampleCircular = () => (
-    <div>
-        <div style={{display:'flex', justifyContent: 'center', marginTop: '5%'}}>
-          <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='small' circular />
-        </div>
-        <div style={{display:'flex', justifyContent: 'center',marginTop:'-8%'}}>
-            <h2 style={{marginTop:'10%'}}>Friends</h2>
-        </div>
-        <div style={{display:'flex', justifyContent: 'center', marginTop:'3%',marginLeft:'5%'}}>
-            <List size='large' >
-                <List.Item >
+    <div><div/>
+    <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
+        
+        <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='small' circular centered/>
+        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>Friends</h2>
+    </div>
+    <div style={{display:'flex', justifyContent: 'center' , marginLeft:'3%',marginTop:'2%'}}>
+        <List size='large' >
+                <List.Item>
                 <List.Icon name='users' />
                 <List.Content>Semantic UI</List.Content>
                 </List.Item>
@@ -32,7 +31,7 @@ const ImageExampleCircular = () => (
                 </List.Content>
                 </List.Item>
         </List>
-        </div>
+    </div>
         <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
             <Button primary>Message</Button>
         </div>
