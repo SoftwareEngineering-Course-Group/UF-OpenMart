@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon, Menu, } from 'semantic-ui-react'
+import { Icon, Menu} from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 const style ={
   footer:{
@@ -8,29 +8,31 @@ const style ={
       width: '100%',
   }
 }
-export default class MenuExampleCompact extends Component {
+
+class MenuCompact extends Component {
   state = {}
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  }
 
   render() {
     const { activeItem } = this.state
 
     return (
       <Menu compact icon='labeled' fluid widths={3} style={style.footer}>
-        <Link to="/">
         <Menu.Item
           name='gamepad'
+          href="/"
           active={activeItem === 'gamepad'}
           onClick={this.handleItemClick}
         > 
-          
-          <Icon name='home' />
+            <Icon link name='home' />
         </Menu.Item>
-        </Link>
 
         <Menu.Item
           name='video camera'
+          href="/add"
           active={activeItem === 'video camera'}
           onClick={this.handleItemClick}
         >
@@ -39,6 +41,7 @@ export default class MenuExampleCompact extends Component {
 
         <Menu.Item
           name='video play'
+          href="/my"
           active={activeItem === 'video play'}
           onClick={this.handleItemClick}
         >
@@ -48,3 +51,4 @@ export default class MenuExampleCompact extends Component {
     )
   }
 }
+export default MenuCompact;
