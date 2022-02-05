@@ -4,8 +4,7 @@ import Home from './pages/Home';
 import Item from './pages/Item';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import Register from './pages/Register';
-
+import RegisterPage from './pages/Register';
 function App() {
   return (
     <div>
@@ -14,7 +13,7 @@ function App() {
         <Route path="/item" element={<Item />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
+        <Route path="/register" element={<RegisterPage/>} />
       </Routes>
     </div>
   );

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Image,Header,List,Button,Grid } from 'semantic-ui-react'
+import Menu from '../components/Menu'
 
 const ImageExampleCircular = () => (
     <div><div/>
     <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
         
-        <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png' size='small' circular centered/>
-        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>Friends</h2>
+        <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
+        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>Patrick</h2>
     </div>
     <div style={{display:'flex', justifyContent: 'center' , marginLeft:'3%',marginTop:'2%'}}>
         <List size='large' >
@@ -35,10 +36,10 @@ const ImageExampleCircular = () => (
         <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
             <Button primary>Message</Button>
         </div>
-        <div style={{display:'flex',justifyContent:'center',marginTop:'3%'}}>
+        <div style={{display:'flex',margin:'3%'}}>
             <h2>已发布</h2>
         </div>
-        <div  style={{display:'flex',justifyContent:'center',marginTop:'3%'}}>
+        <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
         <Grid verticalAlign='middle' columns={2} centered>
             <Grid.Row>
                 <Grid.Column width={4}>
@@ -46,6 +47,12 @@ const ImageExampleCircular = () => (
                 </Grid.Column>
                 <Grid.Column width={4}>
                     <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <Grid.Column width={4}>
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <Grid.Column width={4}>
+                    <Image src='http://react.semantic-ui.com/images/wireframe/image.png' />
                 </Grid.Column>
                 <br />
             </Grid.Row>
@@ -56,9 +63,18 @@ const ImageExampleCircular = () => (
                 <Grid.Column width={4}>
                     <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
                 </Grid.Column>
+                <Grid.Column width={4}>
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <Grid.Column width={4}>
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
             </Grid.Row>
         </Grid>
         </div>
+        <footer>
+          <Menu/>
+        </footer>
     </div>
 )
 

@@ -41,7 +41,7 @@ class MenuCompact extends Component {
 
         <Menu.Item
           name='video play'
-          href="/my"
+          href="/register"
           active={activeItem === 'video play'}
           onClick={this.handleItemClick}
         >

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import faker from 'faker'
 import React from 'react'
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+import { Search, Grid,Input } from 'semantic-ui-react'
 
 const source = _.times(5, () => ({
   title: faker.company.companyName(),
@@ -63,16 +63,8 @@ function SearchExampleStandard() {
   }, [])
 
   return (
-        <Search
-          loading={loading}
-          placeholder='Search...'
-          onResultSelect={(e, data) =>
-            dispatch({ type: 'UPDATE_SELECTION', selection: data.result.title })
-          }
-          onSearchChange={handleSearchChange}
-          results={results}
-          value={value}
-        />
+    <Input fluid icon='search' placeholder='Search...' />
+        
         
 
   )
