@@ -81,7 +81,7 @@ func main() {
 	protected := r.Group("/", authorizationMiddleware)
 	protected.POST("/delete", handler.DeleteUser)
 	protected.POST("/update", handler.UpdateUser)
-	protected.GET("/get", handler.GetUser)
+	//protected.GET("/get", handler.GetUser)
 	r.Run(":12345")
 }
 
