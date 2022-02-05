@@ -41,12 +41,12 @@ const Login = () => {
         <Form style={{display:'flex', flexDirection:'column',justifyContent: 'center'
         ,alignItems:'center',flexWarp:'wrap',marginTop:'2%'}} onSubmit={handleSubmit(onFinish)}>
         
-        <Form.Field width={5}>
+        <Form.Field width={8}>
           <label>Email</label>
           <input {...register("email")} placeholder='Email' />
           {/* {errors.input1 && <Label pointing color='red'>{errors.input1}</Label>} */}
         </Form.Field >
-        <Form.Field width={5}>
+        <Form.Field width={8}>
           <label>Password</label>
           <input {...register("password")} placeholder='password' />
         </Form.Field >
