@@ -64,7 +64,7 @@ II. Description
 
 
 <a name="Work"></a>·
-**III. Work Be Done**
+III. Work Be Done
 ## Sprint1
 ### Backend accomplishment
 * UML design for database
