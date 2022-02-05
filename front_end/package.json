@@ -44,6 +44,6 @@
   },
   "devDependencies": {
     "faker": "^5.5.3"
-  }
-
+  },
+  "proxy": "http://localhost:12345"
 }

@@ -57,3 +57,7 @@ II. Description
 * ORM: `Gorm`
 * Database:`Sqlite3`
 * Authentication method: `jwt`
+
+###Frontend stack:
+* Framework: 'React'
+* UI: 'semantic-UI'
