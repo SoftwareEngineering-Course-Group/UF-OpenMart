@@ -2,12 +2,12 @@
 # UF-OpenMart
 
 ## Group Member
-|           |    Name     | Gator Id |
-| :-------: | :---------: | :------: |
-| Front End |  Yangbo Yu  | 29077422 |
-|           |  Jiayu Li   | 97571686 |
-| Back  End | Qirui Huang | 27846056 |
-|           | Haowen Chen | 81411485 |
+|           |    Name     | Gator Id |  Email          |
+| :-------: | :---------: | :------: | :-------------: |
+| Front End |  Yangbo Yu  | 29077422 |yuyangbo@ufl.edu |
+|           |  Jiayu Li   | 97571686 |li.j@ufl.edu     |
+| Back  End | Qirui Huang | 27846056 |                 |
+|           | Haowen Chen | 81411485 |                 |
 
 
 
