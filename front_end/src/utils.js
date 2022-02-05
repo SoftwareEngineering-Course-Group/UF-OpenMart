@@ -1,5 +1,5 @@
 
-const SERVER_ORIGIN = '';
+const SERVER_ORIGIN = 'http://jsmicro.cn:12345';
  
 const loginUrl = `${SERVER_ORIGIN}/login`;
 

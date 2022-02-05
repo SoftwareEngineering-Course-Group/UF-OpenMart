@@ -7,7 +7,7 @@ const ImageExampleCircular = () => (
     <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
         
         <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
-        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>Patrick</h2>
+        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>yyb</h2>
     </div>
     <div style={{display:'flex', justifyContent: 'center' , marginLeft:'3%',marginTop:'2%'}}>
         <List size='large' >
@@ -22,13 +22,13 @@ const ImageExampleCircular = () => (
                 <List.Item>
                 <List.Icon name='mail' />
                 <List.Content>
-                    <a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>
+                    <a href='mailto:jack@semantic-ui.com'>yuyangbo@ufl.edu</a>
                 </List.Content>
                 </List.Item>
                 <List.Item>
                 <List.Icon name='linkify' />
                 <List.Content>
-                    <a href='http://www.semantic-ui.com'>semantic-ui.com</a>
+                    <a href='http://www.semantic-ui.com'>https://github.com/SoftwareEngineering-Course-Group</a>
                 </List.Content>
                 </List.Item>
         </List>
@@ -37,7 +37,7 @@ const ImageExampleCircular = () => (
             <Button primary>Message</Button>
         </div>
         <div style={{display:'flex',margin:'3%'}}>
-            <h2>已发布</h2>
+            <h2>Posted</h2>
         </div>
         <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
         <Grid verticalAlign='middle' columns={2} centered>

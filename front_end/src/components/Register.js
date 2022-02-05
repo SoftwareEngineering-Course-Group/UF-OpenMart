@@ -45,7 +45,7 @@ const Register = (props) => {
         </Form.Field >
         <Form.Field width={5}>
           <label>Email</label>
-          <input {...register("email")} placeholder='phone number' />
+          <input {...register("email")} placeholder='email' />
           {/* {errors.input1 && <Label pointing color='red'>{errors.input1}</Label>} */}
         </Form.Field >
         <Form.Field width={5}>
