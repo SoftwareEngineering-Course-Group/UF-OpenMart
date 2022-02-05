@@ -58,6 +58,6 @@ II. Description
 * Database:`Sqlite3`
 * Authentication method: `jwt`
 
-###Frontend stack:
+### Frontend stack:
 * Framework: 'React'
 * UI: 'semantic-UI'
