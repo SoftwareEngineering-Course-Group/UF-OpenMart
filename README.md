@@ -16,11 +16,11 @@
 
 2. [Description](#Description)
 
-3. [How to Use](#How to Use)
+3. [Work be Done](#Work)
 
-4. [Work be Done](#Work)
+4. [Results and Performance](#Test)
 
-5. [Results and Performance](#Test)
+5. [How to Use](#How to Use)
 
 6. [Other Info](#Other Info)
 
