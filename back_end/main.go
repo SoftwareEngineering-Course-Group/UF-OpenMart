@@ -81,6 +81,7 @@ func main() {
 	protected := r.Group("/", authorizationMiddleware)
 	protected.POST("/delete", handler.DeleteUser)
 	protected.POST("/update", handler.UpdateUser)
+	protected.GET("/get", handler.GetUser)
 	r.Run(":12345")
 }
 
@@ -210,4 +211,21 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Success"})
+}
+
+func (h *Handler) GetUser(c *gin.Context) {
+ json := User{}
+ err := c.BindJSON(&json)
+ if err != nil {
+  return
+ }
+ if err := h.db.Where("id", json.ID).Find(&json).Error; err != nil {
+  c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
+ }
+ c.JSON(http.StatusOK, gin.H{
+  "id":    json.ID,
+  "name":  json.Name,
+  "email": json.Email,
+  "phone": json.Phone,
+ })
 }
