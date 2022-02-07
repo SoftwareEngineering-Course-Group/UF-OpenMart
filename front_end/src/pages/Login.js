@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { login } from '../utils';
 import { useForm } from "react-hook-form";
 import history from '../history';
+import Menu from '../components/Menu'
 const Login = () => {
     
     const[sta , setSta] = useState('success')
@@ -67,6 +68,9 @@ const Login = () => {
             
             ):null
         }
+        <footer>
+          <Menu/>
+        </footer>
         </>        
       )
   }

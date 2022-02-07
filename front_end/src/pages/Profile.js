@@ -39,7 +39,7 @@ const ImageExampleCircular = () => (
         <div style={{display:'flex',margin:'3%'}}>
             <h2>Posted</h2>
         </div>
-        <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
+        <div  style={{display:'flex',justifyContent:'center',margin:'2%'}}>
         <Grid verticalAlign='middle' columns={2} centered>
             <Grid.Row>
                 <Grid.Column width={4}>
@@ -69,6 +69,26 @@ const ImageExampleCircular = () => (
                 <Grid.Column width={4}>
                     <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
                 </Grid.Column>
+            </Grid.Row>
+        </Grid>
+        </div>
+
+        <div style={{display:'flex',margin:'3%'}}>
+            <h2>Favorites</h2>
+        </div>
+        <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
+        <Grid verticalAlign='middle' columns={3}>
+            <Grid.Row>
+                <Grid.Column >
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <Grid.Column >
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <Grid.Column >
+                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                </Grid.Column>
+                <br />
             </Grid.Row>
         </Grid>
         </div>
