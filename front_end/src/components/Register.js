@@ -8,25 +8,21 @@ const Register = (props) => {
     const[sta , setSta] = useState('success')
     const[displayMoel , setDisplay] = useState(false)
     const onFinish = (data) => {
-        console.log(data);
-        registe(data)
-          .then(() => {
-            setSta('success')
-            setDisplay(true)
-            history.push('/login');
-            window.location.reload();
-            // return (
-                // <MessageExamplePositive />
-            // )
-          }).catch((err) => {
-              console.log("failed to register")
-              setSta('failed')
-              setDisplay(true)
-              console.log(data)
-              
-          })
-
-      }
+    console.log(data);
+    registe(data)
+      .then(() => {
+        setSta('success')
+        setDisplay(true)
+        history.push('/login');
+        window.location.reload();
+      }).catch((err) => {
+          console.log("failed to register")
+          setSta('failed')
+          setDisplay(true)
+          console.log(data)
+          
+      })
+    }
     const { register, handleSubmit, formState: { errors } } = useForm();
       
       return (
