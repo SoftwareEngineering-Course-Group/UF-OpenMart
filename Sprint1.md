@@ -1,6 +1,7 @@
 # Sprint1
 
 ## Backend accomplishment
+>Youtube link:https://youtu.be/3OuogkDnrHo
 * UML design for database
 * Database creation(User, Item, Comment)
 * User model implementation of `CRUD`

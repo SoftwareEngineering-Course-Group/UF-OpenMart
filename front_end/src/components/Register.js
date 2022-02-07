@@ -46,7 +46,7 @@ const Register = (props) => {
         </Form.Field >
         <Form.Field width={8}>
           <label>Password</label>
-          <input {...register("password")} placeholder='password' />
+          <input {...register("password")} type='password' placeholder='password' />
         </Form.Field >
         <Button htmltype='submit' style={{marginTop:'2%'}}>Register</Button>
         

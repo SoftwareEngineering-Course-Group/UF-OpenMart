@@ -2,12 +2,12 @@
 # UF-OpenMart
 
 ## Group Member
-|           |    Name     | Gator Id |
-| :-------: | :---------: | :------: |
-| Front End |  Yangbo Yu  | 29077422 |
-|           |  Jiayu Li   | 97571686 |
-| Back  End | Qirui Huang | 27846056 |
-|           | Haowen Chen | 81411485 |
+|           |    Name     | Gator Id |  Email          |
+| :-------: | :---------: | :------: | :-------------: |
+| Front End |  Yangbo Yu  | 29077422 |yuyangbo@ufl.edu |
+|           |  Jiayu Li   | 97571686 |li.j@ufl.edu     |
+| Back  End | Qirui Huang | 27846056 |huangqirui@ufl.edu|
+|           | Haowen Chen | 81411485 |chenhaowen@ufl.edu|
 
 
 
@@ -16,11 +16,11 @@
 
 2. [Description](#Description)
 
-3. [How to Use](#How to Use)
+3. [Work be Done](#Work)
 
-4. [Work be Done](#Work)
+4. [Results and Performance](#Test)
 
-5. [Results and Performance](#Test)
+5. [How to Use](#How to Use)
 
 6. [Other Info](#Other Info)
 
@@ -60,6 +60,26 @@ II. Description
 * Database:`Sqlite3`
 * Authentication method: `jwt`
 
-###Frontend stack:
+### Frontend stack:
 * Framework: 'React'
 * UI: 'semantic-UI'
+
+
+<a name="Work"></a>·
+III. Work Be Done
+----
+### Sprint1
+#### Backend accomplishment
+>Youtube link:https://youtu.be/3OuogkDnrHo
+* UML design for database
+* Database creation(User, Item, Comment)
+* User model implementation of CRUD
+* User login
+* Corresponding API doc for User Accont
+* API tests by Postman
+* Deploying the test backend in VPS
+#### Frontend accomplishment
+* Details in https://www.youtube.com/watch?v=Y6CHfpEtx-E&t=99s
+* UI for 6 pages including Home, Profile, Detail, Login, Register.
+* Simple login and register.
+

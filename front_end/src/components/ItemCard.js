@@ -7,7 +7,7 @@ const CardExampleCard = (props) => (
     <Card>
       <Image src={props.image} wrapped ui={false} />
       <Card.Content>
-        <Icon name='heart outline' size='large' color='red' style={{float:'right'}}/>
+        <Icon name='heart outline' size='large' color='red' link style={{float:'right'}}/>
         <Card.Header>{props.name}</Card.Header>
         <Card.Header>{props.price}$</Card.Header>
       </Card.Content>
