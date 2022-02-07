@@ -1,7 +1,14 @@
 import React from 'react'
-import { Image,Header,List,Button,Grid } from 'semantic-ui-react'
+import { Image,Icon,List,Button,Grid } from 'semantic-ui-react'
 import Menu from '../components/Menu'
-
+const user = 
+    {
+      id:1,
+      name: 'yyb',
+      avatar:'https://react.semantic-ui.com/images/avatar/large/patrick.png',
+      rtime: 'Feb.7th 2022',
+      aboutMe:'A goat was feeding one day high on a rocky crag when a hungry wolf happened to pass below'
+    }
 const ImageExampleCircular = () => (
     <div><div/>
     <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
@@ -9,29 +16,16 @@ const ImageExampleCircular = () => (
         <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
         <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>yyb</h2>
     </div>
-    <div style={{display:'flex', justifyContent: 'center' , marginLeft:'3%',marginTop:'2%'}}>
-        <List size='large' >
-                <List.Item>
-                <List.Icon name='users' />
-                <List.Content>Semantic UI</List.Content>
-                </List.Item>
-                <List.Item>
-                <List.Icon name='marker' />
-                <List.Content>New York, NY</List.Content>
-                </List.Item>
-                <List.Item>
-                <List.Icon name='mail' />
-                <List.Content>
-                    <a href='mailto:jack@semantic-ui.com'>yuyangbo@ufl.edu</a>
-                </List.Content>
-                </List.Item>
-                <List.Item>
-                <List.Icon name='linkify' />
-                <List.Content>
-                    <a href='http://www.semantic-ui.com'>https://github.com/SoftwareEngineering-Course-Group</a>
-                </List.Content>
-                </List.Item>
-        </List>
+    <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
+        <div>
+            <Icon name='time' />
+            <span>registration time: {user.rtime}</span>
+        </div>
+        <div>
+            <span>{user.aboutMe} </span>
+            <Icon name='edit outline' />
+        </div>     
+                
     </div>
         <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
             <Button primary>Message</Button>
@@ -77,20 +71,12 @@ const ImageExampleCircular = () => (
             <h2>Favorites</h2>
         </div>
         <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
-        <Grid verticalAlign='middle' columns={3}>
-            <Grid.Row>
-                <Grid.Column >
-                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                </Grid.Column>
-                <Grid.Column >
-                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                </Grid.Column>
-                <Grid.Column >
-                    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                </Grid.Column>
-                <br />
-            </Grid.Row>
-        </Grid>
+            <div style={{width:'30%'}}><Image src='https://react.semantic-ui.com/images/wireframe/image.png' /></div>
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+
         </div>
         <footer>
           <Menu/>
