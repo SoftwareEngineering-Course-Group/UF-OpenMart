@@ -26,7 +26,8 @@
 
 
 
-<a name="User Story"></a>·
+<a name="UserStory"></a>·
+
 I. User Story
 ----
 #### As a customer:
@@ -50,6 +51,7 @@ I. User Story
 ### 
 
 <a name="Description"></a>·
+
 II. Description
 ----
 ### Backend stack:

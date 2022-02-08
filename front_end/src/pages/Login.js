@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { login } from '../utils';
 import { useForm } from "react-hook-form";
 import history from '../history';
+import Menu from '../components/Menu'
 const Login = () => {
     
     const[sta , setSta] = useState('success')
@@ -48,7 +49,7 @@ const Login = () => {
         </Form.Field >
         <Form.Field width={8}>
           <label>Password</label>
-          <input {...register("password")} placeholder='password' />
+          <input type='password' {...register("password")} placeholder='password' />
         </Form.Field >
         <Button htmltype='submit' style={{marginTop:'2%'}}>Login</Button>
         
@@ -67,6 +68,9 @@ const Login = () => {
             
             ):null
         }
+        <footer>
+          <Menu/>
+        </footer>
         </>        
       )
   }

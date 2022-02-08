@@ -14,9 +14,15 @@ const ItemDetails = () => (
         <Card style={{width:'100%'}}>
             <Image src={item.image} fluid />
             <Card.Content >
-                <Icon name='heart outline' size='large' color='red' style={{float:'right'}}/>
+                <Icon name='heart outline' size='large' color='red' link style={{float:'right'}}/>
                 <Card.Header>{item.name}</Card.Header>
                 <Card.Header>{item.price}$</Card.Header>
+                <Card.Meta>
+                    <span className='date'>posted in Feb 2022</span>
+                </Card.Meta>
+                <Card.Description>
+                   can be used in chemistry lab.
+                </Card.Description>
             </Card.Content>
         </Card>
     </div>

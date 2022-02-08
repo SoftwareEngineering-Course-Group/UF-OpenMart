@@ -3,6 +3,7 @@ import { Image } from 'semantic-ui-react';
 import React, { useState } from 'react';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
 import Register from '../components/Register'
+import Menu from '../components/Menu'
 const RegisterPage = () => {
     
       
@@ -14,6 +15,9 @@ const RegisterPage = () => {
         <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>Welcome</h2>
         </div>
         <Register/>
+        <footer>
+          <Menu/>
+        </footer>
         </>        
       )
   }

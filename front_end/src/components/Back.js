@@ -7,7 +7,7 @@ const Back =()=> {
   }
   return (
       <div style={{margin:'15px'}}>
-          <Icon name='long arrow alternate left' size='big' onClick={clickBackHandler }/>
+          <Icon name='long arrow alternate left' size='big' link onClick={clickBackHandler }/>
       </div>
         
     );

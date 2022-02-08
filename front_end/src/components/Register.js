@@ -1,32 +1,33 @@
-
 import { Button, Form, Message } from 'semantic-ui-react';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+
+import { useNavigate  } from "react-router-dom";
+
 import { registe } from '../utils';
 import history from '../history';
 import { useForm } from "react-hook-form";
 const Register = (props) => {
     const[sta , setSta] = useState('success')
     const[displayMoel , setDisplay] = useState(false)
+    const navi = useNavigate();
     const onFinish = (data) => {
-        console.log(data);
-        registe(data)
-          .then(() => {
-            setSta('success')
-            setDisplay(true)
-            history.push('/login');
-            window.location.reload();
-            // return (
-                // <MessageExamplePositive />
-            // )
-          }).catch((err) => {
-              console.log("failed to register")
-              setSta('failed')
-              setDisplay(true)
-              console.log(data)
-              
-          })
-
-      }
+    console.log(data);
+    registe(data)
+      .then(() => {
+        setSta('success')
+        setDisplay(true)
+        // history.push('/login');
+        navi('/login')
+      }).catch((err) => {
+          console.log("failed to register")
+          setSta('failed')
+          setDisplay(true)
+          // history.push('/login');
+          navi('/login')
+          console.log(data)
+          
+      })
+    }
     const { register, handleSubmit, formState: { errors } } = useForm();
       
       return (
@@ -50,7 +51,7 @@ const Register = (props) => {
         </Form.Field >
         <Form.Field width={8}>
           <label>Password</label>
-          <input {...register("password")} placeholder='password' />
+          <input {...register("password")} type='password' placeholder='password' />
         </Form.Field >
         <Button htmltype='submit' style={{marginTop:'2%'}}>Register</Button>
         
