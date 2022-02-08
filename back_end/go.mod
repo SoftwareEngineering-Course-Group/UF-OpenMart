@@ -1,4 +1,4 @@
-module example/go-rest-api
+module openmart-app
 
 go 1.17
 

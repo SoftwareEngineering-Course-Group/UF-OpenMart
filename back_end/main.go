@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"github.com/qor/media"
-	"github.com/qor/media/oss"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+	"log"
 	"net/http"
+	"os"
+	"path"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -32,7 +34,7 @@ type Item struct {
 	Description string
 	price       float32
 	status      bool
-	Image       oss.OSS `sql:"size:4294967295;" media_library:"url:/backend/{{class}}/{{primary_key}}/{{column}}.{{extension}};path:./private"`
+	Image       string
 	CreatedAt   time.Time
 }
 type Comment struct {
@@ -60,8 +62,7 @@ func CORS() gin.HandlerFunc {
 }
 
 func main() {
-	db, err := gorm.Open("sqlite3", "sqlite.db")
-	media.RegisterCallbacks(db)
+	db, err := gorm.Open(sqlite.Open(" sqlite.db"),&gorm.Config{})
 
 	if err != nil {
 		panic("failed to connect database")
@@ -76,11 +77,14 @@ func main() {
 
 	r.Use(CORS())
 
-	r.POST("/login", handler.loginHandler)
-	r.POST("/create", handler.createUser)
-	protected := r.Group("/", authorizationMiddleware)
-	protected.POST("/delete", handler.DeleteUser)
-	protected.POST("/update", handler.UpdateUser)
+	r.POST("/auth", handler.loginHandler)
+	r.POST("/sign-up", handler.createUser)
+
+	//protected := r.Group("/", authorizationMiddleware)
+	r.GET("/user/:id", handler.getUser)
+	r.POST("/user/:id/delete", handler.DeleteUser)
+	r.POST("/user/:id/update", handler.UpdateUser)
+	r.POST("/user/:id/item", handler.createItem)
 	r.Run(":12345")
 }
 
@@ -119,6 +123,7 @@ func (h *Handler) QueryUserByEmailAndPassword(email, password string) (user User
 	return user, h.db.Model(&User{}).Where("email = ? and password = ?", email, password).Take(&user).Error
 }
 
+//user login
 func (h *Handler) loginHandler(c *gin.Context) {
 	// implement login logic here
 	json := User{}
@@ -153,6 +158,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 	})
 }
 
+//create user
 func (h *Handler) createUser(c *gin.Context) {
 	var user User
 	if err := c.BindJSON(&user); err != nil {
@@ -211,4 +217,52 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
+
+//get User
+func (h *Handler) getUser(c *gin.Context) {
+	    var user = User{}
+		id := c.Param("id")
+	    h.db.Where("id = ?", id).First(&user)
+	    c.JSON(http.StatusOK, gin.H{"name": user.Name,"email":user.Email,"phone":user.Phone})
+}
+
+
+
+//create Item
+func (h *Handler) createItem(c *gin.Context) {
+	//Get uploaded files
+	id := c.Param("id")
+	intVar, _ := strconv.Atoi(id)
+	var item = Item{UserID: uint(intVar)}
+	h.db.Create(&item)
+	dir := "./item/image/" + strconv.Itoa(int(item.ID))
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+		log.Fatal(err)
+	}
+	form, _ := c.MultipartForm()
+	files := form.File["upload[]"]
+	for _, file := range files {
+		log.Print(file.Filename)
+		path.Join(dir, file.Filename)
+		dir_ := dir + "/"
+		dst := path.Join(dir_, file.Filename)
+		print(dst)
+		//Upload files to the specified directory
+		c.SaveUploadedFile(file, dst)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message" : fmt.Sprintf("%d files uploaded!", len(files)),
+	})
+}
+
+//create Item
+func (h *Handler) updateItem(c *gin.Context) {
+	//Get uploaded files
+
+}
+//delete Item
+func (h *Handler) deleteItem(c *gin.Context) {
+	//Get uploaded files
+}
+
 
