@@ -271,7 +271,8 @@ func (h *Handler) updateItem(c *gin.Context) {
 	//	status      bool
 	//	Image       string
 	//	CreatedAt   time.Time
-	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.price).Update("status", json.status).Error; err != nil {
+	dir := "/item/image/"+ strconv.Itoa(int(json.ID))
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.price).Update("status", json.status).Update("image", dir).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
 	c.JSON(http.StatusOK, &json)
