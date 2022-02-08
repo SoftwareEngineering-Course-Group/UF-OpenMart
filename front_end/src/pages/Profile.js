@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image,Icon,List,Button,Grid } from 'semantic-ui-react'
 import Menu from '../components/Menu'
+import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
 const user = 
     {
       id:1,
@@ -23,7 +24,7 @@ const ImageExampleCircular = () => (
         </div>
         <div>
             <span>{user.aboutMe} </span>
-            <Icon name='edit outline' />
+            <Icon name='edit outline' link/>
         </div>     
                 
     </div>
@@ -70,13 +71,49 @@ const ImageExampleCircular = () => (
         <div style={{display:'flex',margin:'3%'}}>
             <h2>Favorites</h2>
         </div>
-        <div  style={{display:'flex',justifyContent:'center',margin:'2%',paddingBottom:'70px'}}>
-            <div style={{width:'30%'}}><Image src='https://react.semantic-ui.com/images/wireframe/image.png' /></div>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-
-
+        <div  style={{display:'flex',justifyContent:'space-between',margin:'2%',paddingBottom:'70px'}}>
+            <div style={{width:'24%',position: 'relative',paddingBottom: '25%'}}>
+                <div style={{ 
+                background: `url(${img}) 100% 100% no-repeat`,
+                backgroundSize:'cover',
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                }}>
+                </div>
+            </div>
+            <div style={{width:'24%',position: 'relative',paddingBottom: '25%'}}>
+                <div style={{ 
+                background: `url(${img}) 100% 100% no-repeat`,
+                backgroundSize:'cover',
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                }}>
+                </div>
+            </div>
+            <div style={{width:'24%',position: 'relative',paddingBottom: '25%'}}>
+                <div style={{ 
+                background: `url(${img}) 100% 100% no-repeat`,
+                backgroundSize:'cover',
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                }}>
+                </div>
+            </div>
+            <div style={{width:'24%',position: 'relative',paddingBottom: '25%'}}>
+                <div style={{ 
+                background: `url(${img}) 100% 100% no-repeat`,
+                backgroundSize:'cover',
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                }}>
+                </div>
+            </div>
+           
+            
         </div>
         <footer>
           <Menu/>
