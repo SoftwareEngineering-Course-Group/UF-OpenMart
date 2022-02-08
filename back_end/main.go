@@ -85,6 +85,7 @@ func main() {
 	r.POST("/user/:id/delete", handler.DeleteUser)
 	r.POST("/user/:id/update", handler.UpdateUser)
 	r.POST("/user/:id/item", handler.createItem)
+	r.POST("/user/:id/item/:pid", handler.updateItem)
 	r.Run(":12345")
 }
 
@@ -258,11 +259,35 @@ func (h *Handler) createItem(c *gin.Context) {
 //create Item
 func (h *Handler) updateItem(c *gin.Context) {
 	//Get uploaded files
-
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	//	Catagory    string
+	//	Name        string
+	//	Description string
+	//	price       float32
+	//	status      bool
+	//	Image       string
+	//	CreatedAt   time.Time
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.price).Update("status", json.status).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+	}
+	c.JSON(http.StatusOK, &json)
 }
 //delete Item
 func (h *Handler) deleteItem(c *gin.Context) {
-	//Get uploaded files
+	//delete files
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
 
 
