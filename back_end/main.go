@@ -89,7 +89,10 @@ func main() {
 	r.POST("/user/:id/update", handler.UpdateUser)
 	r.POST("/user/:id/item", handler.createItem)
 	r.POST("/user/:id/item/:pid", handler.getItembyID)
+	r.POST("/user/item/:id", handler.getItembyUser)
 	r.POST("/user/:id/item/:pid/update", handler.updateItem)
+	r.POST("/user/:id/item/:pid/update", handler.deleteItem)
+
 	r.Run(":12345")
 }
 
@@ -231,8 +234,6 @@ func (h *Handler) getUser(c *gin.Context) {
 	    c.JSON(http.StatusOK, gin.H{"name": user.Name,"email":user.Email,"phone":user.Phone})
 }
 
-
-
 //create Item
 func (h *Handler) createItem(c *gin.Context) {
 	//Get uploaded files
@@ -284,8 +285,7 @@ func (h *Handler) updateItem(c *gin.Context) {
 	c.JSON(http.StatusOK, &json)
 }
 
-
-//delete Item
+//delete Item by itemid
 func (h *Handler) deleteItem(c *gin.Context) {
 	//delete files
 	json := Item{}
@@ -299,15 +299,19 @@ func (h *Handler) deleteItem(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!	"})
 }
 
-
-//get Item by User ID
+//get Item by User ID return items
 func (h *Handler) getItembyUser(c *gin.Context) {
-	//delete files
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	var result []Item
+	h.db.Table("items").Where("user_id <> ?",json.UserID ).Scan(&result)
+	c.JSON(http.StatusOK,result)
 }
 
-
-
-//get item by ID
+//get item by ID return all the info
 func (h *Handler) getItembyID(c *gin.Context) {
 	//delete files
 	json := Item{}
