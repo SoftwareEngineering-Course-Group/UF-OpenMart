@@ -7,10 +7,12 @@ import (
 	"github.com/golang-jwt/jwt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -28,15 +30,16 @@ type User struct {
 
 type Item struct {
 	ID          uint `gorm:"primaryKey;autoIncrement"`
+	Price       float32
 	UserID      uint //foreign key to User
 	Catagory    string
 	Name        string
 	Description string
-	price       float32
-	status      bool
+	Status      bool
 	Image       string
 	CreatedAt   time.Time
 }
+
 type Comment struct {
 	ID        uint `gorm:"primaryKey;autoIncrement"`
 	UserID    uint //foreign key to User
@@ -85,7 +88,11 @@ func main() {
 	r.POST("/user/:id/delete", handler.DeleteUser)
 	r.POST("/user/:id/update", handler.UpdateUser)
 	r.POST("/user/:id/item", handler.createItem)
-	r.POST("/user/:id/item/:pid", handler.updateItem)
+	r.POST("/user/:id/item/:pid", handler.getItembyID)
+	r.POST("/user/item/:id", handler.getItembyUser)
+	r.POST("/user/:id/item/:pid/update", handler.updateItem)
+	r.POST("/user/:id/item/:pid/update", handler.deleteItem)
+
 	r.Run(":12345")
 }
 
@@ -227,8 +234,6 @@ func (h *Handler) getUser(c *gin.Context) {
 	    c.JSON(http.StatusOK, gin.H{"name": user.Name,"email":user.Email,"phone":user.Phone})
 }
 
-
-
 //create Item
 func (h *Handler) createItem(c *gin.Context) {
 	//Get uploaded files
@@ -252,11 +257,12 @@ func (h *Handler) createItem(c *gin.Context) {
 		c.SaveUploadedFile(file, dst)
 	}
 	c.JSON(http.StatusOK, gin.H{
+		"item_id" : item.ID,
 		"message" : fmt.Sprintf("%d files uploaded!", len(files)),
 	})
 }
 
-//create Item
+//update Item
 func (h *Handler) updateItem(c *gin.Context) {
 	//Get uploaded files
 	json := Item{}
@@ -271,13 +277,15 @@ func (h *Handler) updateItem(c *gin.Context) {
 	//	status      bool
 	//	Image       string
 	//	CreatedAt   time.Time
-	dir := "/item/image/"+ strconv.Itoa(int(json.ID))
-	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.price).Update("status", json.status).Update("image", dir).Error; err != nil {
+	dir := "/item/image/"+ strconv.Itoa(int(json.ID)) + "/"
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", 0.0).Update("status", json.Status).Update("image", dir).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
 	}
 	c.JSON(http.StatusOK, &json)
 }
-//delete Item
+
+//delete Item by itemid
 func (h *Handler) deleteItem(c *gin.Context) {
 	//delete files
 	json := Item{}
@@ -286,9 +294,69 @@ func (h *Handler) deleteItem(c *gin.Context) {
 		return
 	}
 	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!	"})
 }
 
+//get Item by User ID return items
+func (h *Handler) getItembyUser(c *gin.Context) {
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	var result []Item
+	h.db.Table("items").Where("user_id <> ?",json.UserID ).Scan(&result)
+	c.JSON(http.StatusOK,result)
+}
+
+//get item by ID return all the info
+func (h *Handler) getItembyID(c *gin.Context) {
+	//delete files
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	if err := h.db.First(&json, json.ID).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+	}
+
+
+	absPath, _ := filepath.Abs("../back_end"+json.Image)
+	files, err := ioutil.ReadDir(absPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var lists = make([]string,0)
+	for _, file := range files {
+		dir_name := json.Image + file.Name()
+		lists = append(lists, dir_name)
+	}
+
+    print(len(lists))
+
+	type Entity struct {
+		Catagory    string
+		Name        string
+		Description string
+		Files   []string
+		Price       float32
+		Status      bool
+		CreatedAt   time.Time
+	}
+
+	data_item := &Entity{
+		Files: lists,
+		Catagory: json.Catagory,
+		Name: json.Name,
+		Description: json.Description,
+		Price: json.Price,
+		CreatedAt: json.CreatedAt,
+		Status: json.Status,
+	}
+	c.JSON(http.StatusOK,data_item)
+}
 
