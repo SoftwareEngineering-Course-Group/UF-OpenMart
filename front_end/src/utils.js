@@ -5,7 +5,9 @@ const loginUrl = `${SERVER_ORIGIN}/login`;
 
 const registerUrl = `${SERVER_ORIGIN}/create`;
 
-const getRandom = '${SERVER_ORIGIN}/getRandom';
+const postUrl = `${SERVER_ORIGIN}/post`;
+
+const getRandom = `${SERVER_ORIGIN}/getRandom`;
 
 export const registe = (data) => {
     return fetch(registerUrl, {
@@ -39,6 +41,19 @@ export const login = (credential) => {
     return response.json();
   })
   }
+export const postItem = (data) => {
+  return fetch(postUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  }).then((response) => {
+    if (response.status !== 201) {
+      throw Error('Fail to register');
+    }
+  })
+}
 
 export const getRandomPictures = (data) =>{
   //   return defaultItems;

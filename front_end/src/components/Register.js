@@ -1,32 +1,30 @@
 import { Button, Form, Message } from 'semantic-ui-react';
 import React, { useState} from 'react';
-
 import { useNavigate  } from "react-router-dom";
-
 import { registe } from '../utils';
-import history from '../history';
+//import history from '../history';
 import { useForm } from "react-hook-form";
 const Register = (props) => {
     const[sta , setSta] = useState('success')
     const[displayMoel , setDisplay] = useState(false)
     const navi = useNavigate();
     const onFinish = (data) => {
-    console.log(data);
-    registe(data)
-      .then(() => {
-        setSta('success')
-        setDisplay(true)
-        // history.push('/login');
-        navi('/login')
-      }).catch((err) => {
-          console.log("failed to register")
-          setSta('failed')
+      console.log(data);
+      registe(data)
+        .then(() => {
+          setSta('success')
           setDisplay(true)
           // history.push('/login');
           navi('/login')
-          console.log(data)
-          
-      })
+        }).catch((err) => {
+            console.log("failed to register")
+            setSta('failed')
+            setDisplay(true)
+            // history.push('/login');
+            navi('/login')
+            console.log(data)
+            
+        })
     }
     const { register, handleSubmit, formState: { errors } } = useForm();
       
