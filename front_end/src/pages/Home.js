@@ -30,6 +30,8 @@ const items = [
     price: 15
   },
 ]
+
+const random = [false]
 const style ={
     bgd:{
         color: 'rgba(0,0,0,1)',
@@ -47,7 +49,7 @@ const style ={
         </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {
-            GridForItems(items,false)
+            GridForItems(items,random)
           }
         </div>
         <footer>
