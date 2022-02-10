@@ -5,7 +5,7 @@ const loginUrl = `${SERVER_ORIGIN}/login`;
 
 const registerUrl = `${SERVER_ORIGIN}/create`;
 
-const registerUrl = `${SERVER_ORIGIN}/post`;
+const postUrl = `${SERVER_ORIGIN}/post`;
 
 const getRandom = `${SERVER_ORIGIN}/getRandom`;
 

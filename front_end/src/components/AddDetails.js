@@ -1,5 +1,7 @@
 import React, {useReducer, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate  } from "react-router-dom";
+import { postItem } from '../utils';
 import {
     Button,
     Form,
@@ -13,7 +15,7 @@ import ProfileImage from "./ProfileImage";
   const AddDetails= ()=> {
 
     const [imagePreviewUrls, setImageUrl] = useState([]);
-
+    const navi = useNavigate();
     const previewFile=(e)=> {
       e.preventDefault();
       
@@ -39,7 +41,7 @@ import ProfileImage from "./ProfileImage";
 
     const onFinish = (data) => {
       console.log(data);
-      registe(data)
+      postItem(data)
         .then(() => {
           navi('/login')
         }).catch((err) => {
@@ -49,7 +51,7 @@ import ProfileImage from "./ProfileImage";
             
         })
     }
-    const { add, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
       
       
     return (
@@ -57,16 +59,16 @@ import ProfileImage from "./ProfileImage";
         <div style={{margin:'15px',paddingBottom:'70px'}}>
         <Form onSubmit={handleSubmit(onFinish)}>
           <Form.Field>
-             <label style={{marginBottom:'30px'}} required>Title</label>
-             <Input {...add("title")} placeholder='what is your goods?' style={{width:'30%'}}/>
+             <label required>Title</label>
+             <Input {...register("title")} placeholder='what is your goods?' style={{width:'30%'}}/>
           </Form.Field> 
         <Form.Field>
             <label>Detail Description</label>
-            <TextArea {...add("describle")} placeholder='...' style={{ minHeight: 180 }} />
+            <TextArea {...register("describle")} placeholder='...' style={{ minHeight: 180 }} />
         </Form.Field>
         <Form.Field inline>
             <label style={{marginBottom:'30px'}} required>Price</label>
-            <Input {...add("price")} placeholder='price' style={{width:'30%'}}/>
+            <Input {...register("price")} placeholder='price' style={{width:'30%'}}/>
             <label>&nbsp; $</label>
             <div style={{marginBottom:'20px'}}>
               <label htmlFor="picFor"><Icon name='upload' size='big' link />images</label>
