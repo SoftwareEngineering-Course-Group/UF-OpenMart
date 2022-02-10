@@ -91,8 +91,10 @@ func main() {
 	r.POST("/user/:id/item/:pid", handler.getItembyID)
 	r.POST("/user/item/:id", handler.getItembyUser)
 	r.POST("/user/:id/item/:pid/update", handler.updateItem)
-	r.POST("/user/:id/item/:pid/update", handler.deleteItem)
-
+	r.POST("/user/:id/item/:pid/delete", handler.deleteItem)
+	r.GET("/category/", handler.getItembyCata)
+	r.POST("/test1", handler.getItembyPRD)
+	r.POST("/test2", handler.getItembyPRA)
 	r.Run(":12345")
 }
 
@@ -165,7 +167,6 @@ func (h *Handler) loginHandler(c *gin.Context) {
 		"token": ss,
 	})
 }
-
 //create user
 func (h *Handler) createUser(c *gin.Context) {
 	var user User
@@ -190,7 +191,6 @@ func (h *Handler) createUser(c *gin.Context) {
 	})
 
 }
-
 //Delete User
 func (h *Handler) DeleteUser(c *gin.Context) {
 	json := User{}
@@ -203,7 +203,6 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
-
 //Update User
 func (h *Handler) UpdateUser(c *gin.Context) {
 	json := User{}
@@ -225,7 +224,6 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
-
 //get User
 func (h *Handler) getUser(c *gin.Context) {
 	    var user = User{}
@@ -233,7 +231,6 @@ func (h *Handler) getUser(c *gin.Context) {
 	    h.db.Where("id = ?", id).First(&user)
 	    c.JSON(http.StatusOK, gin.H{"name": user.Name,"email":user.Email,"phone":user.Phone})
 }
-
 //create Item
 func (h *Handler) createItem(c *gin.Context) {
 	//Get uploaded files
@@ -261,7 +258,6 @@ func (h *Handler) createItem(c *gin.Context) {
 		"message" : fmt.Sprintf("%d files uploaded!", len(files)),
 	})
 }
-
 //update Item
 func (h *Handler) updateItem(c *gin.Context) {
 	//Get uploaded files
@@ -284,7 +280,6 @@ func (h *Handler) updateItem(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, &json)
 }
-
 //delete Item by itemid
 func (h *Handler) deleteItem(c *gin.Context) {
 	//delete files
@@ -298,7 +293,6 @@ func (h *Handler) deleteItem(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!	"})
 }
-
 //get Item by User ID return items
 func (h *Handler) getItembyUser(c *gin.Context) {
 	json := Item{}
@@ -310,7 +304,6 @@ func (h *Handler) getItembyUser(c *gin.Context) {
 	h.db.Table("items").Where("user_id <> ?",json.UserID ).Scan(&result)
 	c.JSON(http.StatusOK,result)
 }
-
 //get item by ID return all the info
 func (h *Handler) getItembyID(c *gin.Context) {
 	//delete files
@@ -359,4 +352,38 @@ func (h *Handler) getItembyID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK,data_item)
 }
+//get Item by catagory return items
+func (h *Handler) getItembyCata(c *gin.Context) {
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	var result []Item
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Scan(&result)
+	c.JSON(http.StatusOK,result)
+}
 
+//get Item order by price desc
+func (h *Handler) getItembyPRD(c *gin.Context) {
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	var result []Item
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price desc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+
+//get Item order by price asc
+func (h *Handler) getItembyPRA(c *gin.Context) {
+	json := Item{}
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
+	var result []Item
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price asc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
