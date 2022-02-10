@@ -8,7 +8,7 @@ const GridForItems= (diyItems,random) => {
   const [currItems,setCurr] = useState(diyItems) 
   
   useEffect(() => {
-    if(random===false){
+    if(random[0]===false){
       // const picture = getRandomPictures();
         getRandomPictures().then(picture => {
           setCurr(picture);
@@ -37,6 +37,7 @@ const GridForItems= (diyItems,random) => {
                 image={data.image}
                 name={data.name}
                 price={data.price}
+                key={data.id}
             />
             )
           )
@@ -50,6 +51,7 @@ const GridForItems= (diyItems,random) => {
                 image={item.image}
                 name={item.name}
                 price={item.price}
+                key={item.id}
             />)
           )
         }
