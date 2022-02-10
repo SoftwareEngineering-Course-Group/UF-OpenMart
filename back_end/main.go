@@ -92,7 +92,7 @@ func main() {
 	r.POST("/user/item/:id", handler.getItembyUser)
 	r.POST("/user/:id/item/:pid/update", handler.updateItem)
 	r.POST("/user/:id/item/:pid/delete", handler.deleteItem)
-	r.GET("/category/", handler.getItembyCata)
+	r.GET("/category", handler.getItembyCata)
 	r.POST("/test1", handler.getItembyPRD)
 	r.POST("/test2", handler.getItembyPRA)
 	r.Run(":12345")
@@ -274,7 +274,7 @@ func (h *Handler) updateItem(c *gin.Context) {
 	//	Image       string
 	//	CreatedAt   time.Time
 	dir := "/item/image/"+ strconv.Itoa(int(json.ID)) + "/"
-	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", 0.0).Update("status", json.Status).Update("image", dir).Error; err != nil {
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.Price).Update("status", json.Status).Update("image", dir).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
@@ -360,7 +360,7 @@ func (h *Handler) getItembyCata(c *gin.Context) {
 		return
 	}
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Scan(&result)
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Where("status = 0").Scan(&result)
 	c.JSON(http.StatusOK,result)
 }
 
@@ -372,7 +372,7 @@ func (h *Handler) getItembyPRD(c *gin.Context) {
 		return
 	}
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price desc").Find(&result)
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Where("status = 0").Order("price desc").Find(&result)
 	c.JSON(http.StatusOK,result)
 }
 
@@ -384,6 +384,6 @@ func (h *Handler) getItembyPRA(c *gin.Context) {
 		return
 	}
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price asc").Find(&result)
+	h.db.Table("items").Where("catagory = ?",json.Catagory).Where("status = 0").Order("price asc").Find(&result)
 	c.JSON(http.StatusOK,result)
 }
