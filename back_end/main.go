@@ -42,8 +42,9 @@ type Item struct {
 
 type Comment struct {
 	ID        uint `gorm:"primaryKey;autoIncrement"`
-	UserID    uint //foreign key to User
-	ItemID    uint //foreign key to Item
+	UserID    uint `gorm:"not null"`
+	UserName  string`gorm:"not null"`
+	ItemID    uint `gorm:"not null"`
 	Content   string
 	CreatedAt time.Time
 }
@@ -71,9 +72,18 @@ func main() {
 		panic("failed to connect database")
 	}
 
-	db.AutoMigrate(&User{})
-	db.AutoMigrate(&Item{})
-	db.AutoMigrate(&Comment{})
+	User_err := db.AutoMigrate(&User{})
+	if User_err != nil {
+		return
+	}
+	Item_err := db.AutoMigrate(&Item{})
+	if Item_err != nil {
+		return
+	}
+	Comment_err := db.AutoMigrate(&Comment{})
+	if Comment_err != nil {
+		return
+	}
 	handler := newHandler(db)
 
 	r := gin.New()
@@ -85,17 +95,36 @@ func main() {
 
 	//protected := r.Group("/", authorizationMiddleware)
 	r.GET("/user/:id", handler.getUser)
-	r.POST("/user/:id/delete", handler.DeleteUser)
+	r.POST("/user/:id/remove", handler.DeleteUser)
 	r.POST("/user/:id/update", handler.UpdateUser)
-	r.POST("/user/:id/item", handler.createItem)
-	r.POST("/user/:id/item/:pid", handler.getItembyID)
-	r.POST("/user/item/:id", handler.getItembyUser)
+
+
+	r.POST("/user/:id/item/save", handler.createItem)
 	r.POST("/user/:id/item/:pid/update", handler.updateItem)
-	r.POST("/user/:id/item/:pid/delete", handler.deleteItem)
-	r.GET("/category/", handler.getItembyCata)
-	r.POST("/test1", handler.getItembyPRD)
-	r.POST("/test2", handler.getItembyPRA)
-	r.Run(":12345")
+	r.POST("/user/:id/item/:pid/remove", handler.deleteItem)
+	r.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
+
+	r.POST("/user/:id/item/:pid", handler.getItembyID)
+	r.POST("/user/:id/item/list", handler.getItembyUser)
+
+	r.GET("/user/:id/item/category/:cate", handler.getItembyCAT)
+	r.GET("/user/:id/item/category/:cate/PRD", handler.getItembyCATPRD)
+	r.GET("/user/:id/item/category/:cate/PRA", handler.getItembyCATPRA)
+	r.GET("/user/:id/item/category/:cate/LT", handler.getItembyCATLT)
+
+	r.GET("/user/:id/item/name/:name", handler.getItembyName)
+	r.GET("/user/:id/item/name/:name/PRD", handler.getItembyNamePRD)
+	r.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
+	r.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
+
+
+	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+
+	Run_err := r.Run(":12345")
+
+	if Run_err != nil {
+		return
+	}
 }
 
 type Handler struct {
@@ -132,21 +161,23 @@ func validateToken(token string) error {
 func (h *Handler) QueryUserByEmailAndPassword(email, password string) (user User, err error) {
 	return user, h.db.Model(&User{}).Where("email = ? and password = ?", email, password).Take(&user).Error
 }
-
 //user login
 func (h *Handler) loginHandler(c *gin.Context) {
 	// implement login logic here
 	json := User{}
-	c.BindJSON(&json)
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
 
 	var (
 		user User
-		err  error
+		err1  error
 	)
 
 	if user, err = h.QueryUserByEmailAndPassword(json.Email, json.Password); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": err.Error(),
+			"error": err1.Error(),
 		})
 		return
 	}
@@ -251,7 +282,10 @@ func (h *Handler) createItem(c *gin.Context) {
 		dst := path.Join(dir_, file.Filename)
 		print(dst)
 		//Upload files to the specified directory
-		c.SaveUploadedFile(file, dst)
+		err := c.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"item_id" : item.ID,
@@ -274,11 +308,54 @@ func (h *Handler) updateItem(c *gin.Context) {
 	//	Image       string
 	//	CreatedAt   time.Time
 	dir := "/item/image/"+ strconv.Itoa(int(json.ID)) + "/"
-	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", 0.0).Update("status", json.Status).Update("image", dir).Error; err != nil {
+	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.Price).Update("status", json.Status).Update("image", dir).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
 	c.JSON(http.StatusOK, &json)
+}
+//update Item Photo give item id
+func (h *Handler) updatePh(c *gin.Context) {
+	//Get uploaded files
+	pid := c.Param("pid")
+	intVar, _ := strconv.Atoi(pid)
+
+	absPath, _ := filepath.Abs("../back_end/item/image/"+strconv.Itoa(intVar))
+	files, err := ioutil.ReadDir(absPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		dir_name := absPath +"/"+file.Name()
+		print(dir_name)
+		err := os.Remove(dir_name)
+		if err != nil {
+			return 
+		}
+	}
+
+	dir := "./item/image/" + strconv.Itoa(intVar)
+
+	form, _ := c.MultipartForm()
+	files_ := form.File["upload[]"]
+	for _, file := range files_ {
+		log.Print(file.Filename)
+		path.Join(dir, file.Filename)
+		dir_ := dir + "/"
+		dst := path.Join(dir_, file.Filename)
+		print(dst)
+		//Upload files to the specified directory
+		err := c.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"item_id" : intVar,
+		"message" : fmt.Sprintf("%d files uploaded!", len(files_)),
+	})
 }
 //delete Item by itemid
 func (h *Handler) deleteItem(c *gin.Context) {
@@ -306,7 +383,6 @@ func (h *Handler) getItembyUser(c *gin.Context) {
 }
 //get item by ID return all the info
 func (h *Handler) getItembyID(c *gin.Context) {
-	//delete files
 	json := Item{}
 	err := c.BindJSON(&json)
 	if err != nil {
@@ -315,7 +391,6 @@ func (h *Handler) getItembyID(c *gin.Context) {
 	if err := h.db.First(&json, json.ID).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
-
 
 	absPath, _ := filepath.Abs("../back_end"+json.Image)
 	files, err := ioutil.ReadDir(absPath)
@@ -353,37 +428,71 @@ func (h *Handler) getItembyID(c *gin.Context) {
 	c.JSON(http.StatusOK,data_item)
 }
 //get Item by catagory return items
-func (h *Handler) getItembyCata(c *gin.Context) {
-	json := Item{}
-	err := c.BindJSON(&json)
-	if err != nil {
-		return
-	}
+func (h *Handler) getItembyCAT(c *gin.Context) {
+	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Scan(&result)
+	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Scan(&result)
 	c.JSON(http.StatusOK,result)
 }
-
 //get Item order by price desc
-func (h *Handler) getItembyPRD(c *gin.Context) {
-	json := Item{}
-	err := c.BindJSON(&json)
-	if err != nil {
-		return
-	}
+func (h *Handler) getItembyCATPRD(c *gin.Context) {
+	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price desc").Find(&result)
+	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("price desc").Find(&result)
 	c.JSON(http.StatusOK,result)
 }
-
 //get Item order by price asc
-func (h *Handler) getItembyPRA(c *gin.Context) {
-	json := Item{}
-	err := c.BindJSON(&json)
-	if err != nil {
+func (h *Handler) getItembyCATPRA(c *gin.Context) {
+	cate := c.Param("cate")
+	var result []Item
+	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("price asc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+//get items by latest time
+func (h *Handler) getItembyCATLT(c *gin.Context) {
+	cate := c.Param("cate")
+	var result []Item
+	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("id desc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+//get items by name
+func (h *Handler) getItembyName(c *gin.Context) {
+	name := c.Param("name")
+	var result []Item
+	h.db.Table("items").Where("name = ?",name).Where("status = 0").Scan(&result)
+	c.JSON(http.StatusOK,result)
+}
+//get items by name PRD
+func (h *Handler) getItembyNamePRD(c *gin.Context) {
+	name := c.Param("name")
+	var result []Item
+	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("price desc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+//get items by name ASC
+func (h *Handler) getItembyNamePRA(c *gin.Context) {
+	name := c.Param("name")
+	var result []Item
+	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("price asc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+//get items by latest time
+func (h *Handler) getItembyNameLT(c *gin.Context) {
+	name := c.Param("name")
+	var result []Item
+	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("id desc").Find(&result)
+	c.JSON(http.StatusOK,result)
+}
+//create comment  json UserID ItemID in postman
+func (h *Handler) createComment(c *gin.Context) {
+	var comment Comment
+	if err := c.BindJSON(&comment); err != nil {
 		return
 	}
-	var result []Item
-	h.db.Table("items").Where("catagory = ?",json.Catagory).Order("price asc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	var user User
+	h.db.Where("id = ?", comment.UserID).First(&user)
+	comment.UserName = user.Name
+	h.db.Create(&comment)
+	c.JSON(http.StatusCreated, comment)
+	    return
 }
