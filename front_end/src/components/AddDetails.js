@@ -11,25 +11,23 @@ import {
     TextArea,
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
-  
+let formData = new FormData();
 const AddDetails= ()=> {
-    
     const [imagePreviewUrls, setImageUrl] = useState([]);
     const navi = useNavigate();
-    const formData = new FormData();
-
+    let currImages=[];
     const previewFile=(e)=> {
       e.preventDefault();
       
       var files = e.target.files;
-      var images=[];
+      
       const readAndPreview=(file)=>{
         
         if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
           var reader = new FileReader();
           reader.onloadend = () => {
-            if(images.indexOf(reader.result)===-1){
-              images.push(reader.result);
+            if(currImages.indexOf(reader.result)===-1){
+              currImages.push(reader.result);
               formData.append('upload[]',reader.result);
               setImageUrl(imagePreviewUrls.concat(reader.result));
               console.log(imagePreviewUrls);

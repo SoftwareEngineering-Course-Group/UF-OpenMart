@@ -66,7 +66,7 @@ export const postImages = (data) => {
     body: data
   }).then((response) => {
     if (response.status !== 201) {
-      throw Error('Fail to register');
+      throw Error('Fail to post img');
     }
   })
 }
