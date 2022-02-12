@@ -25,6 +25,10 @@ const Login = () => {
                       localStorage.setItem("user-id",response[key]);
                       console.log(response[key]);
                     }
+                    if(key==="id"){
+                      localStorage.setItem("myId",response[key]);
+                      console.log(localStorage.getItem('myId'));
+                    }
                 }
                 history.push('/profile');
                 window.location.reload();
