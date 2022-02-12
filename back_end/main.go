@@ -42,8 +42,9 @@ type Item struct {
 
 type Comment struct {
 	ID        uint `gorm:"primaryKey;autoIncrement"`
-	UserID    uint //foreign key to User
-	ItemID    uint //foreign key to Item
+	UserID    uint `gorm:"not null"`
+	UserName  string`gorm:"not null"`
+	ItemID    uint `gorm:"not null"`
 	Content   string
 	CreatedAt time.Time
 }
@@ -71,9 +72,18 @@ func main() {
 		panic("failed to connect database")
 	}
 
-	db.AutoMigrate(&User{})
-	db.AutoMigrate(&Item{})
-	db.AutoMigrate(&Comment{})
+	User_err := db.AutoMigrate(&User{})
+	if User_err != nil {
+		return
+	}
+	Item_err := db.AutoMigrate(&Item{})
+	if Item_err != nil {
+		return
+	}
+	Comment_err := db.AutoMigrate(&Comment{})
+	if Comment_err != nil {
+		return
+	}
 	handler := newHandler(db)
 
 	r := gin.New()
@@ -107,7 +117,14 @@ func main() {
 	r.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
 	r.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
 
-	r.Run(":12345")
+
+	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+
+	Run_err := r.Run(":12345")
+
+	if Run_err != nil {
+		return
+	}
 }
 
 type Handler struct {
@@ -148,16 +165,19 @@ func (h *Handler) QueryUserByEmailAndPassword(email, password string) (user User
 func (h *Handler) loginHandler(c *gin.Context) {
 	// implement login logic here
 	json := User{}
-	c.BindJSON(&json)
+	err := c.BindJSON(&json)
+	if err != nil {
+		return
+	}
 
 	var (
 		user User
-		err  error
+		err1  error
 	)
 
 	if user, err = h.QueryUserByEmailAndPassword(json.Email, json.Password); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": err.Error(),
+			"error": err1.Error(),
 		})
 		return
 	}
@@ -262,7 +282,10 @@ func (h *Handler) createItem(c *gin.Context) {
 		dst := path.Join(dir_, file.Filename)
 		print(dst)
 		//Upload files to the specified directory
-		c.SaveUploadedFile(file, dst)
+		err := c.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"item_id" : item.ID,
@@ -323,7 +346,10 @@ func (h *Handler) updatePh(c *gin.Context) {
 		dst := path.Join(dir_, file.Filename)
 		print(dst)
 		//Upload files to the specified directory
-		c.SaveUploadedFile(file, dst)
+		err := c.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -456,4 +482,17 @@ func (h *Handler) getItembyNameLT(c *gin.Context) {
 	var result []Item
 	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("id desc").Find(&result)
 	c.JSON(http.StatusOK,result)
+}
+//create comment  json UserID ItemID in postman
+func (h *Handler) createComment(c *gin.Context) {
+	var comment Comment
+	if err := c.BindJSON(&comment); err != nil {
+		return
+	}
+	var user User
+	h.db.Where("id = ?", comment.UserID).First(&user)
+	comment.UserName = user.Name
+	h.db.Create(&comment)
+	c.JSON(http.StatusCreated, comment)
+	    return
 }
