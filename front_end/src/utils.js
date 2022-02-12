@@ -1,9 +1,12 @@
 
-const SERVER_ORIGIN = '';
+const SERVER_ORIGIN = "http://localhost:12345";
+const myId = localStorage.getItem('myId');
  
-const loginUrl = `${SERVER_ORIGIN}/login`;
+const loginUrl = `${SERVER_ORIGIN}/auth`;
 
-const registerUrl = `${SERVER_ORIGIN}/create`;
+const postImagesUrl = `${SERVER_ORIGIN}/${myId}/item`;
+
+const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
 const postUrl = `${SERVER_ORIGIN}/post`;
 
@@ -48,6 +51,20 @@ export const postItem = (data) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
+  }).then((response) => {
+    if (response.status !== 201) {
+      throw Error('Fail to register');
+    }
+  })
+}
+export const postImages = (data) => {
+
+  return fetch(postImagesUrl,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    body: data
   }).then((response) => {
     if (response.status !== 201) {
       throw Error('Fail to register');

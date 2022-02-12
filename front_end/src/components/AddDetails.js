@@ -1,7 +1,7 @@
 import React, {useReducer, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate  } from "react-router-dom";
-import { postItem } from '../utils';
+import { postItem,postImages } from '../utils';
 import {
     Button,
     Form,
@@ -12,21 +12,28 @@ import {
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
   
-  const AddDetails= ()=> {
-
+const AddDetails= ()=> {
+    
     const [imagePreviewUrls, setImageUrl] = useState([]);
     const navi = useNavigate();
+    const formData = new FormData();
+
     const previewFile=(e)=> {
       e.preventDefault();
       
       var files = e.target.files;
+      var images=[];
       const readAndPreview=(file)=>{
         
         if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
           var reader = new FileReader();
           reader.onloadend = () => {
-            if(imagePreviewUrls.indexOf(reader.result)==-1){
-              setImageUrl(imagePreviewUrls.concat([reader.result]));
+            if(images.indexOf(reader.result)===-1){
+              images.push(reader.result);
+              formData.append('upload[]',reader.result);
+              setImageUrl(imagePreviewUrls.concat(reader.result));
+              console.log(imagePreviewUrls);
+              console.log(formData.getAll('upload[]'));
             }
           }
           reader.readAsDataURL(file)
@@ -36,6 +43,8 @@ import ProfileImage from "./ProfileImage";
     
       if (files) {
         [].forEach.call(files, readAndPreview);
+        
+        console.log(formData.getAll('upload[]'));
       }
     }
 
@@ -46,18 +55,27 @@ import ProfileImage from "./ProfileImage";
           navi('/login')
         }).catch((err) => {
             console.log("failed to Add")
-            navi('/login')
             console.log(data)
             
         })
     }
+    const images=(formData)=>{
+      console.log(formData);
+      postImages(formData)
+      .then(() => {
+        console.log("success to Add")
+      }).catch((err) => {
+          console.log("failed to Add")
+          
+      })
+    }
     const { register, handleSubmit, formState: { errors } } = useForm();
-      
+    //onSubmit={handleSubmit(onFinish)}
       
     return (
       <div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
-        <Form onSubmit={handleSubmit(onFinish)}>
+        <Form >
           <Form.Field>
              <label required>Title</label>
              <Input {...register("title")} placeholder='what is your goods?' style={{width:'30%'}}/>
@@ -80,7 +98,7 @@ import ProfileImage from "./ProfileImage";
             {imagePreviewUrls.map((url,index)=>(< ProfileImage key={index} image={url}/>))}
         </div>
         <Form.Field>
-          <Button htmltype='submit'>Submit</Button>
+          <Button htmltype='submit' onClick={images}>Submit</Button>
         </Form.Field>
       </Form>
         </div>
