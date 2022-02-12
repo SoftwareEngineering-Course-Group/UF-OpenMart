@@ -21,8 +21,8 @@ const Register = (props) => {
             setSta('failed')
             setDisplay(true)
             // history.push('/login');
-            navi('/login')
-            console.log(data)
+            // navi('/login')
+            // console.log(data)
             
         })
     }

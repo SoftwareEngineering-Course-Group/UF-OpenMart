@@ -4,6 +4,7 @@ import { login } from '../utils';
 import { useForm } from "react-hook-form";
 import history from '../history';
 import Menu from '../components/Menu'
+import { update } from 'lodash';
 const Login = () => {
     
     const[sta , setSta] = useState('success')
@@ -18,7 +19,11 @@ const Login = () => {
                 for(var key in response){
                     if(key==="token"){
                         localStorage.setItem("jwtToken",response[key]);
-                        console.log(response[key])
+                        console.log(response[key]);
+                    }
+                    if(key==="id"){
+                      localStorage.setItem("user-id",response[key]);
+                      console.log(response[key]);
                     }
                 }
                 history.push('/profile');

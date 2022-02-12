@@ -1,9 +1,9 @@
 
 const SERVER_ORIGIN = '';
  
-const loginUrl = `${SERVER_ORIGIN}/login`;
+const loginUrl = `${SERVER_ORIGIN}/auth`;
 
-const registerUrl = `${SERVER_ORIGIN}/create`;
+const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
 const postUrl = `${SERVER_ORIGIN}/post`;
 
