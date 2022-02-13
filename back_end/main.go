@@ -119,6 +119,7 @@ func main() {
 
 
 	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+	r.POST("/user/:id/comment/delete", handler.deleteComment)
 
 	Run_err := r.Run(":12345")
 
@@ -495,4 +496,15 @@ func (h *Handler) createComment(c *gin.Context) {
 	h.db.Create(&comment)
 	c.JSON(http.StatusCreated, comment)
 	    return
+}
+
+//delete comment
+func (h *Handler) deleteComment(c *gin.Context) {
+	var comment Comment
+	if err := c.BindJSON(&comment); err != nil {
+		return
+	}
+	h.db.Where("id = ?", comment.ID).Delete(&comment)
+	c.JSON(http.StatusOK, comment)
+	return
 }
