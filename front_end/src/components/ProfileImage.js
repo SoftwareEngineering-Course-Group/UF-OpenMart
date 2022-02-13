@@ -12,6 +12,9 @@ function ProfileImage(props) {
         width: '100%',
         height: '100%',
         }}>
+        {
+          props.delete===true ?(<><Icon name='delete' circular link inverted onClick={()=>props.click(props.tabkey)}/></>):null
+        }
         </div>
     </div>
       

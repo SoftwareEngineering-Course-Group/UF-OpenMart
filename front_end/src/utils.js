@@ -3,7 +3,7 @@ const SERVER_ORIGIN = "http://localhost:12345";
 const myId = localStorage.getItem('myId');
  
 const loginUrl = `${SERVER_ORIGIN}/auth`;
-const postImagesUrl = `${SERVER_ORIGIN}/${myId}/item`;
+const postImagesUrl = `${SERVER_ORIGIN}/user/${myId}/item/save`;
 
 const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
@@ -57,15 +57,12 @@ export const postItem = (data) => {
   })
 }
 export const postImages = (data) => {
-
+    
   return fetch(postImagesUrl,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
     body: data
   }).then((response) => {
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       throw Error('Fail to post img');
     }
   })

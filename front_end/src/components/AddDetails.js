@@ -11,27 +11,28 @@ import {
     TextArea,
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
+
 let formData = new FormData();
+var curImages=[];
+var postFiles=[];
 const AddDetails= ()=> {
     const [imagePreviewUrls, setImageUrl] = useState([]);
     const navi = useNavigate();
-    let currImages=[];
     const previewFile=(e)=> {
       e.preventDefault();
       
       var files = e.target.files;
-      
       const readAndPreview=(file)=>{
         
         if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
           var reader = new FileReader();
           reader.onloadend = () => {
-            if(currImages.indexOf(reader.result)===-1){
-              currImages.push(reader.result);
-              formData.append('upload[]',reader.result);
-              setImageUrl(imagePreviewUrls.concat(reader.result));
+            if(curImages.indexOf(reader.result)===-1){
+              postFiles.push(file);
+              curImages.push(reader.result);
+              setImageUrl(curImages.slice(0,));
               console.log(imagePreviewUrls);
-              console.log(formData.getAll('upload[]'));
+              console.log(curImages);//log对象时 异步执行
             }
           }
           reader.readAsDataURL(file)
@@ -42,7 +43,6 @@ const AddDetails= ()=> {
       if (files) {
         [].forEach.call(files, readAndPreview);
         
-        console.log(formData.getAll('upload[]'));
       }
     }
 
@@ -57,13 +57,26 @@ const AddDetails= ()=> {
             
         })
     }
-    const images=(formData)=>{
-      console.log(formData);
+    const handleClick =(key)=>{//delete pic
+        console.log(key);
+        curImages.splice(key,1);
+        postFiles.splice(key,1);
+        setImageUrl(curImages.slice(0,));
+        console.log(imagePreviewUrls);
+
+    }
+    const images=()=>{
+      console.log(postFiles);
+      for (var i=0;i<postFiles.length;i++){
+          formData.append('upload[]',postFiles[i]);
+      }
+      console.log(formData.getAll('upload[]'));
       postImages(formData)
       .then(() => {
         console.log("success to Add")
       }).catch((err) => {
-          console.log("failed to Add")
+          //console.log(formData.getAll('upload[]'));
+          console.log(err)
           
       })
     }
@@ -93,10 +106,10 @@ const AddDetails= ()=> {
   
         </Form.Field>
         <div  style={{display:'flex',flexWrap:'wrap',paddingBottom:'10px'}}>
-            {imagePreviewUrls.map((url,index)=>(< ProfileImage key={index} image={url}/>))}
+            {imagePreviewUrls.map((url,index)=>(< ProfileImage key={index} tabkey={index} image={url} delete={true} click={handleClick}/>))}
         </div>
         <Form.Field>
-          <Button htmltype='submit' onClick={images}>Submit</Button>
+          <Button htmltype='submit' onClick={()=>images()}>Submit</Button>
         </Form.Field>
       </Form>
         </div>
