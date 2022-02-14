@@ -3,11 +3,12 @@ const SERVER_ORIGIN = "http://localhost:12345";
 const myId = localStorage.getItem('myId');
  
 const loginUrl = `${SERVER_ORIGIN}/auth`;
+
 const postImagesUrl = `${SERVER_ORIGIN}/user/${myId}/item/save`;
 
 const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
-const postUrl = `${SERVER_ORIGIN}/post`;
+const postUrl = `${SERVER_ORIGIN}/user/${myId}/item/`;
 
 const getRandom = `${SERVER_ORIGIN}/getRandom`;
 
@@ -43,17 +44,19 @@ export const login = (credential) => {
     return response.json();
   })
   }
-export const postItem = (data) => {
-  return fetch(postUrl, {
+export const postItem = (data,pid) => {
+  
+  return fetch(postUrl+pid+'/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
   }).then((response) => {
-    if (response.status !== 201) {
-      throw Error('Fail to register');
+    if (response.status !== 200) {
+      throw Error('Fail to post');
     }
+    return response;
   })
 }
 export const postImages = (data) => {
@@ -65,6 +68,7 @@ export const postImages = (data) => {
     if (response.status !== 200) {
       throw Error('Fail to post img');
     }
+    return response.json();
   })
 }
 

@@ -15,6 +15,7 @@ import ProfileImage from "./ProfileImage";
 let formData = new FormData();
 var curImages=[];
 var postFiles=[];
+
 const AddDetails= ()=> {
     const [imagePreviewUrls, setImageUrl] = useState([]);
     const navi = useNavigate();
@@ -46,17 +47,6 @@ const AddDetails= ()=> {
       }
     }
 
-    const onFinish = (data) => {
-      console.log(data);
-      postItem(data)
-        .then(() => {
-          navi('/login')
-        }).catch((err) => {
-            console.log("failed to Add")
-            console.log(data)
-            
-        })
-    }
     const handleClick =(key)=>{//delete pic
         console.log(key);
         curImages.splice(key,1);
@@ -65,39 +55,54 @@ const AddDetails= ()=> {
         console.log(imagePreviewUrls);
 
     }
-    const images=()=>{
+    const images=(data)=>{//post images
       console.log(postFiles);
+      console.log(data);
       for (var i=0;i<postFiles.length;i++){
           formData.append('upload[]',postFiles[i]);
       }
       console.log(formData.getAll('upload[]'));
       postImages(formData)
-      .then(() => {
-        console.log("success to Add")
+      .then((response) => {
+        console.log(response);
+        
+        if(response['item_id']){
+          postItem(data,response['item_id'])
+          .then((response) => {
+            console.log(response);
+            console.log("success")
+          }).catch((err) => {
+              console.log("failed to Add")
+              console.log(err)
+              
+          })
+        }
+        
       }).catch((err) => {
-          //console.log(formData.getAll('upload[]'));
-          console.log(err)
+              //console.log(formData.getAll('upload[]'));
+              console.log(err)
           
       })
     }
     const { register, handleSubmit, formState: { errors } } = useForm();
-    //onSubmit={handleSubmit(onFinish)}
       
     return (
       <div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
-        <Form >
+        <Form onSubmit={handleSubmit(images)}>
           <Form.Field>
              <label required>Title</label>
-             <Input {...register("title")} placeholder='what is your goods?' style={{width:'30%'}}/>
+             <input {...register("name")} placeholder='what is your goods?' style={{width:'30%'}}/>
           </Form.Field> 
         <Form.Field>
             <label>Detail Description</label>
-            <TextArea {...register("describle")} placeholder='...' style={{ minHeight: 180 }} />
+            <textarea {...register("describle")} placeholder='...' style={{ minHeight: 180 }} />
         </Form.Field>
         <Form.Field inline>
             <label style={{marginBottom:'30px'}} required>Price</label>
-            <Input {...register("price")} placeholder='price' style={{width:'30%'}}/>
+            <input type="number" {...register("price", {
+                  setValueAs: v => parseFloat(v),
+                }) } placeholder='price' style={{width:'30%'}}/>
             <label>&nbsp; $</label>
             <div style={{marginBottom:'20px'}}>
               <label htmlFor="picFor"><Icon name='upload' size='big' link />images</label>
@@ -108,9 +113,9 @@ const AddDetails= ()=> {
         <div  style={{display:'flex',flexWrap:'wrap',paddingBottom:'10px'}}>
             {imagePreviewUrls.map((url,index)=>(< ProfileImage key={index} tabkey={index} image={url} delete={true} click={handleClick}/>))}
         </div>
-        <Form.Field>
-          <Button htmltype='submit' onClick={()=>images()}>Submit</Button>
-        </Form.Field>
+        
+        <Button htmltype='submit'>Submit</Button>
+        
       </Form>
         </div>
       </div>
