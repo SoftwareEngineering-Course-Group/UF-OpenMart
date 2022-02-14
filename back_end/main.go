@@ -121,6 +121,7 @@ func main() {
 	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
 	r.POST("/user/:id/comment/delete", handler.deleteComment)
 	r.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
+	r.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 
 	Run_err := r.Run(":12345")
 
@@ -515,5 +516,13 @@ func (h *Handler) queryCommentbyItem(c *gin.Context) {
 	pid := c.Param("pid")
 	var result []Comment
 	h.db.Table("comments").Where("item_id = ?", pid).Find(&result)
+	c.JSON(http.StatusOK, result)
+}
+
+//query all the comment by userid
+func (h *Handler) queryCommentbyUser(c *gin.Context) {
+	id := c.Param("id")
+	var result []Comment
+	h.db.Table("comments").Where("user_id = ?", id).Find(&result)
 	c.JSON(http.StatusOK, result)
 }
