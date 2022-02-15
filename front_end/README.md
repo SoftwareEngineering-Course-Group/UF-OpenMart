@@ -1,1 +1,0 @@
-this is a react front-end project.
