@@ -93,35 +93,35 @@ func main() {
 	r.POST("/auth", handler.loginHandler)
 	r.POST("/sign-up", handler.createUser)
 
-	//protected := r.Group("/", authorizationMiddleware)
-	r.GET("/user/:id", handler.getUser)
-	r.POST("/user/:id/remove", handler.DeleteUser)
-	r.POST("/user/:id/update", handler.UpdateUser)
+	protected := r.Group("/", authorizationMiddleware)
+	protected.GET("/user/:id", handler.getUser)
+	protected.POST("/user/:id/remove", handler.DeleteUser)
+	protected.POST("/user/:id/update", handler.UpdateUser)
 
 
-	r.POST("/user/:id/item/save", handler.createItem)
-	r.POST("/user/:id/item/:pid/update", handler.updateItem)
-	r.POST("/user/:id/item/:pid/remove", handler.deleteItem)
-	r.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
+	protected.POST("/user/:id/item/save", handler.createItem)
+	protected.POST("/user/:id/item/:pid/update", handler.updateItem)
+	protected.POST("/user/:id/item/:pid/remove", handler.deleteItem)
+	protected.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
 
-	r.POST("/user/:id/item/:pid", handler.getItembyID)
-	r.POST("/user/:id/item/list", handler.getItembyUser)
+	protected.POST("/user/:id/item/:pid", handler.getItembyID)
+	protected.POST("/user/:id/item/list", handler.getItembyUser)
 
-	r.GET("/user/:id/item/category/:cate", handler.getItembyCAT)
-	r.GET("/user/:id/item/category/:cate/PRD", handler.getItembyCATPRD)
-	r.GET("/user/:id/item/category/:cate/PRA", handler.getItembyCATPRA)
-	r.GET("/user/:id/item/category/:cate/LT", handler.getItembyCATLT)
+	protected.GET("/user/:id/item/category/:cate", handler.getItembyCAT)
+	protected.GET("/user/:id/item/category/:cate/PRD", handler.getItembyCATPRD)
+	protected.GET("/user/:id/item/category/:cate/PRA", handler.getItembyCATPRA)
+	protected.GET("/user/:id/item/category/:cate/LT", handler.getItembyCATLT)
 
-	r.GET("/user/:id/item/name/:name", handler.getItembyName)
-	r.GET("/user/:id/item/name/:name/PRD", handler.getItembyNamePRD)
-	r.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
-	r.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
+	protected.GET("/user/:id/item/name/:name", handler.getItembyName)
+	protected.GET("/user/:id/item/name/:name/PRD", handler.getItembyNamePRD)
+	protected.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
+	protected.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
 
 
-	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
-	r.POST("/user/:id/comment/delete", handler.deleteComment)
-	r.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
-	r.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
+	protected.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+	protected.POST("/user/:id/comment/delete", handler.deleteComment)
+	protected.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
+	protected.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 
 	Run_err := r.Run(":12345")
 
