@@ -17,3 +17,9 @@ Get all information about an Account for the authenticated User.
 
 **Content** : `{"name":user.Name,"email":user.Email,
 "phone":user.Phone}`
+
+## Error Response
+
+**Condition** : Authentication failed
+
+**Code** : `401 Bad Request`
