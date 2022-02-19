@@ -38,3 +38,7 @@ curl -X POST /user/id/item \
 **Condition** : Authentication failed
 
 **Code** : `401 Bad Request`
+
+**Condition** : upload files error
+
+**Code** : `204 No Content`
