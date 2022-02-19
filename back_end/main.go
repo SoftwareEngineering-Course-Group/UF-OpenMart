@@ -287,6 +287,7 @@ func (h *Handler) createItem(c *gin.Context) {
 		//Upload files to the specified directory
 		err := c.SaveUploadedFile(file, dst)
 		if err != nil {
+			c.JSON(http.StatusNoContent,gin.H{"message":"files error!"})
 			return
 		}
 	}
