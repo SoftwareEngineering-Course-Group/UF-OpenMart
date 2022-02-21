@@ -234,6 +234,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	}
 	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
