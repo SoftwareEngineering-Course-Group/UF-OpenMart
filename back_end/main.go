@@ -41,10 +41,10 @@ type Item struct {
 }
 
 type Comment struct {
-	ID        uint `gorm:"primaryKey;autoIncrement"`
-	UserID    uint `gorm:"not null"`
-	UserName  string`gorm:"not null"`
-	ItemID    uint `gorm:"not null"`
+	ID        uint   `gorm:"primaryKey;autoIncrement"`
+	UserID    uint   `gorm:"not null"`
+	UserName  string `gorm:"not null"`
+	ItemID    uint   `gorm:"not null"`
 	Content   string
 	CreatedAt time.Time
 }
@@ -65,8 +65,45 @@ func CORS() gin.HandlerFunc {
 	}
 }
 
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	db, err := gorm.Open(sqlite.Open(" sqlite.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+	handler := newHandler(db)
+	r.GET("/user/:id", handler.getUser)
+	r.POST("/auth", handler.loginHandler)
+	r.POST("/user/:id/remove", handler.DeleteUser)
+	r.POST("/sign-up", handler.createUser)
+	r.POST("/user/:id/update", handler.UpdateUser)
+
+	r.POST("/user/:id/item/save", handler.createItem)
+	r.POST("/user/:id/item/:pid/update", handler.updateItem)
+	r.POST("/user/:id/item/:pid/remove", handler.deleteItem)
+	r.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
+
+	r.POST("/user/:id/item/:pid", handler.getItembyID)
+	r.POST("/user/:id/item/list", handler.getItembyUser)
+
+	r.GET("/user/:id/item/category/:cate", handler.getItembyCAT)
+	r.GET("/user/:id/item/category/:cate/PRD", handler.getItembyCATPRD)
+	r.GET("/user/:id/item/category/:cate/PRA", handler.getItembyCATPRA)
+	r.GET("/user/:id/item/category/:cate/LT", handler.getItembyCATLT)
+
+	r.GET("/user/:id/item/name/:name", handler.getItembyName)
+	r.GET("/user/:id/item/name/:name/PRD", handler.getItembyNamePRD)
+	r.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
+	r.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
+
+	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+	r.POST("/user/:id/comment/delete", handler.deleteComment)
+	r.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
+	r.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
+	return r
+}
 func main() {
-	db, err := gorm.Open(sqlite.Open(" sqlite.db"),&gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(" sqlite.db"), &gorm.Config{})
 
 	if err != nil {
 		panic("failed to connect database")
@@ -98,7 +135,6 @@ func main() {
 	protected.POST("/user/:id/remove", handler.DeleteUser)
 	protected.POST("/user/:id/update", handler.UpdateUser)
 
-
 	protected.POST("/user/:id/item/save", handler.createItem)
 	protected.POST("/user/:id/item/:pid/update", handler.updateItem)
 	protected.POST("/user/:id/item/:pid/remove", handler.deleteItem)
@@ -117,14 +153,14 @@ func main() {
 	protected.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
 	protected.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
 
-
 	protected.POST("/user/:id/item/:pid/comment/save", handler.createComment)
 	protected.POST("/user/:id/comment/delete", handler.deleteComment)
 	protected.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
 	protected.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 
 	Run_err := r.Run(":12345")
-
+	router := setupRouter()
+	router.Run(":8080")
 	if Run_err != nil {
 		return
 	}
@@ -164,6 +200,7 @@ func validateToken(token string) error {
 func (h *Handler) QueryUserByEmailAndPassword(email, password string) (user User, err error) {
 	return user, h.db.Model(&User{}).Where("email = ? and password = ?", email, password).Take(&user).Error
 }
+
 //user login
 func (h *Handler) loginHandler(c *gin.Context) {
 	// implement login logic here
@@ -175,7 +212,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 
 	var (
 		user User
-		err1  error
+		err1 error
 	)
 
 	if user, err = h.QueryUserByEmailAndPassword(json.Email, json.Password); err != nil {
@@ -201,6 +238,7 @@ func (h *Handler) loginHandler(c *gin.Context) {
 		"token": ss,
 	})
 }
+
 //create user
 func (h *Handler) createUser(c *gin.Context) {
 	var user User
@@ -225,6 +263,7 @@ func (h *Handler) createUser(c *gin.Context) {
 	})
 
 }
+
 //Delete User
 func (h *Handler) DeleteUser(c *gin.Context) {
 	json := User{}
@@ -232,12 +271,13 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
+	if err := h.db.Where("id", json.ID).Delete(&json).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
+
 //Update User
 func (h *Handler) UpdateUser(c *gin.Context) {
 	json := User{}
@@ -259,13 +299,15 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
+
 //get User
 func (h *Handler) getUser(c *gin.Context) {
-	    var user = User{}
-		id := c.Param("id")
-	    h.db.Where("id = ?", id).First(&user)
-	    c.JSON(http.StatusOK, gin.H{"name": user.Name,"email":user.Email,"phone":user.Phone})
+	var user = User{}
+	id := c.Param("id")
+	h.db.Where("id = ?", id).First(&user)
+	c.JSON(http.StatusOK, gin.H{"name": user.Name, "email": user.Email, "phone": user.Phone})
 }
+
 //create Item
 func (h *Handler) createItem(c *gin.Context) {
 	//Get uploaded files
@@ -288,15 +330,16 @@ func (h *Handler) createItem(c *gin.Context) {
 		//Upload files to the specified directory
 		err := c.SaveUploadedFile(file, dst)
 		if err != nil {
-			c.JSON(http.StatusNoContent,gin.H{"message":"files error!"})
+			c.JSON(http.StatusNoContent, gin.H{"message": "files error!"})
 			return
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"item_id" : item.ID,
-		"message" : fmt.Sprintf("%d files uploaded!", len(files)),
+		"item_id": item.ID,
+		"message": fmt.Sprintf("%d files uploaded!", len(files)),
 	})
 }
+
 //update Item
 func (h *Handler) updateItem(c *gin.Context) {
 	//Get uploaded files
@@ -312,31 +355,32 @@ func (h *Handler) updateItem(c *gin.Context) {
 	//	status      bool
 	//	Image       string
 	//	CreatedAt   time.Time
-	dir := "/item/image/"+ strconv.Itoa(int(json.ID)) + "/"
+	dir := "/item/image/" + strconv.Itoa(int(json.ID)) + "/"
 	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("catagory", json.Catagory).Update("name", json.Name).Update("description", json.Description).Update("price", json.Price).Update("status", json.Status).Update("image", dir).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
 	c.JSON(http.StatusOK, &json)
 }
+
 //update Item Photo give item id
 func (h *Handler) updatePh(c *gin.Context) {
 	//Get uploaded files
 	pid := c.Param("pid")
 	intVar, _ := strconv.Atoi(pid)
 
-	absPath, _ := filepath.Abs("../back_end/item/image/"+strconv.Itoa(intVar))
+	absPath, _ := filepath.Abs("../back_end/item/image/" + strconv.Itoa(intVar))
 	files, err := ioutil.ReadDir(absPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for _, file := range files {
-		dir_name := absPath +"/"+file.Name()
+		dir_name := absPath + "/" + file.Name()
 		print(dir_name)
 		err := os.Remove(dir_name)
 		if err != nil {
-			return 
+			return
 		}
 	}
 
@@ -358,10 +402,11 @@ func (h *Handler) updatePh(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"item_id" : intVar,
-		"message" : fmt.Sprintf("%d files uploaded!", len(files_)),
+		"item_id": intVar,
+		"message": fmt.Sprintf("%d files uploaded!", len(files_)),
 	})
 }
+
 //delete Item by itemid
 func (h *Handler) deleteItem(c *gin.Context) {
 	//delete files
@@ -375,6 +420,7 @@ func (h *Handler) deleteItem(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!	"})
 }
+
 //get Item by User ID return items
 func (h *Handler) getItembyUser(c *gin.Context) {
 	json := Item{}
@@ -383,9 +429,10 @@ func (h *Handler) getItembyUser(c *gin.Context) {
 		return
 	}
 	var result []Item
-	h.db.Table("items").Where("user_id <> ?",json.UserID ).Scan(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("user_id <> ?", json.UserID).Scan(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get item by ID return all the info
 func (h *Handler) getItembyID(c *gin.Context) {
 	json := Item{}
@@ -397,97 +444,106 @@ func (h *Handler) getItembyID(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
 
-	absPath, _ := filepath.Abs("../back_end"+json.Image)
+	absPath, _ := filepath.Abs("../back_end" + json.Image)
 	files, err := ioutil.ReadDir(absPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var lists = make([]string,0)
+	var lists = make([]string, 0)
 	for _, file := range files {
 		dir_name := json.Image + file.Name()
 		lists = append(lists, dir_name)
 	}
 
-    print(len(lists))
+	print(len(lists))
 
 	type Entity struct {
 		Catagory    string
 		Name        string
 		Description string
-		Files   []string
+		Files       []string
 		Price       float32
 		Status      bool
 		CreatedAt   time.Time
 	}
 
 	data_item := &Entity{
-		Files: lists,
-		Catagory: json.Catagory,
-		Name: json.Name,
+		Files:       lists,
+		Catagory:    json.Catagory,
+		Name:        json.Name,
 		Description: json.Description,
-		Price: json.Price,
-		CreatedAt: json.CreatedAt,
-		Status: json.Status,
+		Price:       json.Price,
+		CreatedAt:   json.CreatedAt,
+		Status:      json.Status,
 	}
-	c.JSON(http.StatusOK,data_item)
+	c.JSON(http.StatusOK, data_item)
 }
+
 //get Item by catagory return items
 func (h *Handler) getItembyCAT(c *gin.Context) {
 	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Scan(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("catagory = ?", cate).Where("status = 0").Scan(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get Item order by price desc
 func (h *Handler) getItembyCATPRD(c *gin.Context) {
 	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("price desc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("catagory = ?", cate).Where("status = 0").Order("price desc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get Item order by price asc
 func (h *Handler) getItembyCATPRA(c *gin.Context) {
 	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("price asc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("catagory = ?", cate).Where("status = 0").Order("price asc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get items by latest time
 func (h *Handler) getItembyCATLT(c *gin.Context) {
 	cate := c.Param("cate")
 	var result []Item
-	h.db.Table("items").Where("catagory = ?",cate).Where("status = 0").Order("id desc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("catagory = ?", cate).Where("status = 0").Order("id desc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get items by name
 func (h *Handler) getItembyName(c *gin.Context) {
 	name := c.Param("name")
 	var result []Item
-	h.db.Table("items").Where("name = ?",name).Where("status = 0").Scan(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("name = ?", name).Where("status = 0").Scan(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get items by name PRD
 func (h *Handler) getItembyNamePRD(c *gin.Context) {
 	name := c.Param("name")
 	var result []Item
-	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("price desc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("name = ?", name).Where("status = 0").Order("price desc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get items by name ASC
 func (h *Handler) getItembyNamePRA(c *gin.Context) {
 	name := c.Param("name")
 	var result []Item
-	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("price asc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("name = ?", name).Where("status = 0").Order("price asc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //get items by latest time
 func (h *Handler) getItembyNameLT(c *gin.Context) {
 	name := c.Param("name")
 	var result []Item
-	h.db.Table("items").Where("name = ?",name).Where("status = 0").Order("id desc").Find(&result)
-	c.JSON(http.StatusOK,result)
+	h.db.Table("items").Where("name = ?", name).Where("status = 0").Order("id desc").Find(&result)
+	c.JSON(http.StatusOK, result)
 }
+
 //create comment  json UserID ItemID in postman
 func (h *Handler) createComment(c *gin.Context) {
 	var comment Comment
@@ -499,7 +555,7 @@ func (h *Handler) createComment(c *gin.Context) {
 	comment.UserName = user.Name
 	h.db.Create(&comment)
 	c.JSON(http.StatusCreated, comment)
-	    return
+	return
 }
 
 //delete comment
