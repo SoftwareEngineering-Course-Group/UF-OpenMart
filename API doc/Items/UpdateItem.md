@@ -1,6 +1,6 @@
 
 # Update Item's Infomation
-Specify the item&user ID and upload the photos the  server,.
+Update the item information with all attriubutes.
 
 **URL** : `/user/:id/item/:pid/update`
 
@@ -10,7 +10,7 @@ Specify the item&user ID and upload the photos the  server,.
 
 **Permissions required** : Yes
 
-Provide file path with not null files to the sever.
+Provide json format post request to the server.
 
 ```json
 {
