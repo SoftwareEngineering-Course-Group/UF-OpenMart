@@ -380,6 +380,7 @@ func (h *Handler) updatePh(c *gin.Context) {
 		print(dir_name)
 		err := os.Remove(dir_name)
 		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
 	}
@@ -397,6 +398,7 @@ func (h *Handler) updatePh(c *gin.Context) {
 		//Upload files to the specified directory
 		err := c.SaveUploadedFile(file, dst)
 		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
 	}
