@@ -275,7 +275,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Internal Error!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
+	c.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
 
 //Update User
@@ -286,12 +286,12 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 		return
 	}
 	if err := h.db.Model(&json).Where("id = ?", json.ID).Update("phone", json.Phone).Update("password", json.Password).Error; err != nil {
-		c.JSON(http.StatusOK, gin.H{"message": "No way!"})
+		c.JSON(http.StatusOK, gin.H{"message": "failed"})
 	}
 	dbRresult := h.db.Where("email = ?", json.Email).Where("name = ?", json.Name).First(&json)
 	if errors.Is(dbRresult.Error, gorm.ErrRecordNotFound) {
 		if err := h.db.Model(&json).Where("id = ?", json.ID).Update("name", json.Name).Update("email", json.Email).Update("phone", json.Phone).Update("password", json.Password).Error; err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"message": "Already exist same name or email"})
+			c.JSON(http.StatusBadRequest, gin.H{"message": "User exist"})
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"message": "Successful update name and email"})
@@ -420,7 +420,7 @@ func (h *Handler) deleteItem(c *gin.Context) {
 	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!	"})
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})
 }
 
 //get Item by User ID return items
