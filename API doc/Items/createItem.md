@@ -14,11 +14,10 @@ Specify the item&user ID and upload the photos the  server,.
 Provide file path with not null files to the sever.
 
 ```json
-curl -X POST /user/id/item \
-  -F "upload[]=@" \
-  -F "upload[]=@" \
-  .....
-  -H "Content-Type: multipart/form-data"
+{
+    "upload[]" : "files"
+    ....
+}
 ```
 
 ## Success Response
