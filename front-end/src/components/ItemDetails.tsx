@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image,Card,Icon } from 'semantic-ui-react'
 
-
 const item = 
     {
       id:1,

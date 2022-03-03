@@ -47,13 +47,13 @@ const favorites = [
 ]
 const posteds = [
     {
-        id:1,
+        id:6,
         name: 'goggle',
         image:'../images/2cc3723492e356375e6e26cacc12407.jpg',
         price: 3
     },
     {
-        id:2,
+        id:7,
         name: 'straight plate clip',
         image:'../images/4ff4c153d4a5841bb5cab1a5e8ecfc0.jpg',
         price: 5
@@ -85,7 +85,7 @@ const ImageExampleCircular = () => (
         </div>
         <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
             {
-                 posteds.map((posted)=>(<ProfileImage image={posted.image}/>))
+                 posteds.map((posted)=>(<ProfileImage image={posted.image} identifier = {posted.id} key={posted.id}/>))
             }
         </div>
 
@@ -93,10 +93,9 @@ const ImageExampleCircular = () => (
             <h2>Favorites</h2>
         </div>
         <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
-            {
-                 favorites.map((favorite)=>(<ProfileImage image={favorite.image}/>))
+            {    
+                 favorites.map((favorite)=>(<ProfileImage image={favorite.image} identifier = {favorite.id} key={favorite.id}/>))
             }
-           
         </div>
         <footer>
           <Menu/>

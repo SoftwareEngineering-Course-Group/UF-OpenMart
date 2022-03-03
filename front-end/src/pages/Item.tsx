@@ -4,7 +4,15 @@ import Back from '../components/Back'
 import Comments from '../components/Comments'
 import HeaderAvatar from '../components/HeaderAvatar'
 import ItemDetails from '../components/ItemDetails';
+import { useLocation } from 'react-router-dom';
 function Item() {
+    interface stateType {
+        id: string;
+     }
+    const location = useLocation();
+     //使用钩子获取state
+    const sta= location.state as stateType;
+    console.log(sta.id);
     return (
         <div>
             <Back/>
