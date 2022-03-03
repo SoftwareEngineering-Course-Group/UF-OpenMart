@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,useState } from 'react'
 import { Icon, Menu} from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 const style ={
@@ -8,16 +8,12 @@ const style ={
       width: '100%',
   }
 }
-
-class MenuCompact extends Component {
-  state = {}
-
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name });
+const MenuCompact= ()=> {
+  const [activeItem, setActiveItem] = useState<any>([])
+  
+  const handleItemClick = (e:any,data:any) => {
+    setActiveItem(data.name);
   }
-
-  render() {
-    const { activeItem } = this.state
 
     return (
       <Menu compact icon='labeled' fluid widths={3} style={style.footer}>
@@ -25,7 +21,7 @@ class MenuCompact extends Component {
           name='gamepad'
           href="/"
           active={activeItem === 'gamepad'}
-          onClick={this.handleItemClick}
+          onClick={handleItemClick}
         > 
             <Icon link name='home' />
         </Menu.Item>
@@ -34,7 +30,7 @@ class MenuCompact extends Component {
           name='video camera'
           href="/add"
           active={activeItem === 'video camera'}
-          onClick={this.handleItemClick}
+          onClick={handleItemClick}
         >
           <Icon name='add' />
         </Menu.Item>
@@ -43,12 +39,11 @@ class MenuCompact extends Component {
           name='video play'
           href="/profile"
           active={activeItem === 'video play'}
-          onClick={this.handleItemClick}
+          onClick={handleItemClick}
         >
           <Icon name='user' />
         </Menu.Item>
       </Menu>
-    )
-  }
+    );
 }
 export default MenuCompact;
