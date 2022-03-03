@@ -59,10 +59,14 @@ export const postItem = (data: any,pid: string) => {
   })
 }
 export const postImages = (data: any) => {
-    
+  console.log(localStorage.getItem('token'));
+  console.log(data);
   return fetch(postImagesUrl,{
     method: 'POST',
-    body: data
+    body: data,
+    headers: { 
+      'Authorization': ('Bearer ' + localStorage.getItem('token')) || ''
+    },
   }).then((response) => {
     if (response.status !== 200) {
       throw Error('Fail to post img');
