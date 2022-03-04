@@ -102,6 +102,8 @@ func setupRouter() *gin.Engine {
 	r.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 	return r
 }
+
+
 func main() {
 	db, err := gorm.Open(sqlite.Open(" sqlite.db"), &gorm.Config{})
 
@@ -235,6 +237,8 @@ func (h *Handler) loginHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"id":    user.ID,
+		"name" : user.Name,
+		"email" : user.Email,
 		"token": ss,
 	})
 }
