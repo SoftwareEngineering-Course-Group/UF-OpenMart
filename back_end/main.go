@@ -161,8 +161,12 @@ func main() {
 	protected.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 
 	Run_err := r.Run(":12345")
-	router := setupRouter()
-	router.Run(":8080")
+	//for testing
+	//router := setupRouter()
+	//err1 := router.Run(":8080")
+	//if err1 != nil {
+	//	return
+	//}
 	if Run_err != nil {
 		return
 	}
