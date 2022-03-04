@@ -11,8 +11,9 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/swiper": "^6.0.0",
-    "element-react": "^1.4.34",
+    "antd": "^4.18.9",
     "react": "^17.0.2",
+    "react-alert": "^7.0.3",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.0",
     "react-router": "^6.2.1",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.178",
+    "@types/react-alert": "^5.2.1",
     "cypress": "^9.5.1"
   }
 }
