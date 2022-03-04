@@ -9,6 +9,12 @@ const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
 const postUrl = `${SERVER_ORIGIN}/user/${myId}/item/`;
 
+const inforUrl = `${SERVER_ORIGIN}/user/${myId}`;
+
+const getPostedUrl = '';
+
+const getFavorite = '';
+
 // const getRandom = `${SERVER_ORIGIN}/getRandom`;
 
 export const registe = (data: any) => {
@@ -31,9 +37,7 @@ export const login = (credential: any) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // 'Authorization' : 'Bearer '+ token
     },
-  //   credentials: 'include',
     body: JSON.stringify(credential)
   }).then((response) => {
     if (response.status !== 200) {
@@ -42,13 +46,32 @@ export const login = (credential: any) => {
     }
     return response.json();
   })
+}
+
+export const getInfo = () => {
+  // const token = localStorage.getItem('token')
+  return fetch(inforUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+    },
+  }).then((response) => {
+    if (response.status !== 200) {
+      console.log("false to get infor");
+      throw Error('Fail get infor');
+    }
+    return response.json();
+  })
   }
+
 export const postItem = (data: any,pid: string) => {
   
   return fetch(postUrl+pid+'/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
     },
     body: JSON.stringify(data)
   }).then((response) => {
@@ -59,14 +82,14 @@ export const postItem = (data: any,pid: string) => {
   })
 }
 export const postImages = (data: any) => {
-  console.log(localStorage.getItem('token'));
+  console.log(localStorage.getItem('jwtToken'));
   console.log(data);
   return fetch(postImagesUrl,{
     method: 'POST',
-    body: data,
     headers: { 
-      'Authorization': ('Bearer ' + localStorage.getItem('token')) || ''
+      'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
     },
+    body: data
   }).then((response) => {
     if (response.status !== 200) {
       throw Error('Fail to post img');

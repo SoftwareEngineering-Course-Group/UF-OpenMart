@@ -1,8 +1,10 @@
-import React from 'react'
-import { Image,Icon,List,Button,Grid, Item } from 'semantic-ui-react'
+import React,{useState,useLayoutEffect} from 'react'
+import { Image,Icon,List,Button,Grid, Message } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
+import { getInfo } from '../utils';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
+import { useNavigate } from 'react-router';
 
 const user = 
     {
@@ -59,48 +61,91 @@ const posteds = [
         price: 5
     },
     ]
-const ImageExampleCircular = () => (
-    <div><div/>
-    <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
-        
-        <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
-        <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>yyb</h2>
-    </div>
-    <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
-        <div>
-            <Icon name='time' />
-            <span>registration time: {user.rtime}</span>
-        </div>
-        <div>
-            <span>{user.aboutMe} </span>
-            <Icon name='edit outline' link/>
-        </div>     
-                
-    </div>
-        <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
-            <Button primary>Message</Button>
-        </div>
-        <div style={{display:'flex',margin:'3%'}}>
-            <h2>Posted</h2>
-        </div>
-        <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
-            {
-                 posteds.map((posted)=>(<ProfileImage image={posted.image} identifier = {posted.id} key={posted.id}/>))
+const ImageExampleCircular = () => {
+    const [loadState, setLoad] = useState("error");
+    const getInf = () => {
+        getInfo().then(response => {
+            for(var key in response){
+                if(key==="email"){
+                    localStorage.setItem("email",response[key]);
+                    console.log(response[key]);
+                }
+                if(key==="name"){
+                  localStorage.setItem("name",response[key]);
+                  console.log(response[key]);
+                }
             }
-        </div>
+            
+      }).catch((err) => {
 
-        <div style={{display:'flex',margin:'3%'}}>
-            <h2>Favorites</h2>
+      })
+    }
+    const getPosted = () => {
+
+    } 
+
+    const getFavorite=() =>{
+
+    }
+    const navigate = useNavigate();
+    const showError = () =>{
+
+    }
+    useLayoutEffect(() => {
+        if(localStorage.getItem("jwtToken")===null){
+            <Message
+                onDismiss={showError}
+                header='Welcome back!'
+                content='This is a special notification which you can dismiss.'
+            />
+            navigate('/login');
+        }
+        getInf()
+    },[]
+    )
+    return(
+        <div>
+        <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
+            
+            <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
+            <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{localStorage.getItem("email")}</h2>
         </div>
-        <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
-            {    
-                 favorites.map((favorite)=>(<ProfileImage image={favorite.image} identifier = {favorite.id} key={favorite.id}/>))
-            }
+        <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
+            <div>
+                <Icon name='time' />
+                <span>registration time: {user.rtime}</span>
+            </div>
+            <div>
+                <span>{user.aboutMe} </span>
+                <Icon name='edit outline' link/>
+            </div>     
+                    
         </div>
-        <footer>
-          <Menu/>
-        </footer>
-    </div>
-)
+            <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
+                <Button primary>Message</Button>
+            </div>
+            <div style={{display:'flex',margin:'3%'}}>
+                <h2>Posted</h2>
+            </div>
+            <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+                {
+                    posteds.map((posted)=>(<ProfileImage image={posted.image} identifier = {posted.id} key={posted.id}/>))
+                }
+            </div>
+
+            <div style={{display:'flex',margin:'3%'}}>
+                <h2>Favorites</h2>
+            </div>
+            <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
+                {    
+                    favorites.map((favorite)=>(<ProfileImage image={favorite.image} identifier = {favorite.id} key={favorite.id}/>))
+                }
+            </div>
+            <footer>
+            <Menu/>
+            </footer>
+        </div>
+    )
+}
 
 export default ImageExampleCircular

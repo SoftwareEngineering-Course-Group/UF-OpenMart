@@ -1,15 +1,16 @@
-import { Button, Form, Image,Message } from 'semantic-ui-react';
+import { Button, Form, Image,Message,Icon } from 'semantic-ui-react';
 import React, { useState } from 'react';
 import { login } from '../utils';
 import { useForm } from "react-hook-form";
-import history from '../history';
+// import history from '../history';
+import {useNavigate} from "react-router-dom"
 import Menu from '../components/Menu'
 import { update } from 'lodash';
 const Login = () => {
     
     const[sta , setSta] = useState('success')
     const[displayMoel , setDisplay] = useState(false)
-   
+    const navigate = useNavigate();
     const onFinish = (data: any) => {
         console.log(data);
         login(data)
@@ -30,8 +31,7 @@ const Login = () => {
                       console.log(localStorage.getItem('myId'));
                     }
                 }
-                history.push('/profile');
-                window.location.reload();
+                navigate('/profile');
                 
           }).catch((err) => {
               setSta('failed')
@@ -61,11 +61,14 @@ const Login = () => {
           <input type='password' {...register("password")} placeholder='password' />
         </Form.Field >
         <Button htmltype='submit' style={{marginTop:'2%'}}>Login</Button>
-        
         </Form>
+        <Message attached='bottom' warning style = {{width:'50%' , textAlign:"center" , margin:"auto",marginTop:'10px'}}>
+          <Icon name='help' />
+          Do not have an account?&nbsp;<a href='/register'>Sign up here</a>&nbsp;instead.
+        </Message>
         {
             displayMoel===true ?(
-            <div style = {{display:'flex', justifyContent: 'center',marginTop:'2%'}}>
+            <div style = {{display:'flex', justifyContent: 'center', marginTop:'2%'}}>
                 <Message
                 style={{width:'20%', textAlign:'center'}}
                 success
