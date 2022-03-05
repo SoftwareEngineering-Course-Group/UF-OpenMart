@@ -86,6 +86,12 @@ III. Work Be Done
 
 ----
 ### Sprint2
+#### Backend accomplishment
+* Almost all of APIs
+* API doc for Users and Items
+* gotest for Unittest
+* API tests by Postman and Curl
+
 #### Frontend accomplishment
 * Modified some part of user flow
 * add post item function and the page.
