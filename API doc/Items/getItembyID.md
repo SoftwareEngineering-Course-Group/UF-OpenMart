@@ -23,11 +23,6 @@ Post the item ID.
 
 ## Success Response
 
-**Condition** : If everything is OK.
-
-**Code** : `201 CREATED`
-## Success Response
-
 **Code** : `200 Success`
 
 **Content** : 
