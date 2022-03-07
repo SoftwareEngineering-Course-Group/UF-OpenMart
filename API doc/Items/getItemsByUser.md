@@ -1,8 +1,8 @@
 
   
-# Get Item's information by ID
+# Get Item's information by User
 
-Post a Item ID, the server will return all the information and photos path in Json format.
+Post a User ID, the server will return all the corresponding items.
 
 **URL** : `/user/:id/item/list`
 
