@@ -102,6 +102,8 @@ func setupRouter() *gin.Engine {
 	r.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 	return r
 }
+
+
 func main() {
 	db, err := gorm.Open(sqlite.Open(" sqlite.db"), &gorm.Config{})
 
@@ -159,8 +161,12 @@ func main() {
 	protected.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
 
 	Run_err := r.Run(":12345")
-	router := setupRouter()
-	router.Run(":8080")
+	//for testing
+	//router := setupRouter()
+	//err1 := router.Run(":8080")
+	//if err1 != nil {
+	//	return
+	//}
 	if Run_err != nil {
 		return
 	}
@@ -235,6 +241,8 @@ func (h *Handler) loginHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"id":    user.ID,
+		"name" : user.Name,
+		"email" : user.Email,
 		"token": ss,
 	})
 }

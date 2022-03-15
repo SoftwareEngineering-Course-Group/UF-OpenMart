@@ -81,5 +81,21 @@ III. Work Be Done
 #### Frontend accomplishment
 * Details in https://www.youtube.com/watch?v=Y6CHfpEtx-E&t=99s
 * UI for 6 pages including Home, Profile, Detail, Login, Register.
-* Simple login and register.
+* login and register function.
+* realizes jumping the pages and  simple interaction with users.
+
+----
+### Sprint2
+#### Backend accomplishment
+* Almost all of APIs
+* API doc for Users and Items
+* gotest for Unittest
+* API tests by Postman and Curl
+
+#### Frontend accomplishment
+* Modified some part of user flow
+* add post item function and the page.
+* implement token authentication in each request.
+* use cypress to test
+
 
