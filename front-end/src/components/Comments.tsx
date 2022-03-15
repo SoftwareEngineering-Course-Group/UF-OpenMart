@@ -1,6 +1,53 @@
 import React from 'react'
 import { Comment, Form, Header,Segment,Button} from 'semantic-ui-react'
-
+import CommentCard from '../components/CommentCard'
+const comments = [
+  {
+    id:1,
+    author: 'Matt',
+    avatar:'https://react.semantic-ui.com/images/avatar/small/matt.jpg',//不支持直接赋值相对路径
+    content: 'How artistic!',
+    date:'Today at 5:42PM',
+    reply:[],
+  },
+  {
+    id:2,
+    author: 'Elliot Fu',
+    avatar:'https://react.semantic-ui.com/images/avatar/small/elliot.jpg',//不支持直接赋值相对路径
+    content: 'This has been very useful for my research. Thanks as well!',
+    date:'Yesterday at 12:30AM',
+    reply:[  {
+      id:1,
+      author: 'Jenny Hess',
+      avatar:'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
+      content: 'Elliot you are always so right :)',
+      date:'Today at 5:42PM',
+      reply:[{
+        id:1,
+        author: 'Matt',
+        avatar:'https://react.semantic-ui.com/images/avatar/small/matt.jpg',//不支持直接赋值相对路径
+        content: 'How artistic!',
+        date:'Today at 5:42PM',
+        reply:[],
+      }],
+    },{
+      id:2,
+      author: 'Jenny Hess',
+      avatar:'https://react.semantic-ui.com/images/avatar/small/jenny.jpg',
+      content: 'Elliot you are always so right :)',
+      date:'Today at 5:42PM',
+      reply:[],
+    }],
+  },
+  {
+    id:3,
+    author: 'Elliot Fu',
+    avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',//不支持直接赋值相对路径
+    content: 'Dude, this is awesome. Thanks so much',
+    date:'5 days ago',
+    reply:[],
+  },
+]
 const Comments = () => (
 
     <Comment.Group>
@@ -14,66 +61,15 @@ const Comments = () => (
         <Button type='submit'>Submit</Button>
     </Form.Group>
     </Form>
-    
-    <Comment>
-      <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-        <Comment.Actions>
-          <Comment.Action>Reply</Comment.Action>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-
-    <Comment>
-      <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Elliot Fu</Comment.Author>
-        <Comment.Metadata>
-          <div>Yesterday at 12:30AM</div>
-        </Comment.Metadata>
-        <Comment.Text>
-          <p>This has been very useful for my research. Thanks as well!</p>
-        </Comment.Text>
-        <Comment.Actions>
-          <Comment.Action>Reply</Comment.Action>
-        </Comment.Actions>
-      </Comment.Content>
-      <Comment.Group>
-        <Comment>
-          <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-          <Comment.Content>
-            <Comment.Author as='a'>Jenny Hess</Comment.Author>
-            <Comment.Metadata>
-              <div>Just now</div>
-            </Comment.Metadata>
-            <Comment.Text>Elliot you are always so right :)</Comment.Text>
-            <Comment.Actions>
-              <Comment.Action>Reply</Comment.Action>
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
-      </Comment.Group>
-    </Comment>
-
-    <Comment>
-      <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <div>5 days ago</div>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <Comment.Action>Reply</Comment.Action>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    
+    {    
+        comments.map((comment)=>(<CommentCard
+          id={comment.id}
+          avatar={comment.avatar}
+          author={comment.author}
+          content={comment.content}
+          reply={comment.reply}
+      />))
+    }
 
   </Comment.Group>
 

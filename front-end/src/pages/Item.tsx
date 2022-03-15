@@ -12,7 +12,6 @@ function Item() {
     const location = useLocation();
      //使用钩子获取state
     const sta= location.state as stateType;
-    console.log(sta.id);
     return (
         <div>
             <Back/>
