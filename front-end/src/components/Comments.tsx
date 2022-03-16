@@ -1,5 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Comment, Form, Header,Segment,Button} from 'semantic-ui-react'
+import { useForm } from "react-hook-form";
 import CommentCard from '../components/CommentCard'
 const comments = [
   {
@@ -48,16 +49,23 @@ const comments = [
     reply:[],
   },
 ]
-const Comments = () => (
+const Comments = () => {
+  const [text, setText] = useState('')
+  const submit=(data: any)=>{
+    comments.push({id:5,author:'lee',content:data.message,date:'just now',avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',reply:[]});
+    setText('');
+  }
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  return(
 
     <Comment.Group>
     <Header as='h3' dividing>
       Comments
     </Header>
     
-    <Form>
+    <Form onSubmit={handleSubmit(submit)}>
     <Form.Group>
-        <input placeholder='First Name' style={{flex:1,marginRight:'10px'}}/>
+        <input {...register("message")} value={text} placeholder='Say something...' onChange={(e) => setText(e.target.value)} style={{flex:1,marginRight:'10px'}}/>
         <Button type='submit'>Submit</Button>
     </Form.Group>
     </Form>
@@ -65,6 +73,7 @@ const Comments = () => (
         comments.map((comment)=>(<CommentCard
           id={comment.id}
           avatar={comment.avatar}
+          date={comment.date}
           author={comment.author}
           content={comment.content}
           reply={comment.reply}
@@ -74,6 +83,6 @@ const Comments = () => (
   </Comment.Group>
 
   
-)
+  )}
 
 export default Comments

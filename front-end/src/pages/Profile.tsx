@@ -6,7 +6,6 @@ import { getInfo, getPost } from '../utils';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
 import { useNavigate } from 'react-router';
 import { replace } from 'lodash';
-import {message} from 'antd';
 
 const user = 
     {
