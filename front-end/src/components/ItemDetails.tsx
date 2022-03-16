@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { Image,Card,Icon } from 'semantic-ui-react'
-
+import Love from '../components/Love'
 const item = 
     {
       id:1,
@@ -11,22 +11,12 @@ const item =
 
 
 const ItemDetails = () => {
-    const [love, setlove] = useState(false);
-    const handleClick=() =>{
-        setlove(!love);
-    }
-    var loveIcon:any;
-    if(love){
-        loveIcon=(<Icon name='heart' size='large' color='red' link style={{float:'right'}}/>);
-    }else{
-        loveIcon=(<Icon name='heart outline' size='large' color='red' link style={{float:'right'}}/>);
-    }
     return(
     <div>
         <Card style={{width:'100%'}}>
             <Image src={item.image} fluid />
             <Card.Content >
-                <div onClick={() => handleClick()}>{loveIcon}</div>
+                <Love/>
                 <Card.Header>{item.name}</Card.Header>
                 <Card.Header>{item.price}$</Card.Header>
                 <Card.Meta>
