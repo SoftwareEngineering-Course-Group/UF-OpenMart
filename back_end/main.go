@@ -67,6 +67,7 @@ func CORS() gin.HandlerFunc {
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
+
 	db, err := gorm.Open(sqlite.Open(" sqlite.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
@@ -126,8 +127,8 @@ func main() {
 	handler := newHandler(db)
 
 	r := gin.New()
-
 	r.Use(CORS())
+	r.Static("/item/image/", "./item/image/")
 
 	r.POST("/auth", handler.loginHandler)
 	r.POST("/sign-up", handler.createUser)
@@ -436,6 +437,7 @@ func (h *Handler) getItembyUser(c *gin.Context) {
 	json := Item{}
 	err := c.BindJSON(&json)
 	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
 	var result []Item
