@@ -63,12 +63,16 @@ export const getInfo = () => {
   export const getPost = () => {
     let myidd = localStorage.getItem('myId');
     let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/list`;
+    let idNum = Number(myidd)
+    let id = {"id":idNum}
+    console.log(id)
     return fetch(getPostedUrl, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
       },
+      body: JSON.stringify(id)
     }).then((response) => {
       if (response.status !== 200) {
         console.log("false to get posted items");

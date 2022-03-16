@@ -86,6 +86,7 @@ const ImageExampleCircular = () => {
             setOpen(false); 
             getPost().then(response => {
                 posteds = response
+                console.log(posteds)
           }).catch((err) => {
 
           })             
