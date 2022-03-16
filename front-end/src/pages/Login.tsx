@@ -1,6 +1,6 @@
 import { Button, Form, Image,Message,Icon } from 'semantic-ui-react';
 import React, { useState } from 'react';
-import { login } from '../utils';
+import { getInfo, login } from '../utils';
 import { useForm } from "react-hook-form";
 // import history from '../history';
 import {useNavigate} from "react-router-dom"
@@ -31,8 +31,21 @@ const Login = () => {
                       console.log(localStorage.getItem('myId'));
                     }
                 }
-                navigate('/profile');
-                
+                getInfo().then(response => {
+                  for(var key in response){
+                      if(key==="email"){
+                          localStorage.setItem("email",response[key]);
+                          console.log(response[key]);
+                      }
+                      if(key==="name"){
+                        localStorage.setItem("name",response[key]);
+                        console.log(response[key]);
+                      }
+                  }
+                  navigate('/profile');
+            }).catch((err) => {
+
+            })             
           }).catch((err) => {
               setSta('failed')
               setDisplay(true)

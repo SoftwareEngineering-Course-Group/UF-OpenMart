@@ -3,15 +3,9 @@ const myId = localStorage.getItem('myId');
  
 const loginUrl = `${SERVER_ORIGIN}/auth`;
 
-const postImagesUrl = `${SERVER_ORIGIN}/user/${myId}/item/save`;
-
 const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 
-const postUrl = `${SERVER_ORIGIN}/user/${myId}/item/`;
 
-const inforUrl = `${SERVER_ORIGIN}/user/${myId}`;
-
-const getPostedUrl = '';
 
 const getFavorite = '';
 
@@ -32,7 +26,6 @@ export const registe = (data: any) => {
   }
 
 export const login = (credential: any) => {
-  // const token = localStorage.getItem('token')
   return fetch(loginUrl, {
     method: 'POST',
     headers: {
@@ -49,8 +42,9 @@ export const login = (credential: any) => {
 }
 
 export const getInfo = () => {
-  // const token = localStorage.getItem('token')
-  return fetch(inforUrl, {
+  let myidd = localStorage.getItem('myId');
+  let inforUrl = `${SERVER_ORIGIN}/user/`
+  return fetch(inforUrl+myidd, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -59,14 +53,35 @@ export const getInfo = () => {
   }).then((response) => {
     if (response.status !== 200) {
       console.log("false to get infor");
+      console.log(localStorage.getItem('jwtToken'))
       throw Error('Fail get infor');
     }
     return response.json();
   })
   }
 
+  export const getPost = () => {
+    let myidd = localStorage.getItem('myId');
+    let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/list`;
+    return fetch(getPostedUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+      },
+    }).then((response) => {
+      if (response.status !== 200) {
+        console.log("false to get posted items");
+        throw Error('Fail to get posted items');
+      }
+      return response.json();
+    })
+    }
+    
 export const postItem = (data: any,pid: string) => {
-  
+  let myidd = localStorage.getItem('myId');
+  let postUrl = `${SERVER_ORIGIN}/user/${myidd}/item/`;
+  console.log(data)
   return fetch(postUrl+pid+'/update', {
     method: 'POST',
     headers: {
@@ -84,6 +99,8 @@ export const postItem = (data: any,pid: string) => {
 export const postImages = (data: any) => {
   console.log(localStorage.getItem('jwtToken'));
   console.log(data);
+  let myidd = localStorage.getItem('myId');
+  let postImagesUrl = `${SERVER_ORIGIN}/user/${myidd}/item/save`;
   return fetch(postImagesUrl,{
     method: 'POST',
     headers: { 

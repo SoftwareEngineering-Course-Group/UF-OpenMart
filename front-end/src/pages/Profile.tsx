@@ -2,7 +2,7 @@ import React,{useState,useLayoutEffect,useEffect} from 'react'
 import { Image,Icon,List,Button,Grid, Modal } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
-import { getInfo } from '../utils';
+import { getInfo, getPost } from '../utils';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
 import { useNavigate } from 'react-router';
 import { replace } from 'lodash';
@@ -49,7 +49,7 @@ const favorites = [
         price: 15
     },
 ]
-const posteds = [
+let posteds = [
     {
         id:6,
         name: 'goggle',
@@ -65,23 +65,7 @@ const posteds = [
     ]
 const ImageExampleCircular = () => {
     const [open, setOpen] = React.useState(true)
-    const getInf = () => {
-        getInfo().then(response => {
-            for(var key in response){
-                if(key==="email"){
-                    localStorage.setItem("email",response[key]);
-                    console.log(response[key]);
-                }
-                if(key==="name"){
-                  localStorage.setItem("name",response[key]);
-                  console.log(response[key]);
-                }
-            }
-            
-      }).catch((err) => {
-
-      })
-    }
+    
     const getPosted = () => {
 
     } 
@@ -93,13 +77,19 @@ const ImageExampleCircular = () => {
     const showError = () =>{
 
     }
-    useLayoutEffect(() => {
+    useEffect(() => {
+        // localStorage.setItem("jwtToken",'');
+        // localStorage.setItem("myId",'');
         if(localStorage.getItem("jwtToken")==='' || localStorage.getItem("jwtToken")===null){
             setOpen(true);
         }
         else{
-            setOpen(false);
-            getInf()
+            setOpen(false); 
+            getPost().then(response => {
+                posteds = response
+          }).catch((err) => {
+
+          })             
         }
     },[]
     )
