@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c1d818b-8fbc-4bd6-a879-3a35ab238ee8" name="Changes" comment="" />
+    <list default="true" id="6c1d818b-8fbc-4bd6-a879-3a35ab238ee8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../API doc/Items/getItemsByUser.md" beforeDir="false" afterPath="$PROJECT_DIR$/../API doc/Items/getItemsByUser.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ sqlite.db" beforeDir="false" afterPath="$PROJECT_DIR$/ sqlite.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,13 +43,15 @@
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.watchers.conflict.with.on.save.actions.check.performed" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="back_end" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
+      <package value="openmart-app" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/main.go" />
       <method v="2" />
