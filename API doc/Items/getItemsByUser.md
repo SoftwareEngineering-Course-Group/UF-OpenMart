@@ -11,10 +11,11 @@ Post a User ID, the server will return all the corresponding items.
 **Auth required** : YES
 
 **Permissions required** : Yes
+
 **Example** :
 ```json
 {
-"user_id" : 1,
+	"user_id" : 1,
 }
 ```
 ## Success Response
