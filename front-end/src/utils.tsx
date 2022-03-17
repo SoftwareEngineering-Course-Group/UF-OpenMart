@@ -1,5 +1,4 @@
-const SERVER_ORIGIN = "http://localhost:12345";
-const myId = localStorage.getItem('myId');
+const SERVER_ORIGIN = "http://localhost:12345";;
  
 const loginUrl = `${SERVER_ORIGIN}/auth`;
 
@@ -43,8 +42,8 @@ export const login = (credential: any) => {
 
 export const getInfo = () => {
   let myidd = localStorage.getItem('myId');
-  let inforUrl = `${SERVER_ORIGIN}/user/`
-  return fetch(inforUrl+myidd, {
+  let inforUrl = `${SERVER_ORIGIN}/user/${myidd}`
+  return fetch(inforUrl, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -81,6 +80,28 @@ export const getInfo = () => {
       return response.json();
     })
     }
+
+    export const getItembyId = (ID:any) => {
+      let myidd = localStorage.getItem('myId');
+      let getItemUrl = `${SERVER_ORIGIN}/user/${myidd}/item/${ID}`;
+      let idNum = Number(ID)
+      let id = {"id":idNum}
+      console.log(getItemUrl)
+      return fetch(getItemUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+        },
+        body: JSON.stringify(id)
+      }).then((response) => {
+        if (response.status !== 200) {
+          console.log("false to get posted items");
+          throw Error('Fail to get posted items');
+        }
+        return response.json();
+      })
+      }
     
 export const postItem = (data: any,pid: string) => {
   let myidd = localStorage.getItem('myId');
