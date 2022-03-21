@@ -19,6 +19,25 @@ Get all of comments for an item .
 
 **Code** : `200 Sucess`
 
+**Content** : 
+```json
+[
+{
+    "id":,
+    "user_id" : 
+	"item_id": "",  
+	"user_name": "",  
+	"content": "",  
+},
+{
+    "id":,
+    "user_id" : 
+	"item_id": "",  
+	"user_name": "",  
+	"content": "",  
+}
+....]
+```
 
 ## Error Responses
 
