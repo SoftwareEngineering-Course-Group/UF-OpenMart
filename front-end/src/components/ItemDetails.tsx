@@ -10,7 +10,7 @@ const item =
     }
 
 
-const ItemDetails = () => {
+const ItemDetails = (item:any) => {
     return(
     <div>
         <Card style={{width:'100%'}}>

@@ -4,7 +4,7 @@ function HeaderAvatar() {
   return (
     <div style={{margin:'15px'}}>
          <Header as='h2'>
-            <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> Patrick
+            <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> {localStorage.getItem("email")}
         </Header>
     </div>
       

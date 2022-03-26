@@ -4,7 +4,8 @@ import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
 import { getInfo, getItembyId, getPost } from '../utils';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
-import { useNavigate } from 'react-router';
+import { Route, Routes, useNavigate } from 'react-router';
+import Item from './Item';
 
 const SERVER_ORIGIN = "http://localhost:12345";
 const user = 
@@ -125,15 +126,6 @@ const ImageExampleCircular = () => {
     )
     
     console.log(posted)
-
-    
-    // let ima = `${SERVER_ORIGIN}${posted[0].Image}`
-    // const fs = require('fs-extra')
-    // fs.readdir(ima, (_err: any, files: any[]) => {
-    //     files.forEach(file => {
-    //       console.log(file);
-    //     });
-    //   });
     
     return(
         
