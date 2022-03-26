@@ -131,8 +131,6 @@ func main() {
 	r.Use(CORS())
 	r.Static("/item/image/", "./item/image/")
 
-	r.Static("/item/image/", "./item/image/")
-
 	r.POST("/auth", handler.loginHandler)
 	r.POST("/sign-up", handler.createUser)
 	//random return 5 items to front-end
