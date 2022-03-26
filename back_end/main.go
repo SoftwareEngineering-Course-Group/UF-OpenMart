@@ -92,6 +92,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/user/:id/item/category/:cate/PRA", handler.getItembyCATPRA)
 	r.GET("/user/:id/item/category/:cate/LT", handler.getItembyCATLT)
 
+
 	r.GET("/user/:id/item/name/:name", handler.getItembyName)
 	r.GET("/user/:id/item/name/:name/PRD", handler.getItembyNamePRD)
 	r.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
@@ -134,6 +135,9 @@ func main() {
 
 	r.POST("/auth", handler.loginHandler)
 	r.POST("/sign-up", handler.createUser)
+	//random return 5 items to front-end
+	r.GET("/home/list")
+
 
 	protected := r.Group("/", authorizationMiddleware)
 	protected.GET("/user/:id", handler.getUser)
