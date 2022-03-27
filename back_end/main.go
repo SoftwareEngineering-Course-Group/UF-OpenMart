@@ -134,7 +134,7 @@ func main() {
 	r.POST("/auth", handler.loginHandler)
 	r.POST("/sign-up", handler.createUser)
 	//random return 5 items to front-end
-	r.GET("/home/list")
+	r.GET("/home/list",handler.randomItems)
 
 
 	protected := r.Group("/", authorizationMiddleware)
@@ -250,6 +250,17 @@ func (h *Handler) loginHandler(c *gin.Context) {
 		"email" : user.Email,
 		"token": ss,
 	})
+}
+
+//return val
+func (h *Handler) randomItems(c *gin.Context) {
+	var result []Item
+	h.db.Table("items").Where("status = 0").Scan(&result)
+	if(len(result)>=5){
+		result = result[0:5]
+	}
+	c.JSON(http.StatusOK, result)
+
 }
 
 //create user
