@@ -146,8 +146,8 @@ func main() {
 	protected.POST("/user/:id/item/:pid/update", handler.updateItem)
 	protected.POST("/user/:id/item/:pid/remove", handler.deleteItem)
 	protected.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
-
-	protected.POST("/user/:id/item/:pid", handler.getItembyID)
+	
+	r.POST("/user/:id/item/:pid", handler.getItembyID)
 	protected.POST("/user/:id/item/list", handler.getItembyUser)
 
 	protected.GET("/user/:id/item/category/:cate", handler.getItembyCAT)
