@@ -7,7 +7,7 @@ import ItemDetails from '../components/ItemDetails';
 import { useLocation,useParams } from 'react-router-dom';
 import { getItembyId } from '../utils';
 const SERVER_ORIGIN = "http://localhost:12345";
-function Item(props:any) {
+function Item() {
     interface stateType {
         id: string;
     }

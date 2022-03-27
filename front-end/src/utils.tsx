@@ -81,6 +81,24 @@ export const getInfo = () => {
     })
     }
 
+    export const getRandom = () => {
+      let getPostedUrl = `${SERVER_ORIGIN}/home/list`;
+      return fetch(getPostedUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+        },
+      }).then((response) => {
+        if (response.status !== 200) {
+          console.log("false to get posted items");
+          throw Error('Fail to get posted items');
+        }
+        return response.json();
+      })
+      }
+
+
     export const getItembyId = (ID:any) => {
       let myidd = localStorage.getItem('myId');
       let getItemUrl = `${SERVER_ORIGIN}/user/${myidd}/item/${ID}`;
@@ -137,31 +155,5 @@ export const postImages = (data: any) => {
       throw Error('Fail to post img');
     }
     return response.json();
-  })
-}
-
-export const getRandomPictures = () =>{
-  //   return defaultItems;
-  const defaultItems = [
-    {
-      id:1,
-      name: 'goggle',
-      image:'../images/20210327_091131389_iOS.jpg',
-      price: 3
-    },
-  ]
-  return fetch(registerUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    
-  }).then((response) => {
-    
-    if (response.status !== 200) {
-      return defaultItems;
-      // throw Error('Fail to get resourse');
-    }
-    return defaultItems;
   })
 }

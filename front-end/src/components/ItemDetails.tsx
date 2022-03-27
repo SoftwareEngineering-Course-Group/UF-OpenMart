@@ -1,14 +1,6 @@
 import React,{useState} from 'react'
 import { Image,Card,Icon } from 'semantic-ui-react'
 import Love from '../components/Love'
-const item = 
-    {
-      id:1,
-      name: 'goggle',
-      image:'../images/2cc3723492e356375e6e26cacc12407.jpg',
-      price: 3
-    }
-
 
 const ItemDetails = (item:any) => {
     return(

@@ -2,59 +2,53 @@ import _ from 'lodash'
 import React, { useState,useEffect } from 'react';
 import { Grid } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
-import { getRandomPictures } from '../utils'
+import { getItembyId, getRandom } from '../utils'
 // import items from '../pages/Home'
+const SERVER_ORIGIN = "http://localhost:12345";
+const GridForItems= () => {
+  const [homeItems, setItems] = useState([{
+      ID : -1,
+      Catagory: "",  
+      Name: "",  
+      Description: "",  
+      Price: 0, 
+      CreatedAt: null,  
+      Status:   "",
+      Image: ""
+    }])
+    useEffect(()=>{
+      let data =  getRandom().then(async (response: any) =>{
+        for(var j = 0; j < response.length; j++) {
+          let data = await getItembyId(response[j].ID).then((res: any) =>{
+            response[j].Image = SERVER_ORIGIN+res.Files[0];
+            console.log(response[j].Image);
+            return response
+          }).catch((err) => {
+              console.log(err)
+              console.log("err in getItems")
+          })      
+        }
+        console.log(response);
+        setItems(response);
+      }).catch((err) => {
+          console.log(err)
+          console.log("err in getItems")
+      })       
+    },[])
 
-const GridForItems= (diyItems:any,random:boolean[]) => {
-  const [currItems,setCurr] = useState(diyItems) 
-  
-  useEffect(() => {
-    if(random[0]===false){
-      // const picture = getRandomPictures();
-        getRandomPictures().then(picture => {
-          setCurr(picture);
-          console.log("get picture no err "+picture)
-        }).catch((picture) => {
-          setCurr(picture);
-          console.log("get picture with err "+picture)     
-        })
-    }
-    else{
-      console.log("random false ")
-      setCurr(diyItems);
-    }
-  },random)
-
-  
-  console.log("get pic" + currItems)
   return (
     <>
     <Grid columns={2}>
       <Grid.Column>            
         {
-          currItems.filter((currItems: any,index: number) => index%2 === 0)
-          .map((data: { image: string; name: string; price: number; id: number; }) => (
-            <ItemCard
-                image={data.image}
-                name={data.name}
-                price={data.price}
-                key={data.id}
-            />
-            )
-          )
-        }
-      </Grid.Column>
-      <Grid.Column>
-        {
-          diyItems.filter((diyItems: any,index: number) => index%2 === 1)
-          .map((item: { image: string; name: string; price: number; id: number; })=>(
-            <ItemCard
-                image={item.image}
-                name={item.name}
-                price={item.price}
-                key={item.id}
-            />)
-          )
+          homeItems.map((item,index:Number)=>(
+          <ItemCard
+            image={item.Image}
+            name={item.Name}
+            price={item.Price}
+            id = {item.ID}
+            key={item.ID}
+          />))
         }
       </Grid.Column>
     </Grid>

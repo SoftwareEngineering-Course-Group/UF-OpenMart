@@ -101,7 +101,13 @@ const ImageExampleCircular = () => {
             setOpen(true);
         }
         else{
-            setOpen(false);          
+            getInfo().then(()=> {
+                setOpen(false);  
+            }).catch((err) => {
+                setOpen(true);
+                console.log("no login")
+            })    
+            setOpen(false);       
         }
         let curr = posted
         getPost().then(async response => {
