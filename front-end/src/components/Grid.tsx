@@ -7,6 +7,7 @@ import { getItembyId, getRandom } from '../utils'
 const SERVER_ORIGIN = "http://localhost:12345";
 const GridForItems= () => {
   const [homeItems, setItems] = useState([{
+      Count:-1,
       ID : -1,
       Catagory: "",  
       Name: "",  
@@ -21,6 +22,7 @@ const GridForItems= () => {
         for(var j = 0; j < response.length; j++) {
           let data = await getItembyId(response[j].ID).then((res: any) =>{
             response[j].Image = SERVER_ORIGIN+res.Files[0];
+            response[j].Count = j;
             console.log(response[j].Image);
             return response
           }).catch((err) => {
@@ -41,7 +43,24 @@ const GridForItems= () => {
     <Grid columns={2}>
       <Grid.Column>            
         {
-          homeItems.map((item,index:Number)=>(
+          homeItems.filter((item:any,index:number)=>
+            index%2===0 && (item.Image.indexOf('item/image')>0)
+          )
+          .map((item,index:Number)=>(
+          <ItemCard
+            image={item.Image}
+            name={item.Name}
+            price={item.Price}
+            id = {item.ID}
+            key={item.ID}
+          />))
+        }
+      </Grid.Column>
+      <Grid.Column>            
+        {
+          homeItems.filter((item:any,index:number)=>
+           (index%2===1) && (item.Image.indexOf('item/image')>0)
+          ).map((item,index:Number)=>(
           <ItemCard
             image={item.Image}
             name={item.Name}
