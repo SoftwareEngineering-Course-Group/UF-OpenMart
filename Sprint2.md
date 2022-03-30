@@ -1,11 +1,11 @@
-### Sprint2
-#### Backend accomplishment
+# Sprint2
+## Backend accomplishment
 * Almost all of APIs
 * API doc for Users and Items
 * gotest for Unittest
 * API tests by Postman and Curl
 
-#### Frontend accomplishment
+## Frontend accomplishment
 * Modified some part of user flow
 * add post item function and the page.
 * implement token authentication in each request.
