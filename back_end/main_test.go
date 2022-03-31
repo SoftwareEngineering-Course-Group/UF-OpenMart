@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"github.com/go-playground/assert/v2"
 	"io"
 	"mime/multipart"
@@ -16,12 +17,21 @@ func TestLoginHandler(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/auth"
-	param := map[string]interface{}{
-		"email":    "c",
-		"password": "123",
+	var test = []struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}{
+		{"c", "123"},
+		{"cc", "123"},
+		{"ca", "123"},
 	}
-	w = unittest.PostJson(urlIndex, param, router)
-	assert.Equal(t, 200, w.Code)
+	for _, c := range test {
+		b, _ := json.Marshal(&c)
+		var param map[string]interface{}
+		_ = json.Unmarshal(b, &param)
+		w = unittest.PostJson(urlIndex, param, router)
+		assert.Equal(t, 200, w.Code)
+	}
 }
 
 func TestCreateUser(t *testing.T) {
