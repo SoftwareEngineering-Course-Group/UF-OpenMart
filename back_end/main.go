@@ -259,6 +259,11 @@ func (h *Handler) randomItems(c *gin.Context) {
 	if(len(result)>=5){
 		result = result[0:5]
 	}
+	if(len(result)==0){
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "no item exist",
+		})
+	}
 	c.JSON(http.StatusOK, result)
 
 }
