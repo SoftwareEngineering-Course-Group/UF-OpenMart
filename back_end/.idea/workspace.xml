@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fa365bc-ebb7-4bd5-a0c7-d1a2d7cf7d70" name="变更" comment="Complete item and comment unittest">
+    <list default="true" id="4fa365bc-ebb7-4bd5-a0c7-d1a2d7cf7d70" name="变更" comment="Add test cases with structure">
+      <change beforePath="$PROJECT_DIR$/ sqlite.db" beforeDir="false" afterPath="$PROJECT_DIR$/ sqlite.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
     </list>
@@ -45,7 +46,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
-  <component name="RunManager" selected="Go 测试.openmart-app 中的 TestLoginHandler">
+  <component name="RunManager" selected="Go 测试.openmart-app 中的 TestCreateUser">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="back_end" />
       <working_directory value="$PROJECT_DIR$" />
@@ -53,6 +54,17 @@
       <package value="openmart-app" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="openmart-app 中的 TestCreateUser" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="back_end" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="openmart-app" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestCreateUser\E$" />
       <method v="2" />
     </configuration>
     <configuration name="openmart-app 中的 TestLoginHandler" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -68,6 +80,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.openmart-app 中的 TestCreateUser" />
         <item itemvalue="Go 测试.openmart-app 中的 TestLoginHandler" />
       </list>
     </recent_temporary>
@@ -97,6 +110,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add test cases with structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add test cases with structure" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

@@ -38,21 +38,35 @@ func TestCreateUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/sign-up"
-	param := map[string]interface{}{
-		"email":    "caa",
-		"password": "123",
-		"name":     "chencaa",
-		"phone":    "111",
+	var test = []struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+		Name     string `json:"name"`
+		Phone    string `json:"phone"`
+	}{
+		{"haohao", "1234", "cheneeen", "1112"},
+		{"aoa", "123", "asdd", "321"},
+		{"seee", "123", "uweoic", "111"},
+		{"nnnn", "123", "andasna", "111"},
 	}
-	w = unittest.PostJson(urlIndex, param, router)
-	assert.Equal(t, 201, w.Code)
-	assert.Equal(t, "{\"message\":\"success!\"}", w.Body.String())
+	for _, c := range test {
+		b, _ := json.Marshal(&c)
+		var param map[string]interface{}
+		_ = json.Unmarshal(b, &param)
+		w = unittest.PostJson(urlIndex, param, router)
+		assert.Equal(t, 201, w.Code)
+		assert.Equal(t, "{\"message\":\"success!\"}", w.Body.String())
+	}
 }
 
 func TestGetUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/2"
+	//urlIndex := "/user/3"
+	//urlIndex := "/user/4"
+	//urlIndex := "/user/5"
+	//urlIndex := "/user/6"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 	assert.Equal(t, "{\"email\":\"che@\",\"name\":\"chenhaowe\",\"phone\":\"111\"}", w.Body.String())
@@ -73,15 +87,25 @@ func TestUpdateUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/update"
-	param := map[string]interface{}{
-		"id":       1,
-		"email":    "hao",
-		"password": "1234",
-		"name":     "long",
-		"phone":    "1112",
+	var test = []struct {
+		Id       uint   `json:"id"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+		Name     string `json:"name"`
+		Phone    string `json:"phone"`
+	}{
+		{1, "haohao", "1234", "cheneeen", "1112"},
+		{2, "aoa", "123", "asdd", "321"},
+		{3, "seee", "123", "uweoic", "111"},
+		{4, "nnnn", "123", "andasna", "111"},
 	}
-	w = unittest.PostJson(urlIndex, param, router)
-	assert.Equal(t, 200, w.Code)
+	for _, c := range test {
+		b, _ := json.Marshal(&c)
+		var param map[string]interface{}
+		_ = json.Unmarshal(b, &param)
+		w = unittest.PostJson(urlIndex, param, router)
+		assert.Equal(t, 200, w.Code)
+	}
 }
 
 func TestCreateItem(t *testing.T) {
@@ -124,15 +148,25 @@ func TestUpdateItem(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/item/:pid/update"
-	param := map[string]interface{}{
-		"id":          1,
-		"category":    "sports",
-		"name":        "basketball",
-		"description": "a basketball with good condition",
-		"price":       10,
+	var test = []struct {
+		Id          uint    `json:"id"`
+		Category    string  `json:"category"`
+		Name        string  `json:"name"`
+		Description string  `json:"description"`
+		Price       float32 `json:"price"`
+	}{
+		{1, "sports", "basketball", "a basketball with good condition", 10},
+		{2, "sports", "football", "a football with badd condition", 30},
+		{3, "sports", "volleyball", "a volleyball with good condition", 50},
+		{4, "sports", "basketball", "a basketball with good condition", 20},
 	}
-	w = unittest.PostJson(urlIndex, param, router)
-	assert.Equal(t, 200, w.Code)
+	for _, c := range test {
+		b, _ := json.Marshal(&c)
+		var param map[string]interface{}
+		_ = json.Unmarshal(b, &param)
+		w = unittest.PostJson(urlIndex, param, router)
+		assert.Equal(t, 200, w.Code)
+	}
 }
 
 func TestUpdatePh(t *testing.T) {
