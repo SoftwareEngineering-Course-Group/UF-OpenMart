@@ -99,3 +99,12 @@ III. Work Be Done
 * use cypress to test
 * ![image](https://github.com/SoftwareEngineering-Course-Group/UF-OpenMart/blob/main/Images/ezgif-4-93b1a5a8d9.gif)
 
+----
+### Sprint3
+#### Backend accomplishment
+* More APIs for Comment module and item module as front-end needed
+* All the developed APIs with corresponding doc
+* More gotest for Unittest
+* All the API tests by Postman and Curl
+* read.md in backend file shows how to run
+* More screenshots for test result
