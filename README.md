@@ -108,3 +108,9 @@ III. Work Be Done
 * All the API tests by Postman and Curl
 * read.md in backend file shows how to run
 * More screenshots for test result
+
+#### Frontend accomplishment
+* Add collection function
+* Get items have been published and show.
+* Add comment function(have not connected to backend).
+* Get item randomly and show on home page.
