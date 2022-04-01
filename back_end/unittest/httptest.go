@@ -19,11 +19,11 @@ func ParseToStr(mp map[string]string) string {
 
 //get access controller
 func Get(uri string, router *gin.Engine) *httptest.ResponseRecorder {
-	// 构造get请求
+	// Construct the get request
 	req := httptest.NewRequest("GET", uri, nil)
-	// 初始化响应
+	// Initializing response
 	w := httptest.NewRecorder()
-	// 调用相应的handler接口
+	// Call the corresponding handler interface
 	router.ServeHTTP(w, req)
 	return w
 }
@@ -31,22 +31,22 @@ func Get(uri string, router *gin.Engine) *httptest.ResponseRecorder {
 //post access controller
 func PostForm(uri string, param map[string]string, router *gin.Engine) *httptest.ResponseRecorder {
 	req := httptest.NewRequest("POST", uri+ParseToStr(param), nil)
-	// 初始化响应
+	// Initializing response
 	w := httptest.NewRecorder()
-	// 调用相应handler接口
+	// Call the corresponding handler interface
 	router.ServeHTTP(w, req)
 	return w
 }
 
 //post json
 func PostJson(uri string, param map[string]interface{}, router *gin.Engine) *httptest.ResponseRecorder {
-	// 将参数转化为json比特流
+	// Convert the parameter to a JSON bit stream
 	jsonByte, _ := json.Marshal(param)
-	// 构造post请求，json数据以请求body的形式传递
+	// Construct the post request, where the JSON data is passed as the request body
 	req := httptest.NewRequest("POST", uri, bytes.NewReader(jsonByte))
-	// 初始化响应
+	// Initializing response
 	w := httptest.NewRecorder()
-	// 调用相应的handler接口
+	// Call the corresponding handler interface
 	router.ServeHTTP(w, req)
 	return w
 }

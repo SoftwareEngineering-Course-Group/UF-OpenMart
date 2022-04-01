@@ -13,6 +13,7 @@ import (
 	"testing"
 )
 
+// Test login
 func TestLoginHandler(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -34,6 +35,7 @@ func TestLoginHandler(t *testing.T) {
 	}
 }
 
+// Test Create User
 func TestCreateUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -59,6 +61,7 @@ func TestCreateUser(t *testing.T) {
 	}
 }
 
+//Test Get User
 func TestGetUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -72,6 +75,7 @@ func TestGetUser(t *testing.T) {
 	assert.Equal(t, "{\"email\":\"che@\",\"name\":\"chenhaowe\",\"phone\":\"111\"}", w.Body.String())
 }
 
+//Test Delete User
 func TestDeleteUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -83,6 +87,7 @@ func TestDeleteUser(t *testing.T) {
 	assert.Equal(t, "{\"message\":\"Successfully delete!\"}", w.Body.String())
 }
 
+//Test Update User
 func TestUpdateUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -108,6 +113,7 @@ func TestUpdateUser(t *testing.T) {
 	}
 }
 
+//Test Create Item
 func TestCreateItem(t *testing.T) {
 	path := "/Users/haowenchen/Desktop/1.jpeg"
 	file, err := os.Open(path)
@@ -134,6 +140,7 @@ func TestCreateItem(t *testing.T) {
 	assert.Equal(t, 201, w.Code)
 }
 
+//Test Delete Item
 func TestDeleteItem(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -144,6 +151,7 @@ func TestDeleteItem(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Update Item
 func TestUpdateItem(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -169,6 +177,7 @@ func TestUpdateItem(t *testing.T) {
 	}
 }
 
+//Test UpdatePh
 func TestUpdatePh(t *testing.T) {
 	path := "/Users/haowenchen/Desktop/1.jpeg"
 	file, err := os.Open(path)
@@ -195,6 +204,7 @@ func TestUpdatePh(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item CAT
 func TestGetItembyCAT(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -203,6 +213,7 @@ func TestGetItembyCAT(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item CATPRD
 func TestGetItembyCATPRD(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -211,6 +222,7 @@ func TestGetItembyCATPRD(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item CATPRA
 func TestGetItembyCATPRA(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -219,6 +231,7 @@ func TestGetItembyCATPRA(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Itrm CATLT
 func TestGetItembyCATLT(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -227,6 +240,7 @@ func TestGetItembyCATLT(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item by name
 func TestGetItembyName(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -235,6 +249,7 @@ func TestGetItembyName(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item by Name PRD
 func TestGetItembyNamePRD(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -243,6 +258,7 @@ func TestGetItembyNamePRD(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item by name PRA
 func TestGetItembyNamePRA(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -251,6 +267,7 @@ func TestGetItembyNamePRA(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Get Item by Name LT
 func TestGetItembyNameLT(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -259,18 +276,30 @@ func TestGetItembyNameLT(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Create Comment
 func TestCreateComment(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/item/:pid/comment/save"
-	param := map[string]interface{}{
-		"user_id": 4,
-		"name":    "Haowen",
+	var test = []struct {
+		UserId uint   `json:"userId"`
+		Name   string `json:"name"`
+	}{
+		{4, "Haowen"},
+		{1, "qirui"},
+		{2, "jiayu"},
+		{3, "yyb"},
 	}
-	w = unittest.PostJson(urlIndex, param, router)
-	assert.Equal(t, 201, w.Code)
+	for _, c := range test {
+		b, _ := json.Marshal(&c)
+		var param map[string]interface{}
+		_ = json.Unmarshal(b, &param)
+		w = unittest.PostJson(urlIndex, param, router)
+		assert.Equal(t, 201, w.Code)
+	}
 }
 
+//Test Delete Comment
 func TestDeleteComment(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -281,6 +310,7 @@ func TestDeleteComment(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Query Comment by Item
 func TestQueryCommentbyItem(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
@@ -289,6 +319,7 @@ func TestQueryCommentbyItem(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 }
 
+//Test Query Comment by User
 func TestQueryCommentbyUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
