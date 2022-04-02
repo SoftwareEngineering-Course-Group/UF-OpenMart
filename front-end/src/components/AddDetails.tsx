@@ -55,6 +55,13 @@ const AddDetails= ()=> {
         console.log(imagePreviewUrls);
 
     }
+    let postData = {
+        id : -1,
+        catagory: "",  
+        name: "",  
+        description: "",  
+        price: 0, 
+    }
     const images=(data: any)=>{//post images
       console.log(postFiles);
       console.log(data);
@@ -65,9 +72,10 @@ const AddDetails= ()=> {
       postImages(formData)
       .then((response) => {
         console.log(response);
-        
         if(response['item_id']){
-          postItem(data,response['item_id'])
+          data['catagory'] = 'temp'
+          data['id'] = response['item_id']
+          postItem(data,response['item_id'],"temp")
           .then((response) => {
             console.log(response);
             console.log("success")
@@ -96,7 +104,7 @@ const AddDetails= ()=> {
           </Form.Field> 
         <Form.Field>
             <label>Detail Description</label>
-            <textarea {...register("describle")} placeholder='...' style={{ minHeight: 180 }} />
+            <textarea {...register("description")} placeholder='...' style={{ minHeight: 180 }} />
         </Form.Field>
         <Form.Field inline>
             <label style={{marginBottom:'30px'}}>Price</label>

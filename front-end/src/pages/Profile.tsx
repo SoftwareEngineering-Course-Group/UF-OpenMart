@@ -96,7 +96,7 @@ const ImageExampleCircular = () => {
     }])
   useEffect(() => {
         // localStorage.setItem("jwtToken",'');
-        // localStorage.setItem("myId",'');
+        let myid = localStorage.getItem("myId")
         if(localStorage.getItem("jwtToken")==='' || localStorage.getItem("jwtToken")===null){
             setOpen(true);
         }
@@ -109,29 +109,34 @@ const ImageExampleCircular = () => {
             })    
             setOpen(false);       
         }
-        let curr = posted
+        let userPosts: any[] = []
         getPost().then(async response => {
-            // setCurr(response)
-            for(var j = 0; j < 3; j++) {
-                let data = await getItembyId(response[j].ID).then((res: any) =>{
+            console.log(response)
+            for(var j = 0; j < response.length; j++) {
+                    await getItembyId(response[j].ID).then((res: any) =>{
                     response[j].Image = SERVER_ORIGIN+res.Files[0];
-                    console.log(response[j].Image);
-                    return response
+                    // console.log(response[j].Image);
+                    if(String(response[j].UserID)===String(myid) ){
+                        console.log(response[j].Image)
+                        userPosts.push(response[j])
+                    }
+                    console.log(userPosts)
+                    // return response
                 }).catch((err) => {
                     console.log(err)
                     console.log("err in getItems")
-                })       
+                })         
             }
-            console.log(response[0].Image)
-            setPosted(response)   
+            console.log(userPosts[0].Image)
+            setPosted(userPosts)   
         }).catch((err) => {
-            console.log("err in get list")
+            console.log("err in get list "+err )
         })    
-        console.log(curr)
+        console.log(userPosts)
     },[]
     )
     
-    console.log(posted)
+    // console.log(posted)
     
     return(
         
