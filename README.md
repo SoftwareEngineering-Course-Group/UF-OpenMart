@@ -118,6 +118,8 @@ III. Work Be Done
 
 <a name="Use"></a>·
 III. How To Use
+#### Backend accomplishment
+* read.md in 'back_end/' file shows how to run in local
 ----
 #### Frontend 
 * Download all in frontend folder
