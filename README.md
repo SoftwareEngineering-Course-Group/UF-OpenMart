@@ -120,7 +120,7 @@ III. Work Be Done
 III. How To Use
 #### Backend accomplishment
 * read.md in 'back_end/' file shows how to run in local
-----
+
 #### Frontend 
 * Download all in frontend folder
 * Set up development environment for React
