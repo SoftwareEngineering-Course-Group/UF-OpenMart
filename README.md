@@ -20,7 +20,7 @@
 
 4. [Results and Performance](#Test)
 
-5. [How to Use](#How to Use)
+5. [How to Use](#Use)
 
 6. [Other Info](#Other Info)
 
@@ -116,7 +116,7 @@ III. Work Be Done
 * Get item randomly and show on home page.
 
 
-<a name="How to Use"></a>·
+<a name="Use"></a>·
 III. How To Use
 #### Frontend 
 * Download all in frontend folder
