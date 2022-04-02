@@ -118,6 +118,7 @@ III. Work Be Done
 
 <a name="Use"></a>·
 III. How To Use
+----
 #### Frontend 
 * Download all in frontend folder
 * Set up development environment for React
