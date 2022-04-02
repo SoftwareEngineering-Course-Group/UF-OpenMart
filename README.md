@@ -114,3 +114,12 @@ III. Work Be Done
 * Get items have been published and show.
 * Add comment function(have not connected to backend).
 * Get item randomly and show on home page.
+
+
+<a name="How to Use"></a>·
+III. How To Use
+#### Frontend 
+* Download all in frontend folder
+* Set up development environment for React
+* Run npm start in the project folder and open http://localhost:3000 in the browser
+
