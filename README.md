@@ -106,8 +106,8 @@ III. Work Be Done
 * All the developed APIs with corresponding doc
 * More gotest for Unittest
 * All the API tests by Postman and Curl
-* read.md in backend file shows how to run
-* More screenshots for test result
+* read.md in 'back_end/' file shows how to run
+* More screenshots for postman test result in '/backend_test'
 
 #### Frontend accomplishment
 * Add collection function
