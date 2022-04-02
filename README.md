@@ -114,7 +114,7 @@ III. Work Be Done
 * Get items have been published and show.
 * Add comment function(have not connected to backend).
 * Get item randomly and show on home page.
-
+* Details in https://youtu.be/QgN9Ggf3ZKA
 
 <a name="Use"></a>·
 III. How To Use
