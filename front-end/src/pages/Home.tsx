@@ -12,24 +12,6 @@ import { getRandom } from '../utils';
 //     image:'../images/2cc3723492e356375e6e26cacc12407.jpg',//不支持直接赋值相对路径
 //     price: 3
 //   },
-//   {
-//     id:2,
-//     name: 'straight plate clip',
-//     image:'../images/4ff4c153d4a5841bb5cab1a5e8ecfc0.jpg',
-//     price: 5
-//   },
-//   {
-//     id:3,
-//     name: 'razor',
-//     image:'../images/36aaf8b43944fc5b767ede93c7c5696.jpg',
-//     price: 8
-//   },
-//   {
-//     id:4,
-//     name: 'humidifier',
-//     image:'../images/51c8a5a56b2538f409b2efaf9f0fffe.png',
-//     price: 15
-//   },
 // ]
 
 const random = [true]
@@ -42,16 +24,22 @@ const style ={
     },
   }
   function Home() {
-    
+    const [filter, setfilter] = useState(0);
+    const setFilte = (val: number) => {
+      setfilter(val);
+    };
+    useEffect(()=>{
+      console.log(filter)
+    })
     return (
       <div>
         <div style={style.bgd}>
           <AppHeader/>
-          <Tool/>
+          <Tool setFilte = {setFilte}/>
         </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {
-            <GridForItems/>
+            <GridForItems  pattern = {filter}/>
           }
         </div>
         <footer>

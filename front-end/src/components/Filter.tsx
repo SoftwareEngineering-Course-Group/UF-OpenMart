@@ -1,22 +1,37 @@
-import React from 'react'
-import { Dropdown, Menu } from 'semantic-ui-react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { Dropdown, DropdownMenu, Menu } from 'semantic-ui-react'
 
-const options = [
-  { key: 1, text: 'Posted Time', value: 1 },
-  { key: 2, text: 'Price', value: 2 },
-  { key: 3, text: 'Choice 3', value: 3 },
+const tagoptions = [
+  { text: 'Posted Time', value: 1 },
+  { text: 'Price', value: 2 },
+  { text: 'Choice 3', value: 3 },
 ]
 
-const DropdownFilter = () => (
-  <Dropdown
-    text='Order By'
-    fluid
-    selection
-    options={options}
-    style={{width:'120px',float:'right'}}
-  />
-  
 
-)
+type selfProps = {
+  setFilte: Function;
+};
+const DropdownFilter : React.FC<selfProps> = (pattern:any) => {
+  const {setFilte} = pattern
+  const navigate = useNavigate();
+  useEffect(()=>{
+    console.log("filter");
+  })
+  return(
+    <Dropdown
+      text='Order By'
+      fluid
+      selection
+      // ={tagoptions}
+      options = {tagoptions.map((option) => (
+        <Dropdown.Item key={option.value} {...option} onClick = {()=>
+          setFilte(option.value)}/>
+      ))}
+      style={{width:'120px',float:'right'}}
+    >
+    </Dropdown>
+  )
+}
 
 export default DropdownFilter

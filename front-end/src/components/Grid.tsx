@@ -5,7 +5,14 @@ import ItemCard from './ItemCard'
 import { getItembyId, getRandom } from '../utils'
 // import items from '../pages/Home'
 const SERVER_ORIGIN = "http://localhost:12345";
-const GridForItems= () => {
+const filterList = {
+  0:'random',
+  1:'time',
+  2:'price',
+}
+const GridForItems= (pattern:any) => {
+  const [filt,setFilt] = useState(7);
+
   const [homeItems, setItems] = useState([{
       Count:-1,
       ID : -1,
@@ -18,6 +25,8 @@ const GridForItems= () => {
       Image: ""
     }])
     useEffect(()=>{
+      setFilt(pattern.pattern)
+      console.log("grid change "+filt)
       let data =  getRandom().then(async (response: any) =>{
         for(var j = 0; j < response.length; j++) {
           let data = await getItembyId(response[j].ID).then((res: any) =>{
@@ -31,12 +40,27 @@ const GridForItems= () => {
           })      
         }
         console.log(response);
+        switch(pattern.pattern){
+          case(0):
+          case(1):
+            response.sort((item1:any,item2:any)=>
+              item1.CreatedAt - item2.CreatedAt
+            )
+            break;
+          case(2):
+            response.sort((item1:any,item2:any)=>
+              item1.Price - item2.Price
+            )
+            break;
+          default:
+        }
+        
         setItems(response);
       }).catch((err) => {
           console.log(err)
           console.log("err in getItems")
       })       
-    },[])
+    },[pattern])
 
   return (
     <>
