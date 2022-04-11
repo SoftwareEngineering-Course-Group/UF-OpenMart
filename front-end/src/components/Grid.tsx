@@ -12,7 +12,7 @@ const filterList = {
 }
 const GridForItems= (pattern:any) => {
   const [filt,setFilt] = useState(7);
-
+  const [category,setCategory] = useState("home")
   const [homeItems, setItems] = useState([{
       Count:-1,
       ID : -1,
@@ -26,7 +26,12 @@ const GridForItems= (pattern:any) => {
     }])
     useEffect(()=>{
       setFilt(pattern.pattern)
+      setCategory(pattern.cate)
       console.log("grid change "+filt)
+      
+      //TODO: fetch data from different category
+      
+      
       let data =  getRandom().then(async (response: any) =>{
         for(var j = 0; j < response.length; j++) {
           let data = await getItembyId(response[j].ID).then((res: any) =>{

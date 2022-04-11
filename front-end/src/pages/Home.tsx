@@ -5,6 +5,7 @@ import GridForItems from '../components/Grid'
 import Menu from '../components/Menu'
 import imgBg from '../2021-03_About-pg_2000x800.jpg';//支持直接赋值相对路径
 import { getRandom } from '../utils';
+import MenuExamplePointing from '../components/Category';
 // const items = [
 //   {
 //     id:1,
@@ -25,6 +26,7 @@ const style ={
   }
   function Home() {
     const [filter, setfilter] = useState(0);
+    const [category,setCategory] = useState("home");
     const setFilte = (val: number) => {
       setfilter(val);
     };
@@ -37,9 +39,12 @@ const style ={
           <AppHeader/>
           <Tool setFilte = {setFilte}/>
         </div>
+        <div style={{marginTop:'0px'}}>
+          <MenuExamplePointing/>
+        </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {
-            <GridForItems  pattern = {filter}/>
+            <GridForItems  pattern = {filter}  cate = {category}/>
           }
         </div>
         <footer>
