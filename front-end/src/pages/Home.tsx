@@ -25,13 +25,16 @@ const style ={
     },
   }
   function Home() {
-    const [filter, setfilter] = useState(0);
+    const [filter, setfilter] = useState(3);
     const [category,setCategory] = useState("home");
     const setFilte = (val: number) => {
       setfilter(val);
     };
+    const setCate = (val: string) => {
+      setCategory(val);
+    };
     useEffect(()=>{
-      console.log(filter)
+      // console.log(category)
     })
     return (
       <div>
@@ -40,7 +43,7 @@ const style ={
           <Tool setFilte = {setFilte}/>
         </div>
         <div style={{marginTop:'0px'}}>
-          <MenuExamplePointing/>
+          <MenuExamplePointing setCate = {setCategory}/>
         </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {

@@ -1,10 +1,17 @@
 import React, { Component, useState } from 'react'
 import { Input, Menu, Segment } from 'semantic-ui-react'
 
-const MenuExamplePointing = () => {
-  const [activeItem,setActive] = useState('home')
+type selfProps = {
+  setCate: Function;
+};
 
-  const handleItemClick = (e: any, { name }: any) => setActive(name)
+const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
+  const [activeItem,setActive] = useState('home')
+  const {setCate} = cate
+  const handleItemClick = (e: any, { name }: any) => {
+    setActive(name)
+    setCate(name)
+  }
 
     return (
       <div>
@@ -15,13 +22,23 @@ const MenuExamplePointing = () => {
             onClick={handleItemClick}
           />
           <Menu.Item
-            name='messages'
-            active={activeItem === 'messages'}
+            name='sports'
+            active={activeItem === 'sports'}
             onClick={handleItemClick}
           />
           <Menu.Item
-            name='friends'
-            active={activeItem === 'friends'}
+            name='furniture'
+            active={activeItem === 'furniture'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            name='cooking'
+            active={activeItem === 'cooking'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            name='tools'
+            active={activeItem === 'tools'}
             onClick={handleItemClick}
           />
           <Menu.Menu position='right'>

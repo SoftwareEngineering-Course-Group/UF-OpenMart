@@ -9,7 +9,7 @@ const CardExampleCard = (props: any) => {
   const [open, setOpen] = React.useState(false)
   const [item, setItem] = useState(props)
   useEffect(()=>{
-    console.log(item)
+    // console.log(item)
   },[])
   return (
   <>
