@@ -249,7 +249,8 @@ func TestGetItembyCATLT(t *testing.T) {
 func TestGetItembyName(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/name/basketball"
+	urlIndex := "/user/12/item/name/basketball"
+	//urlIndex := "/user/2/item/name/basketball"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
