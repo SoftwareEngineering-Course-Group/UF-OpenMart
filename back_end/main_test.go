@@ -259,7 +259,8 @@ func TestGetItembyName(t *testing.T) {
 func TestGetItembyNamePRD(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/name/basketball/PRD"
+	urlIndex := "/user/12/item/name/basketball/PRD"
+	//urlIndex := "/user/2/item/name/basketball/PRD"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
