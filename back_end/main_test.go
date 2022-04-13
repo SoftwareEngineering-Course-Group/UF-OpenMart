@@ -81,7 +81,7 @@ func TestDeleteUser(t *testing.T) {
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/remove"
 	param := make(map[string]interface{})
-	param["id"] = 9
+	param["id"] = 8
 	w = unittest.PostJson(urlIndex, param, router)
 	assert.Equal(t, 200, w.Code)
 	assert.Equal(t, "{\"message\":\"Successfully delete!\"}", w.Body.String())
