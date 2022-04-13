@@ -229,7 +229,8 @@ func TestGetItembyCATPRD(t *testing.T) {
 func TestGetItembyCATPRA(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/category/sports/PRA"
+	urlIndex := "/user/12/item/category/sports/PRA"
+	//urlIndex := "/user/2/item/category/sports/PRA"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
@@ -238,7 +239,8 @@ func TestGetItembyCATPRA(t *testing.T) {
 func TestGetItembyCATLT(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/category/sports/LT"
+	urlIndex := "/user/12/item/category/sports/LT"
+	//urlIndex := "/user/2/item/category/sports/LT"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
