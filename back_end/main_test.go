@@ -314,7 +314,7 @@ func TestDeleteComment(t *testing.T) {
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/comment/delete"
 	param := make(map[string]interface{})
-	param["id"] = 4
+	param["id"] = 5
 	w = unittest.PostJson(urlIndex, param, router)
 	assert.Equal(t, 200, w.Code)
 }
