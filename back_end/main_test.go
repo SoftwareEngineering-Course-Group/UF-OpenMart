@@ -65,8 +65,8 @@ func TestCreateUser(t *testing.T) {
 func TestGetUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2"
-	//urlIndex := "/user/3"
+	//urlIndex := "/user/2"
+	urlIndex := "/user/3"
 	//urlIndex := "/user/4"
 	//urlIndex := "/user/5"
 	//urlIndex := "/user/6"

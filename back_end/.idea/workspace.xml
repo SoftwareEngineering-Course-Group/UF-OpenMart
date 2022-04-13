@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fa365bc-ebb7-4bd5-a0c7-d1a2d7cf7d70" name="变更" comment="Add test cases with structure">
+    <list default="true" id="4fa365bc-ebb7-4bd5-a0c7-d1a2d7cf7d70" name="变更" comment="Add test cases with structure and add basic notes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unittest/httptest.go" beforeDir="false" afterPath="$PROJECT_DIR$/unittest/httptest.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/Go/sdk/go1.17.6" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="UPDATE_TYPE" value="REBASE" />
@@ -113,7 +112,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add test cases with structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add test cases with structure" />
+    <MESSAGE value="Add test cases with structure and add basic notes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add test cases with structure and add basic notes" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
