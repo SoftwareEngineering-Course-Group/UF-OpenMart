@@ -219,7 +219,8 @@ func TestGetItembyCAT(t *testing.T) {
 func TestGetItembyCATPRD(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/category/sports/PRD"
+	urlIndex := "/user/12/item/category/sports/PRD"
+	//urlIndex := "/user/2/item/category/sports/PRD"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
