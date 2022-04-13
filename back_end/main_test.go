@@ -209,7 +209,8 @@ func TestUpdatePh(t *testing.T) {
 func TestGetItembyCAT(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/2/item/category/sports"
+	//urlIndex := "/user/2/item/category/sports"
+	urlIndex := "/user/12/item/category/sports"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
