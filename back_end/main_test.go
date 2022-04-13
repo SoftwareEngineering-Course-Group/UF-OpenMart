@@ -315,6 +315,7 @@ func TestDeleteComment(t *testing.T) {
 	urlIndex := "/user/:id/comment/delete"
 	param := make(map[string]interface{})
 	param["id"] = 5
+	//param["id"] = 4
 	w = unittest.PostJson(urlIndex, param, router)
 	assert.Equal(t, 200, w.Code)
 }
@@ -323,7 +324,8 @@ func TestDeleteComment(t *testing.T) {
 func TestQueryCommentbyItem(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/3/item/4/comment/itemList"
+	urlIndex := "/user/5/item/6/comment/itemList"
+	//urlIndex := "/user/3/item/4/comment/itemList"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
