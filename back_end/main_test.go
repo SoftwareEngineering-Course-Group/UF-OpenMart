@@ -146,7 +146,8 @@ func TestDeleteItem(t *testing.T) {
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/item/:pid/remove"
 	param := make(map[string]interface{})
-	param["id"] = 4
+	param["id"] = 5
+	//param["id"] = 4
 	w = unittest.PostJson(urlIndex, param, router)
 	assert.Equal(t, 200, w.Code)
 }
