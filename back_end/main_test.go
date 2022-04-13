@@ -334,7 +334,8 @@ func TestQueryCommentbyItem(t *testing.T) {
 func TestQueryCommentbyUser(t *testing.T) {
 	router := setupRouter()
 	var w *httptest.ResponseRecorder
-	urlIndex := "/user/3/item/4/comment/userList"
+	urlIndex := "/user/5/item/6/comment/userList"
+	//urlIndex := "/user/3/item/4/comment/userList"
 	w = unittest.Get(urlIndex, router)
 	assert.Equal(t, 200, w.Code)
 }
