@@ -50,9 +50,7 @@ const style ={
             <GridForItems  pattern = {filter}  cate = {category}/>
           }
         </div>
-        <footer>
           <Menu/>
-        </footer>
       </div>
     );
   }

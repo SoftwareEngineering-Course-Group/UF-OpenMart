@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const style ={
   footer:{
       position: 'fixed',
-      bottom: '0%',
-      width: '100%',
+      top: '40%',
+      right: '0%',
   }
 }
 const MenuCompact= ()=> {
@@ -16,7 +16,7 @@ const MenuCompact= ()=> {
   }
 
     return (
-      <Menu compact icon='labeled' fluid widths={3} style={style.footer}>
+      <Menu compact icon='labeled' vertical style={style.footer}>
         <Menu.Item
           name='gamepad'
           href="/"
@@ -24,6 +24,7 @@ const MenuCompact= ()=> {
           onClick={handleItemClick}
         > 
             <Icon link name='home' />
+            home
         </Menu.Item>
 
         <Menu.Item
@@ -33,6 +34,7 @@ const MenuCompact= ()=> {
           onClick={handleItemClick}
         >
           <Icon name='add' />
+          post
         </Menu.Item>
 
         <Menu.Item
@@ -42,6 +44,7 @@ const MenuCompact= ()=> {
           onClick={handleItemClick}
         >
           <Icon name='user' />
+          My profile
         </Menu.Item>
       </Menu>
     );
