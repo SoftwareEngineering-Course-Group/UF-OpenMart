@@ -30,10 +30,13 @@ function Item() {
         <div>
             <Back/>
             <HeaderAvatar/>
-            <ItemDetails image = {img}/>
-            <div style={{margin:'15px',paddingBottom:'70px'}}>
-                <Comments/>
+            <div>
+                <ItemDetails image = {img} name={'title'} price={15} description={'inlab..'} />
+                <div style={{margin:'15px',paddingBottom:'70px',}}>
+                    <Comments/>
+                </div>
             </div>
+            
             <footer>
                 <Menu/>
             </footer>

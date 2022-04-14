@@ -17,8 +17,13 @@ const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
       <div>
         <Menu pointing>
           <Menu.Item
-            name='home'
-            active={activeItem === 'home'}
+            name='all'
+            active={activeItem === 'all'}
+            onClick={handleItemClick}
+          />
+          <Menu.Item
+            name='Daily necessity'
+            active={activeItem === 'Daily necessity'}
             onClick={handleItemClick}
           />
           <Menu.Item
@@ -32,13 +37,13 @@ const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
             onClick={handleItemClick}
           />
           <Menu.Item
-            name='cooking'
-            active={activeItem === 'cooking'}
+            name='kitchenware'
+            active={activeItem === 'kitchenware'}
             onClick={handleItemClick}
           />
           <Menu.Item
-            name='tools'
-            active={activeItem === 'tools'}
+            name='other'
+            active={activeItem === 'other'}
             onClick={handleItemClick}
           />
           <Menu.Menu position='right'>

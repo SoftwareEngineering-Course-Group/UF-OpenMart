@@ -15,7 +15,7 @@ const ItemDetails = (item:any) => {
                     <span className='date'>posted in Feb 2022</span>
                 </Card.Meta>
                 <Card.Description>
-                   can be used in chemistry lab.
+                   {item.description}
                 </Card.Description>
             </Card.Content>
         </Card>

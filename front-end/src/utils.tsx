@@ -139,12 +139,9 @@ export const getInfo = () => {
       })
       }
     
-export const postItem = (data: any,pid: string,cate:string) => {
+export const postItem = (data: any,pid: string) => {
   let myidd = localStorage.getItem('myId');
   let postUrl = `${SERVER_ORIGIN}/user/${myidd}/item/`;
-  // data.map((item:any)=>(
-  //   item.add('"catagory":cate')
-  // ))
   console.log(data)
   return fetch(postUrl+pid+'/update', {
     method: 'POST',

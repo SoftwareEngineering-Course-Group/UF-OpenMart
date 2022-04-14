@@ -165,11 +165,11 @@ const GridForItems= (pattern:any) => {
                   />
               </div>
             
-            ):(<Grid columns={2}>
+            ):(<Grid columns={4}>
               <Grid.Column>            
                 {
                   homeItems.filter((item:any,index:number)=>
-                    index%2===0 && (item.Image.indexOf('item/image')>0)
+                    index%4===0 && (item.Image.indexOf('item/image')>0)
                   )
                   .map((item,index:Number)=>(
                   <ItemCard
@@ -184,7 +184,35 @@ const GridForItems= (pattern:any) => {
               <Grid.Column>            
                 {
                   homeItems.filter((item:any,index:number)=>
-                   (index%2===1) && (item.Image.indexOf('item/image')>0)
+                   (index%4===1) && (item.Image.indexOf('item/image')>0)
+                  ).map((item,index:Number)=>(
+                  <ItemCard
+                    image={item.Image}
+                    name={item.Name}
+                    price={item.Price}
+                    id = {item.ID}
+                    key={item.ID}
+                  />))
+                }
+              </Grid.Column>
+              <Grid.Column>            
+                {
+                  homeItems.filter((item:any,index:number)=>
+                   (index%4===2) && (item.Image.indexOf('item/image')>0)
+                  ).map((item,index:Number)=>(
+                  <ItemCard
+                    image={item.Image}
+                    name={item.Name}
+                    price={item.Price}
+                    id = {item.ID}
+                    key={item.ID}
+                  />))
+                }
+              </Grid.Column>
+              <Grid.Column>            
+                {
+                  homeItems.filter((item:any,index:number)=>
+                   (index%4===3) && (item.Image.indexOf('item/image')>0)
                   ).map((item,index:Number)=>(
                   <ItemCard
                     image={item.Image}

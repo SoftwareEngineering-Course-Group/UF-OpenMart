@@ -13,14 +13,6 @@ import {
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
 
-const options = [
-  { key: 'sports', value: 'sports', text: 'Sports' },
-  { key: 'furniture', value: 'furniture', text: 'Furniture' },
-  { key: 'dn', value: 'dn', text: 'Daily necessity' },
-  { key: 'kitchenware', value: 'kitchenware', text: 'Kitchenware' },
-  { key: 'other', value: 'other', text: 'Other' },
-
-]
 let formData = new FormData();
 var curImages: any[]=[];
 var postFiles: any[]=[];
@@ -83,7 +75,7 @@ const AddDetails= ()=> {
         console.log(response);
         if(response['item_id']){
           data['id'] = response['item_id']
-          postItem(data,response['item_id'],"temp")
+          postItem(data,response['item_id'])
           .then((response) => {
             console.log(response);
             console.log("success")
@@ -111,8 +103,14 @@ const AddDetails= ()=> {
              <input {...register("name")} placeholder='what is your goods?' />
           </Form.Field> 
           <Form.Field>
-             <label>Catalogue</label>
-             <Select {...register("catalogue")} placeholder='Select catalogue' options={options} style={{width:'15%'}}/>
+             <label>Category</label>
+             <select {...register("catagory")} style={{width:'25%'}}>
+              <option value="" disabled selected hidden>Please Choose...</option>
+              <option value="furniture">Furniture</option>
+              <option value="dn">Daily necessity</option>
+              <option value="kitchenware">Kitchenware</option>
+              <option value="other">Other</option>
+            </select>
           </Form.Field> 
         <Form.Field>
             <label>Detail Description</label>

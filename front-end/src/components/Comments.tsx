@@ -58,13 +58,13 @@ const Comments = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   return(
 
-    <Comment.Group>
+    <Comment.Group style={{right:'0 px'}}>
     <Header as='h3' dividing>
       Comments
     </Header>
     
-    <Form onSubmit={handleSubmit(submit)}>
-    <Form.Group>
+    <Form onSubmit={handleSubmit(submit)} >
+    <Form.Group >
         <input {...register("message")} value={text} placeholder='Say something...' onChange={(e) => setText(e.target.value)} style={{flex:1,marginRight:'10px'}}/>
         <Button type='submit'>Submit</Button>
     </Form.Group>
