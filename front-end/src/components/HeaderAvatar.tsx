@@ -1,12 +1,17 @@
 import React from 'react'
-import { Header, Image, Checkbox } from 'semantic-ui-react'
-function HeaderAvatar() {
+import { Header, Image, Button } from 'semantic-ui-react'
+import { deleteItem } from '../utils';
+function HeaderAvatar(item:any) {
+
+  const onFinish = (data: any) => {
+    console.log(data);
+    
+  }
   return (
     <div style={{margin:'15px',display:'flex'}}>
-         <Header as='h2' style={{flex:1}}>
+         <Header as='h2' >
             <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> {localStorage.getItem("email")}
         </Header>
-        <Checkbox toggle style={{float:'right'}} label="On Sale"/>
     </div>
       
   );

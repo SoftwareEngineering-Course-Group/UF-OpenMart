@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import Menu from '../components/Menu'
 import Back from '../components/Back'
 import Comments from '../components/Comments'
-import HeaderAvatar from '../components/HeaderAvatar'
+import ItemHeader from '../components/ItemHeader'
 import ItemDetails from '../components/ItemDetails';
 import { useLocation,useParams } from 'react-router-dom';
 import { getItembyId } from '../utils';
+
 const SERVER_ORIGIN = "http://localhost:12345";
 function Item() {
     interface stateType {
@@ -16,10 +17,17 @@ function Item() {
      //使用钩子获取state
     const sta= location.state as stateType;
     const [img, setImg] = React.useState("")
+    const [title, setTitle] = React.useState("")
+    const [price, setPrice] = React.useState("")
+    const [des, setDes] = React.useState("")
+    var isMine=false;
     useEffect(()=>{
         console.log(para.id)
         let data =  getItembyId(para.id).then((res: any) =>{
             setImg(SERVER_ORIGIN+res.Files[0]);
+            setTitle(res.Name);
+            setPrice(res.Price);
+            setDes(res.Description);
             console.log(img);
         }).catch((err) => {
             console.log(err)
@@ -29,9 +37,9 @@ function Item() {
     return (
         <div>
             <Back/>
-            <HeaderAvatar/>
+            <ItemHeader itemId={para.id} profile={isMine}/>
             <div>
-                <ItemDetails image = {img} name={'title'} price={15} description={'inlab..'} />
+                <ItemDetails image = {img} name={title} price={price} description={des} />
                 <div style={{margin:'15px',paddingBottom:'70px',}}>
                     <Comments/>
                 </div>

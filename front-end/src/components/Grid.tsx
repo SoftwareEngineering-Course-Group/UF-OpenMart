@@ -15,7 +15,7 @@ const GridForItems= (pattern:any) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false)
   const [filt,setFilt] = useState(0);
-  const [category,setCategory] = useState("home")
+  const [category,setCategory] = useState("all")
   const [hasItems,setHas] = useState(false) 
   const [homeItems, setItems] = useState([{
       Count:-1,
@@ -40,7 +40,7 @@ const GridForItems= (pattern:any) => {
     Image: ""
   }])
   const getCate = (cate:string) =>{
-    if(cate === 'home'){
+    if(cate === 'all'){
       getRandom().then(async (response: any) =>{
         if(response === null){
           console.log("empty items")

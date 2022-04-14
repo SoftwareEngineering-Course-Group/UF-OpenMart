@@ -40,6 +40,28 @@ export const login = (credential: any) => {
   })
 }
 
+export const deleteItem = (idNum: any) => {
+  
+  let myId = localStorage.getItem('myId');
+  let id = {"id":Number(myId)}
+  console.log(id);
+  const deleteItemUrl = `${SERVER_ORIGIN}/user/${myId}/item/${idNum}/update`;
+  return fetch(deleteItemUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+    },
+    body: JSON.stringify(id)
+  }).then((response) => {
+    if (response.status !== 200) {
+      console.log("false to delete");
+      throw Error('Fail to delete');
+    }
+    return response.json();
+  })
+}
+
 export const getInfo = () => {
   let myidd = localStorage.getItem('myId');
   let inforUrl = `${SERVER_ORIGIN}/user/${myidd}`

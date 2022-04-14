@@ -6,7 +6,7 @@ type selfProps = {
 };
 
 const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
-  const [activeItem,setActive] = useState('home')
+  const [activeItem,setActive] = useState('all')
   const {setCate} = cate
   const handleItemClick = (e: any, { name }: any) => {
     setActive(name)
@@ -22,7 +22,7 @@ const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
             onClick={handleItemClick}
           />
           <Menu.Item
-            name='Daily necessity'
+            name='daily necessity'
             active={activeItem === 'Daily necessity'}
             onClick={handleItemClick}
           />
