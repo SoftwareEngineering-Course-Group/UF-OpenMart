@@ -9,9 +9,18 @@ import {
     Icon,
     Image,
     TextArea,
+    Select,
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
 
+const options = [
+  { key: 'sports', value: 'sports', text: 'Sports' },
+  { key: 'furniture', value: 'furniture', text: 'Furniture' },
+  { key: 'dn', value: 'dn', text: 'Daily necessity' },
+  { key: 'kitchenware', value: 'kitchenware', text: 'Kitchenware' },
+  { key: 'other', value: 'other', text: 'Other' },
+
+]
 let formData = new FormData();
 var curImages: any[]=[];
 var postFiles: any[]=[];
@@ -73,7 +82,6 @@ const AddDetails= ()=> {
       .then((response) => {
         console.log(response);
         if(response['item_id']){
-          data['catagory'] = 'temp'
           data['id'] = response['item_id']
           postItem(data,response['item_id'],"temp")
           .then((response) => {
@@ -100,7 +108,11 @@ const AddDetails= ()=> {
         <Form onSubmit={handleSubmit(images)}>
           <Form.Field>
              <label>Title</label>
-             <input {...register("name")} placeholder='what is your goods?' style={{width:'30%'}}/>
+             <input {...register("name")} placeholder='what is your goods?' />
+          </Form.Field> 
+          <Form.Field>
+             <label>Catalogue</label>
+             <Select {...register("catalogue")} placeholder='Select catalogue' options={options} style={{width:'15%'}}/>
           </Form.Field> 
         <Form.Field>
             <label>Detail Description</label>
@@ -110,7 +122,7 @@ const AddDetails= ()=> {
             <label style={{marginBottom:'30px'}}>Price</label>
             <input type="number" {...register("price", {
                   setValueAs: v => parseFloat(v),
-                }) } placeholder='price' style={{width:'30%'}}/>
+                }) } placeholder='price' style={{width:'15%'}}/>
             <label>&nbsp; $</label>
             <div style={{marginBottom:'20px'}}>
               <label htmlFor="picFor"><Icon name='upload' size='big' link />images</label>
