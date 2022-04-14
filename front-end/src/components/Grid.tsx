@@ -40,45 +40,18 @@ const GridForItems= (pattern:any) => {
     Image: ""
   }])
   const getCate = (cate:string) =>{
-    getCategory(cate).then(async (response: any) =>{
-      if(response === null){
-        console.log("empty items")
-        setHas(true)
-      }else{
-        // console.log(response);
-        setHas(false)
-        for(var j = 0; j < response.length; j++) {
-          let data = await getItembyId(response[j].ID).then((res: any) =>{
-            response[j].Image = SERVER_ORIGIN+res.Files[0];
-            response[j].Count = j;
-            // console.log(response[j].Image);
-            return response
-          }).catch((err) => {
-              console.log(err)
-              console.log("err in getItems")
-          })      
-        }
-        
-        console.log(response);
-        setNew(response.slice(0))
-        setItems(response.slice(0));
-      }
-    }).catch((err) => {
-        console.log(err)
-        setOpen(true)
-        console.log("err in getItems")
-    })  
-  }
-    useEffect(()=>{
-      setCategory(pattern.cate)
-      console.log(pattern.cate);
-      if(pattern.cate != "home"){
-        getCate(pattern.cate);
-      }
-      else{
-        getRandom().then(async (response: any) =>{
+    if(cate === 'home'){
+      getRandom().then(async (response: any) =>{
+        if(response === null){
+          console.log("empty items")
+          setHas(true)
+          setNew([])
+          setItems([])
+          console.log(response);
+        }else{
+          setHas(false)
           for(var j = 0; j < response.length; j++) {
-            let data = await getItembyId(response[j].ID).then((res: any) =>{
+            await getItembyId(response[j].ID).then((res: any) =>{
               response[j].Image = SERVER_ORIGIN+res.Files[0];
               response[j].Count = j;
               // console.log(response[j].Image);
@@ -88,15 +61,55 @@ const GridForItems= (pattern:any) => {
                 console.log("err in getItems")
             })      
           }
-          console.log(newOrder)
+          console.log(response)
           setNew(response.slice(0))
-        setItems(response.slice(0));
+          setItems(response.slice(0));
+        }
+      }).catch((err) => {
+          console.log(err)
+          console.log("err in getItems")
+      })
+    }
+    else{
+      getCategory(cate).then(async (response: any) =>{
+        if(response === null){
+          console.log("empty items")
+          setHas(true)
+          setNew([])
+          setItems([])
+          console.log(response);
+        }else{
+          // console.log(response);
+          setHas(false)
+          for(var j = 0; j < response.length; j++) {
+            await getItembyId(response[j].ID).then((res: any) =>{
+              response[j].Image = SERVER_ORIGIN+res.Files[0];
+              response[j].Count = j;
+              // console.log(response[j].Image);
+              return response
+            }).catch((err) => {
+                console.log(err)
+                console.log("err in getItems")
+            })      
+          }
           
-        }).catch((err) => {
-            console.log(err)
-            console.log("err in getItems")
-        })
-      }
+          console.log(response);
+          setNew(response.slice(0))
+          setItems(response.slice(0));
+        }
+      }).catch((err) => {
+          console.log(err)
+          setOpen(true)
+          console.log("err in getItems")
+      })  
+    }
+    
+  }
+    useEffect(()=>{
+      console.log("setCate: "+pattern.cate)
+      setCategory(pattern.cate)
+      console.log(pattern.cate);
+      getCate(pattern.cate);
     },[pattern.cate])
 
     useEffect(()=>{
