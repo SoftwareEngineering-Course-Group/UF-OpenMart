@@ -25,17 +25,19 @@ const style ={
     },
   }
   function Home() {
-    const [filter, setfilter] = useState(3);
-    const [category,setCategory] = useState("home");
+    const [filter, setfilter] = useState(0);
+    const [category,setCategory] = useState("all");
     const setFilte = (val: number) => {
+      console.log("set filter: "+val)
       setfilter(val);
     };
     const setCate = (val: string) => {
       setCategory(val);
+      setFilte(0)
     };
     useEffect(()=>{
       // console.log(category)
-    })
+    },[category,filter])
     return (
       <div>
         <div style={style.bgd}>
@@ -43,7 +45,7 @@ const style ={
           <Tool setFilte = {setFilte}/>
         </div>
         <div style={{marginTop:'0px'}}>
-          <MenuExamplePointing setCate = {setCategory}/>
+          <MenuExamplePointing setCate = {setCate}/>
         </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {

@@ -14,10 +14,8 @@ type selfProps = {
 };
 const DropdownFilter : React.FC<selfProps> = (pattern:any) => {
   const {setFilte} = pattern
-  const navigate = useNavigate();
   useEffect(()=>{
-    console.log("filter");
-  })
+  },[])
   return(
     <Dropdown
       text='Order By'

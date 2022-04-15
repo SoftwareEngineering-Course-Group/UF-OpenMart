@@ -6,11 +6,7 @@ import { getCategory, getItembyId, getRandom } from '../utils'
 import { useNavigate } from 'react-router';
 // import items from '../pages/Home'
 const SERVER_ORIGIN = "http://localhost:12345";
-const filterList = {
-  0:'random',
-  1:'time',
-  2:'price',
-}
+
 const GridForItems= (pattern:any) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false)
@@ -39,6 +35,7 @@ const GridForItems= (pattern:any) => {
     Status:   "",
     Image: ""
   }])
+
   const getCate = (cate:string) =>{
     if(cate === 'all'){
       getRandom().then(async (response: any) =>{
@@ -105,46 +102,48 @@ const GridForItems= (pattern:any) => {
     }
     
   }
-    useEffect(()=>{
-      console.log("setCate: "+pattern.cate)
-      setCategory(pattern.cate)
-      console.log(pattern.cate);
-      getCate(pattern.cate);
-    },[pattern.cate])
 
-    useEffect(()=>{
-      console.log("filter changed: "+pattern.pattern)
-      switch(pattern.pattern){
-        case(0):
-          break;
-        case(1):
-          homeItems.sort((item1:any,item2:any)=>{
-              if(item1.CreatedAt > item2.CreatedAt){
-                return item1
-              }
-              else{
-                return item2
-              }
+  useEffect(()=>{
+    setFilt(0)
+    console.log("filt: "+filt)
+    setCategory(pattern.cate)
+    getCate(pattern.cate);
+  },[pattern.cate])
+
+  useEffect(()=>{
+    console.log("filter changed: "+pattern.pattern)
+    setFilt(pattern.pattern)
+    switch(pattern.pattern){
+      case(0):
+        break;
+      case(1):
+        homeItems.sort((item1:any,item2:any)=>{
+            if(item1.CreatedAt > item2.CreatedAt){
+              return item1
             }
-          )
-          const newAr = homeItems.slice(0)
-          setItems(newAr)
-          console.log(homeItems);
-          break;
-        case(2):
-          homeItems.sort((item1:any,item2:any)=>
-            item1.Price - item2.Price
-          )
-          const newArr = homeItems.slice(0)
-          setItems(newArr)
-          break;
-        case(3):
-          console.log(newOrder)
-          setItems(newOrder.slice(0))
-          break;
-        default:
-      }
-    },[pattern.pattern])
+            else{
+              return item2
+            }
+          }
+        )
+        const newAr = homeItems.slice(0)
+        setItems(newAr)
+        console.log(homeItems);
+        break;
+      case(2):
+        homeItems.sort((item1:any,item2:any)=>
+          item1.Price - item2.Price
+        )
+        const newArr = homeItems.slice(0)
+        setItems(newArr)
+        break;
+      case(3):
+        console.log(newOrder)
+        setItems(newOrder.slice(0))
+        break;
+      default:
+    }
+  },[pattern.pattern])
 
   return (
     <>

@@ -123,7 +123,6 @@ export const getInfo = () => {
       export const getCategory = (cate:string) => {
         let myidd = localStorage.getItem('myId');
         let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/category/${cate}`;
-        console.log("util get cate: "+cate)
         return fetch(getPostedUrl, {
           method: 'GET',
           headers: {
