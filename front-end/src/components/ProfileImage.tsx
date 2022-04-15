@@ -11,7 +11,7 @@ function ProfileImage(props:any) {
     onClick = {()=>{
       // console.log(props.identifier)  
 
-       navigate(`/item/${props.identifier}`,{replace : true,state : { id : props.identifier }})
+       navigate(`/item/${props.identifier}`,{replace : true,state : { id : props.identifier , userid:localStorage.getItem("myId")}})
     }}
     >
         <div style={{ 

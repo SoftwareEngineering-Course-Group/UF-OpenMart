@@ -141,12 +141,12 @@ const ImageExampleCircular = () => {
     return(
         
         <div>
-            <Modal
-            centered={false}
-            open={open}
-            // onClose={() => setOpen(false)}
-            // onOpen={() => setOpen(true)}
-            // trigger={<Button>Show Modal</Button>}
+        <Modal
+        centered={false}
+        open={open}
+        // onClose={() => setOpen(false)}
+        // onOpen={() => setOpen(true)}
+        // trigger={<Button>Show Modal</Button>}
         >
         <Modal.Header>Failed to access</Modal.Header>
         <Modal.Content>
