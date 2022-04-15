@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { Comment, Form, Header,Segment,Button} from 'semantic-ui-react'
+import { Comment,} from 'semantic-ui-react'
 
 const CommentCard = (comment: any) => {
     var replyComments;
     var empty;
-    console.log(comment)
+    console.log(comment.avatar)
     const [comments, setCom] = React.useState()
     // if (comment.reply.length!=0) {
     //     replyComments = (<Comment.Group>
