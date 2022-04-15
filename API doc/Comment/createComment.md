@@ -28,10 +28,10 @@ Provide unique name of Account.
 
 ```json
 {
-    "user_id": 1,
-    "user_name": "qirui",
-    "item_id": 1,
-    "content": "hello"
+    "UserID": 1,
+    "UserName": "qirui",
+    "ItemID": 1,
+    "Content": "hello"
 }
 ```
 
