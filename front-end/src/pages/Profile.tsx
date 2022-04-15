@@ -5,16 +5,12 @@ import ProfileImage from '../components/ProfileImage'
 import { getInfo, getItembyId, getPost } from '../utils';
 import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
 import { Route, Routes, useNavigate } from 'react-router';
-import Item from './Item';
+import avator from '../avator.png'
 
 const SERVER_ORIGIN = "http://localhost:12345";
 const user = 
     {
-      id:1,
-      name: 'yyb',
-      avatar:'https://react.semantic-ui.com/images/avatar/large/patrick.png',
-      rtime: 'Feb.7th 2022',
-      aboutMe:'A goat was feeding one day high on a rocky crag when a hungry wolf happened to pass below'
+      aboutMe:'Welcome to come my profile!'
     }
 
 const favorites = [
@@ -160,13 +156,13 @@ const ImageExampleCircular = () => {
         </Modal>
         <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
             
-            <Image src='https://react.semantic-ui.com/images/avatar/large/patrick.png' size='small' circular centered/>
-            <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{localStorage.getItem("email")}</h2>
+            <Image src={avator} size='small' circular centered/>
+            <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{localStorage.getItem("name")}</h2>
         </div>
         <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
             <div>
                 <Icon name='time' />
-                <span>registration time: {user.rtime}</span>
+                <span>email: {localStorage.getItem("email")}</span>
             </div>
             <div>
                 <span>{user.aboutMe} </span>
@@ -175,7 +171,7 @@ const ImageExampleCircular = () => {
                     
         </div>
             <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
-                <Button primary>Message</Button>
+
             </div>
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Posted</h2>

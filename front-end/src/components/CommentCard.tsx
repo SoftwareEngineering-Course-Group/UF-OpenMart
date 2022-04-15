@@ -18,10 +18,6 @@ const CommentCard = (comment: any) => {
     //     </Comment.Group>);
     // } 
 
-    useEffect(()=>{
-      setCom(comment)
-      console.log(comment)
-    },[])
     return(
 
     <Comment id={comment.id}>

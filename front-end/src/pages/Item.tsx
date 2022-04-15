@@ -6,7 +6,7 @@ import ItemHeader from '../components/ItemHeader'
 import ItemDetails from '../components/ItemDetails';
 import { useLocation,useNavigate,useParams } from 'react-router-dom';
 import { getItembyId, getName } from '../utils';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal,Icon } from 'semantic-ui-react';
 
 const SERVER_ORIGIN = "http://localhost:12345";
 function Item() {
@@ -19,21 +19,26 @@ function Item() {
      //使用钩子获取state
     const sta= location.state as stateType;
     const [img, setImg] = React.useState("")
-    const [title, setTitle] = React.useState("")
-    const [price, setPrice] = React.useState("")
-    const [des, setDes] = React.useState("")
+    const [info, setInfo] = React.useState({
+        name:null,
+        price:null,
+        des:null,
+        date:" "
+
+    })
     const [open, setOpen] = useState(false)
+    const [countPic, setPic] = React.useState(0)
+    const [imgs, setImgs] = React.useState([""])
     var isMine=(sta.userid==localStorage.getItem("myId"))?true:false;
-    console.log(sta.userid)
-    console.log(localStorage.getItem("myId"))
     const navigate = useNavigate();
     useEffect( ()=>{
         console.log(para)
         getItembyId(para.id).then((res: any) =>{
-            setImg(SERVER_ORIGIN+res.Files[0]);
-            setTitle(res.Name);
-            setPrice(res.Price);
-            setDes(res.Description);
+            setImg(SERVER_ORIGIN+res.Files[countPic]);
+            setImgs(res.Files);
+            //console.log(imgs[0])
+            let info={name:res.Name,price:res.Price,des:res.Description,date:res.CreatedAt.slice(0, 10)+" "+res.CreatedAt.slice(11, 16)}
+            setInfo(info);
             setOpen(false)
             console.log(img);
         }).catch((err) => {
@@ -41,7 +46,20 @@ function Item() {
             setOpen(true)
             console.log("err in getItems")
         })       
-    })
+    },[])
+    const clickNext =()=>{
+        let len=imgs.length;
+        console.log("next");
+        setPic(countPic+1>=len?len-1:countPic+1)
+        setImg(SERVER_ORIGIN+imgs[countPic]);
+    
+      }
+    const clickPre =()=>{
+        setPic(countPic-1<0?0:countPic-1)
+        console.log("pre");
+        setImg(SERVER_ORIGIN+imgs[countPic]);
+
+    }
     return (
         <div>
             <Modal
@@ -65,7 +83,11 @@ function Item() {
             <Back/>
             <ItemHeader userId={sta.userid} itemId={para.id} profile={isMine}/>
             <div>
-                <ItemDetails image = {img} name={title} price={price} description={des} />
+                <div style={{display:'flex',flexWrap: 'nowrap',alignItems: 'center'}} >
+                    <Icon circular name='angle left' style={{flexShrink:'0'}} onClick={clickPre}/>
+                    <ItemDetails image = {img} name={info.name} price={info.price} description={info.des} createdAt={info.date} />
+                    <Icon circular name='angle right' style={{flexShrink:'0'}} onClick={clickNext }/>
+                </div>
                 <div style={{margin:'15px',paddingBottom:'70px',}}>
                     <Comments itemId={para.id}/>
                 </div>
