@@ -1,7 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Comment, Form, Header,Segment,Button} from 'semantic-ui-react'
 import { useForm } from "react-hook-form";
 import CommentCard from '../components/CommentCard'
+import { getCommentsbyId,postComment } from '../utils';
 const comments = [
   {
     id:1,
@@ -49,10 +50,28 @@ const comments = [
     reply:[],
   },
 ]
-const Comments = () => {
+const Comments = (item:any) => {
   const [text, setText] = useState('')
+  const [comments, setCom] = React.useState([])
+  useEffect(()=>{
+    console.log(item.itemId);
+    getCommentsbyId(item.itemId).then((res: any) =>{
+        setCom(res);
+        console.log(comments);
+    }).catch((err: any) => {
+        console.log(err)
+        console.log("err in getComments")
+    })       
+  }, [])
   const submit=(data: any)=>{
-    comments.push({id:5,author:'lee',content:data.message,date:'just now',avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',reply:[]});
+    //comments.push({id:5,author:'lee',content:data.message,date:'just now',avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',reply:[]});
+    let comment={user_id:Number(localStorage.getItem('myId')),user_name:localStorage.getItem("name"),item_id:Number(item.itemId),content:data.message};
+    postComment(comment).then((res: any) =>{
+
+    }).catch((err: any) => {
+        console.log(err)
+        console.log("err in getComments")
+    }) 
     setText('');
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -70,11 +89,11 @@ const Comments = () => {
     </Form.Group>
     </Form>
     {    
-        comments.map((comment)=>(<CommentCard
+        comments.map((comment: { id: any; avatar: any; date: any;user_name: any; content: any; reply: any; })=>(<CommentCard
           id={comment.id}
           avatar={comment.avatar}
           date={comment.date}
-          author={comment.author}
+          author={comment.user_name}
           content={comment.content}
           reply={comment.reply}
       />))

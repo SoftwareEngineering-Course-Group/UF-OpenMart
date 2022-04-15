@@ -159,6 +159,44 @@ export const getInfo = () => {
         return response.json();
       })
       }
+
+      export const getCommentsbyId = (ID:any) => {
+        let myidd = localStorage.getItem('myId');
+        let getItemUrl = `${SERVER_ORIGIN}/user/${myidd}/item/${ID}/comment/itemList`;
+        return fetch(getItemUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+          },
+        }).then((response) => {
+          if (response.status !== 200) {
+            console.log("false to get comments");
+            throw Error('Fail to get comments');
+          }
+          return response.json();
+        })
+        }
+
+        export const postComment = (data: any) => {
+          let myidd = localStorage.getItem('myId');
+          let postUrl = `${SERVER_ORIGIN}/user/${myidd}/item/${data.item_id}/comment/save`;
+          console.log(data)
+          return fetch(postUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+            },
+            body: JSON.stringify(data)
+          }).then((response) => {
+            console.log(response);
+            if (response.status !== 201) {
+              throw Error('Fail to post');
+            }
+            return response;
+          })
+        }
     
 export const postItem = (data: any,pid: string) => {
   let myidd = localStorage.getItem('myId');

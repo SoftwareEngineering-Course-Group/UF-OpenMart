@@ -41,7 +41,7 @@ function Item() {
             <div>
                 <ItemDetails image = {img} name={title} price={price} description={des} />
                 <div style={{margin:'15px',paddingBottom:'70px',}}>
-                    <Comments/>
+                    <Comments itemId={para.id}/>
                 </div>
             </div>
             

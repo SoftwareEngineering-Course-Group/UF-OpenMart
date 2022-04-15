@@ -30,6 +30,7 @@ const Login = () => {
                       localStorage.setItem("myId",response[key]);
                       console.log(localStorage.getItem('myId'));
                     }
+
                 }
                 getInfo().then(response => {
                   for(var key in response){
