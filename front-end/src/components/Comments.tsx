@@ -57,15 +57,20 @@ const Comments = (item:any) => {
     console.log(item.itemId);
     getCommentsbyId(item.itemId).then((res: any) =>{
         setCom(res);
-        console.log(comments);
+        console.log(res);
     }).catch((err: any) => {
         console.log(err)
         console.log("err in getComments")
-    })       
+    }) 
+    
   }, [])
+
+  useEffect(()=>{
+    console.log(comments);
+  },[comments])
   const submit=(data: any)=>{
     //comments.push({id:5,author:'lee',content:data.message,date:'just now',avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',reply:[]});
-    let comment={user_id:Number(localStorage.getItem('myId')),user_name:localStorage.getItem("name"),item_id:Number(item.itemId),content:data.message};
+    let comment={UserID:Number(localStorage.getItem('myId')),UserName:localStorage.getItem("name"),itemId:Number(item.itemId),content:data.message};
     postComment(comment).then((res: any) =>{
 
     }).catch((err: any) => {
@@ -88,14 +93,14 @@ const Comments = (item:any) => {
         <Button type='submit'>Submit</Button>
     </Form.Group>
     </Form>
-    {    
-        comments.map((comment: { id: any; avatar: any; date: any;user_name: any; content: any; reply: any; })=>(<CommentCard
-          id={comment.id}
-          avatar={comment.avatar}
-          date={comment.date}
-          author={comment.user_name}
-          content={comment.content}
-          reply={comment.reply}
+    {   
+        comments.map((comment:any)=>
+        (<CommentCard
+          key={comment.ID}
+          //avatar={comment.avatar}
+          date={comment.CreatedAt}
+          author={comment.UserName}
+          content={comment.Content}
       />))
     }
 

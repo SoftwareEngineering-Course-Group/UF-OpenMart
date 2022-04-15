@@ -180,6 +180,7 @@ export const getInfo = () => {
       export const getCommentsbyId = (ID:any) => {
         let myidd = localStorage.getItem('myId');
         let getItemUrl = `${SERVER_ORIGIN}/user/${myidd}/item/${ID}/comment/itemList`;
+        console.log(getItemUrl);
         return fetch(getItemUrl, {
           method: 'GET',
           headers: {
