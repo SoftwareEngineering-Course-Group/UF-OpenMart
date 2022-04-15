@@ -2,6 +2,7 @@ import React, {useReducer, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate  } from "react-router-dom";
 import { postItem,postImages } from '../utils';
+
 import {
     Button,
     Form,
@@ -79,6 +80,7 @@ const AddDetails= ()=> {
           .then((response) => {
             console.log(response);
             console.log("success")
+            navi("/")
           }).catch((err) => {
               console.log("failed to Add")
               console.log(err)

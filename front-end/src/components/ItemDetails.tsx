@@ -12,7 +12,7 @@ const ItemDetails = (item:any) => {
                 <Card.Header>{item.name}</Card.Header>
                 <Card.Header>{item.price}$</Card.Header>
                 <Card.Meta>
-                    <span className='date'>posted in Feb 2022</span>
+                    <span className='date'>{item.createdAt}</span>
                 </Card.Meta>
                 <Card.Description>
                    {item.description}

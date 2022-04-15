@@ -144,7 +144,7 @@ func main() {
 
 	protected.POST("/user/:id/item/save", handler.createItem)
 	protected.POST("/user/:id/item/:pid/update", handler.updateItem)
-	protected.POST("/user/:id/item/:pid/remove", handler.deleteItem)
+	r.POST("/user/:id/item/:pid/remove", handler.deleteItem)
 	protected.POST("/user/:id/item/:pid/updatePh", handler.updatePh)
 	
 	r.POST("/user/:id/item/:pid", handler.getItembyID)
@@ -160,7 +160,7 @@ func main() {
 	protected.GET("/user/:id/item/name/:name/PRA", handler.getItembyNamePRA)
 	protected.GET("/user/:id/item/name/:name/LT", handler.getItembyNameLT)
 
-	protected.POST("/user/:id/item/:pid/comment/save", handler.createComment)
+	r.POST("/user/:id/item/:pid/comment/save", handler.createComment)
 	protected.POST("/user/:id/comment/delete", handler.deleteComment)
 	protected.GET("/user/:id/item/:pid/comment/itemList", handler.queryCommentbyItem)
 	protected.GET("/user/:id/item/:pid/comment/userList", handler.queryCommentbyUser)
@@ -256,8 +256,8 @@ func (h *Handler) loginHandler(c *gin.Context) {
 func (h *Handler) randomItems(c *gin.Context) {
 	var result []Item
 	h.db.Table("items").Where("status = 0").Scan(&result)
-	if(len(result)>=5){
-		result = result[0:5]
+	if(len(result)>=10){
+		result = result[0:10]
 	}
 	if(len(result)==0){
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -446,7 +446,7 @@ func (h *Handler) deleteItem(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	if err := h.db.Where("id ", json.ID).Delete(&json).Error; err != nil {
+	if err := h.db.Delete(&json).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully delete!"})

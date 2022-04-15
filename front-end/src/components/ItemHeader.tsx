@@ -32,7 +32,7 @@ function ItemHeader(item:any) {
             <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> {email}
         </Header>
         {
-            item.profile?<Button primary style={{float:'right'}}  onClick={clickDeleteHandler }>Delete the item</Button>:null
+            item.profile?<Button primary style={{float:'right',height:'40%'}}  onClick={clickDeleteHandler }>Delete the item</Button>:null
         }
     </div>
       
