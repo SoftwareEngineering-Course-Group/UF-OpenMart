@@ -291,13 +291,15 @@ func TestCreateComment(t *testing.T) {
 	var w *httptest.ResponseRecorder
 	urlIndex := "/user/:id/item/:pid/comment/save"
 	var test = []struct {
-		UserId uint   `json:"userId"`
-		Name   string `json:"name"`
+		UserID   uint   `json:"userId"`
+		ItemID   uint   `json:"itemID"`
+		UserName string `json:"userName"`
+		Content  string `json:"content"`
 	}{
-		{4, "Haowen"},
-		{1, "qirui"},
-		{2, "jiayu"},
-		{3, "yyb"},
+		{4, 1, "Haowen", "Hello"},
+		{1, 2, "qirui", "Hi"},
+		{2, 3, "jiayu", "what"},
+		{3, 4, "yyb", "yes"},
 	}
 	for _, c := range test {
 		b, _ := json.Marshal(&c)
