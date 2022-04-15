@@ -15,6 +15,7 @@ const GridForItems= (pattern:any) => {
   const [hasItems,setHas] = useState(false) 
   const [homeItems, setItems] = useState([{
       Count:-1,
+      UserID: -1,
       ID : -1,
       Catagory: "",  
       Name: "",  
@@ -26,6 +27,7 @@ const GridForItems= (pattern:any) => {
     }])
   const [newOrder, setNew] = useState([{
     Count:-1,
+    UserID: -1,
     ID : -1,
     Catagory: "",  
     Name: "",  
@@ -190,6 +192,7 @@ const GridForItems= (pattern:any) => {
                     price={item.Price}
                     id = {item.ID}
                     key={item.ID}
+                    userid = {item.UserID}
                   />))
                 }
               </Grid.Column>
@@ -204,6 +207,7 @@ const GridForItems= (pattern:any) => {
                     price={item.Price}
                     id = {item.ID}
                     key={item.ID}
+                    userid = {item.UserID}
                   />))
                 }
               </Grid.Column>
@@ -218,6 +222,7 @@ const GridForItems= (pattern:any) => {
                     price={item.Price}
                     id = {item.ID}
                     key={item.ID}
+                    userid = {item.UserID}
                   />))
                 }
               </Grid.Column>
@@ -232,6 +237,7 @@ const GridForItems= (pattern:any) => {
                     price={item.Price}
                     id = {item.ID}
                     key={item.ID}
+                    userid = {item.UserID}
                   />))
                 }
               </Grid.Column>

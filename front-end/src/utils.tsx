@@ -9,6 +9,23 @@ const registerUrl = `${SERVER_ORIGIN}/sign-up`;
 const getFavorite = '';
 
 // const getRandom = `${SERVER_ORIGIN}/getRandom`;
+export const getName = (data: string) =>{
+  let inforUrl = `${SERVER_ORIGIN}/user/${data}`
+  return fetch(inforUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+    },
+  }).then((response) => {
+    if (response.status !== 200) {
+      console.log("false to get infor");
+      console.log(localStorage.getItem('jwtToken'))
+      throw Error('Fail get infor');
+    }
+    return response.json();
+  })
+}
 
 export const registe = (data: any) => {
     return fetch(registerUrl, {

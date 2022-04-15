@@ -33,7 +33,7 @@ const CardExampleCard = (props: any) => {
         <Card onClick = {()=>{
            getInfo().then(()=> {
             setOpen(false); 
-            navigate(`/item/${props.id}`,{replace : true,state : { id : props.id }})
+            navigate(`/item/${props.id}`,{replace : true,state : { id : props.id , userid:props.userid}})
             }).catch((err) => {
                 setOpen(true);
                 console.log("no login")

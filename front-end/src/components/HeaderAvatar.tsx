@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header, Image, Button } from 'semantic-ui-react'
 import { deleteItem } from '../utils';
-function HeaderAvatar(item:any) {
+function HeaderAvatar() {
 
   const onFinish = (data: any) => {
     console.log(data);
