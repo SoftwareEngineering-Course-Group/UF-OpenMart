@@ -19,9 +19,7 @@ const Comments = (item:any) => {
     }) 
     
   }, [])
-
   useEffect(()=>{
-    console.log(comments);
   },[comments])
   const submit=(data: any)=>{
     //comments.push({id:5,author:'lee',content:data.message,date:'just now',avatar:'https://react.semantic-ui.com/images/avatar/small/joe.jpg',reply:[]});
@@ -33,6 +31,13 @@ const Comments = (item:any) => {
         console.log("err in getComments")
     }) 
     setText('');
+    getCommentsbyId(item.itemId).then((res: any) =>{
+      setCom(res);
+      console.log(res);
+    }).catch((err: any) => {
+        console.log(err)
+        console.log("err in getComments")
+    }) 
   }
   const { register, handleSubmit, formState: { errors } } = useForm();
   return(
@@ -53,7 +58,7 @@ const Comments = (item:any) => {
         (<CommentCard
           key={comment.ID}
           //avatar={comment.avatar}
-          date={comment.CreatedAt.slice(0, 10)+" "+comment.CreatedAt.slice(-4)}
+          date={comment.CreatedAt.slice(0, 10)+" "+comment.CreatedAt.slice(11, 16)}
           author={comment.UserName}
           content={comment.Content}
           avatar={avator}

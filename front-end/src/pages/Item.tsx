@@ -23,7 +23,9 @@ function Item() {
     const [price, setPrice] = React.useState("")
     const [des, setDes] = React.useState("")
     const [open, setOpen] = useState(false)
-    var isMine=false;
+    var isMine=(para.userid==localStorage.getItem("myId"))?true:false;
+    console.log(para.userid)
+    console.log(localStorage.getItem("myId"))
     const navigate = useNavigate();
     useEffect( ()=>{
         console.log(para)
