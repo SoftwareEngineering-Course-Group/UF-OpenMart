@@ -137,23 +137,42 @@ export const getInfo = () => {
       })
       }
 
-      export const getCategory = (cate:string) => {
-        let myidd = localStorage.getItem('myId');
-        let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/category/${cate}`;
-        return fetch(getPostedUrl, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
-          },
-        }).then((response) => {
-          if (response.status !== 200) {
-            console.log("false to get posted items");
-            throw Error('Fail to get posted items');
-          }
-          return response.json();
-        })
+    export const getCategory = (cate:string) => {
+      let myidd = localStorage.getItem('myId');
+      let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/category/${cate}`;
+      return fetch(getPostedUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+        },
+      }).then((response) => {
+        if (response.status !== 200) {
+          console.log("false to get posted items");
+          throw Error('Fail to get posted items');
         }
+        return response.json();
+      })
+      }
+    
+    export const getSearch = (target:string) => {
+      let myidd = localStorage.getItem('myId');
+      let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/name/${target}`;
+      console.log(getPostedUrl)
+      return fetch(getPostedUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+        },
+      }).then((response) => {
+        if (response.status !== 200) {
+          console.log("false to search items");
+          throw Error('Fail to get searched items');
+        }
+        return response.json();
+      })
+      }
 
     export const getItembyId = (ID:any) => {
       let myidd = localStorage.getItem('myId');

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { useState,useEffect } from 'react';
 import { Button, Grid, Message, Modal } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
-import { getCategory, getItembyId, getRandom } from '../utils'
+import { getCategory, getItembyId, getRandom, getSearch } from '../utils'
 import { useNavigate } from 'react-router';
 // import items from '../pages/Home'
 const SERVER_ORIGIN = "http://localhost:12345";
@@ -12,6 +12,7 @@ const GridForItems= (pattern:any) => {
   const [open, setOpen] = React.useState(false)
   const [filt,setFilt] = useState(0);
   const [category,setCategory] = useState("all")
+  const [search,setSearch] = useState(" ")
   const [hasItems,setHas] = useState(false) 
   const [homeItems, setItems] = useState([{
       Count:-1,
@@ -37,6 +38,47 @@ const GridForItems= (pattern:any) => {
     Status:   "",
     Image: ""
   }])
+
+  const getTarget = (target:string) =>{
+    console.log(target)
+    if(target === null || target=== " " || target === ""){
+      console.log(target)
+    }
+    else{
+      getSearch(target).then(async (response:any)=>{
+        if(response === null){
+          console.log("empty items")
+          setHas(true)
+          setNew([])
+          setItems([])
+          console.log(response);
+        }else{
+          // console.log(response);
+          setHas(false)
+          for(var j = 0; j < response.length; j++) {
+            await getItembyId(response[j].ID).then((res: any) =>{
+              response[j].Image = SERVER_ORIGIN+res.Files[0];
+              response[j].Count = j;
+              // console.log(response[j].Image);
+              return response
+            }).catch((err) => {
+                console.log(err)
+                console.log("err in getItems")
+            })      
+          }
+          
+          console.log(response);
+          setNew(response.slice(0))
+          setItems(response.slice(0));
+        }
+      }).catch((err) => {
+          console.log(err)
+          setOpen(true)
+          console.log("err in getItems")
+      })  
+    }
+    
+  }
 
   const getCate = (cate:string) =>{
     if(cate === 'all'){
@@ -107,10 +149,19 @@ const GridForItems= (pattern:any) => {
 
   useEffect(()=>{
     setFilt(0)
-    console.log("filt: "+filt)
+    setSearch("")
+    console.log("cate: "+filt)
     setCategory(pattern.cate)
     getCate(pattern.cate);
   },[pattern.cate])
+
+  useEffect(()=>{
+    setFilt(0)
+    console.log(search)
+    setSearch(pattern.target);
+    getTarget(pattern.target);
+  },[pattern.target])
+
 
   useEffect(()=>{
     console.log("filter changed: "+pattern.pattern)

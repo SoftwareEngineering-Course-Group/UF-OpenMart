@@ -27,6 +27,7 @@ const style ={
   function Home() {
     const [filter, setfilter] = useState(0);
     const [category,setCategory] = useState("all");
+    const [search,setTarget] = useState("") 
     const setFilte = (val: number) => {
       console.log("set filter: "+val)
       setfilter(val);
@@ -35,9 +36,14 @@ const style ={
       setCategory(val);
       setFilte(0)
     };
+    const setSearch = (val: string) => {
+      setTarget(val);
+      setFilte(0)
+    };
     useEffect(()=>{
-      // console.log(category)
-    },[category,filter])
+      
+      console.log(search)
+    },[category,filter,search])
     return (
       <div>
         <div style={style.bgd}>
@@ -45,11 +51,11 @@ const style ={
           <Tool setFilte = {setFilte}/>
         </div>
         <div style={{marginTop:'0px'}}>
-          <MenuExamplePointing setCate = {setCate}/>
+          <MenuExamplePointing setCate={setCate} setTarget={setSearch}/>
         </div>
         <div style={{margin:'15px',paddingBottom:'70px'}}>
           {
-            <GridForItems  pattern = {filter}  cate = {category}/>
+            <GridForItems  pattern = {filter}  cate = {category} target = {search}/>
           }
         </div>
           <Menu/>
