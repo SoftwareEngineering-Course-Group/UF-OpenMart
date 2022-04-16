@@ -8,7 +8,7 @@ const ItemDetails = (item:any) => {
         <Card style={{width:'100%'}}>
             <Image src={item.image} fluid />
             <Card.Content >
-                <Love/>
+                <Love itemId={item.id}/>
                 <Card.Header>{item.name}</Card.Header>
                 <Card.Header>{item.price}$</Card.Header>
                 <Card.Meta>

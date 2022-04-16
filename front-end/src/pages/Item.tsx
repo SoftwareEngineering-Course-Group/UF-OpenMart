@@ -85,10 +85,10 @@ function Item() {
             <div>
                 <div style={{display:'flex',flexWrap: 'nowrap',alignItems: 'center'}} >
                     <Icon circular name='angle left' style={{flexShrink:'0'}} onClick={clickPre}/>
-                    <ItemDetails image = {img} name={info.name} price={info.price} description={info.des} createdAt={info.date} />
+                    <ItemDetails image = {img} name={info.name} price={info.price} description={info.des} createdAt={info.date} id={para.id}/>
                     <Icon circular name='angle right' style={{flexShrink:'0'}} onClick={clickNext }/>
                 </div>
-                <div style={{margin:'15px',paddingBottom:'70px',}}>
+                <div style={{margin:'33px',paddingBottom:'70px',}}>
                     <Comments itemId={para.id}/>
                 </div>
             </div>

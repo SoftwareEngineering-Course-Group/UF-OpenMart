@@ -11,6 +11,10 @@ const CardExampleCard = (props: any) => {
   useEffect(()=>{
     // console.log(item)
   },[])
+  const loveHandler =()=>{
+    
+  }
+
   return (
   <>
           <Modal
@@ -38,9 +42,10 @@ const CardExampleCard = (props: any) => {
                 setOpen(true);
                 console.log("no login")
             })    
-        }}>
+        }} style={{width:'100%'}}>
         <Image src={props.image} wrapped ui={false} />
           <Card.Content>
+            
             <Card.Header>{props.name}</Card.Header>
             <Card.Header>{props.price}$</Card.Header>
           </Card.Content>
