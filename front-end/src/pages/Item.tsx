@@ -5,7 +5,7 @@ import Comments from '../components/Comments'
 import ItemHeader from '../components/ItemHeader'
 import ItemDetails from '../components/ItemDetails';
 import { useLocation,useNavigate,useParams } from 'react-router-dom';
-import { getItembyId, getName } from '../utils';
+import { getInfo, getItembyId, getName } from '../utils';
 import { Button, Modal,Icon } from 'semantic-ui-react';
 
 const SERVER_ORIGIN = "http://localhost:12345";
@@ -31,21 +31,36 @@ function Item() {
     const [imgs, setImgs] = React.useState([""])
     var isMine=(sta.userid==localStorage.getItem("myId"))?true:false;
     const navigate = useNavigate();
-    useEffect( ()=>{
-        console.log(para)
+    const getItem = ()=>((
+        console.log(para),
         getItembyId(para.id).then((res: any) =>{
             setImg(SERVER_ORIGIN+res.Files[countPic]);
             setImgs(res.Files);
             //console.log(imgs[0])
             let info={name:res.Name,price:res.Price,des:res.Description,date:res.CreatedAt.slice(0, 10)+" "+res.CreatedAt.slice(11, 16)}
             setInfo(info);
+            localStorage.setItem("logStatus","true")
             setOpen(false)
             console.log(img);
         }).catch((err) => {
             console.log(err)
+            localStorage.setItem("logStatus","false")
             setOpen(true)
             console.log("err in getItems")
         })       
+    ))
+    useEffect( ()=>{
+            getInfo().then(()=> {
+                localStorage.setItem("logStatus","true")
+                setOpen(false);  
+                getItem();
+            }).catch((err) => {
+                localStorage.setItem("logStatus","false")
+                setOpen(true);
+                console.log("no login")
+            })    
+            setOpen(false);       
+        
     },[])
     const clickNext =()=>{
         let len=imgs.length;

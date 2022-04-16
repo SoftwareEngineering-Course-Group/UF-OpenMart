@@ -6,6 +6,7 @@ import Menu from '../components/Menu'
 import imgBg from '../2021-03_About-pg_2000x800.jpg';//支持直接赋值相对路径
 import { getRandom } from '../utils';
 import MenuExamplePointing from '../components/Category';
+import { Checkbox, Icon } from 'semantic-ui-react';
 // const items = [
 //   {
 //     id:1,

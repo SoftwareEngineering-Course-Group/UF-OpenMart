@@ -1,5 +1,5 @@
 import React,{useState,useLayoutEffect,useEffect} from 'react'
-import { Image,Icon,List,Button,Grid, Modal } from 'semantic-ui-react'
+import { Image,Icon,List,Button,Grid, Modal, Checkbox } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
 import { getInfo, getItembyId, getPost } from '../utils';
@@ -49,7 +49,6 @@ const favorites = [
 
 const ImageExampleCircular = () => {
     const [open, setOpen] = React.useState(true)
-    
     const getPosted = () => {
 
     } 
@@ -90,6 +89,14 @@ const ImageExampleCircular = () => {
         Status:   "",
         Image: ""
     }])
+
+    const logout = (()=>{
+        console.log("status: "+localStorage.getItem("logStatus"))
+        localStorage.setItem("logStatus","false")
+        localStorage.setItem("jwtToken",'')
+        navigate("/login")
+    })
+
   useEffect(() => {
         // localStorage.setItem("jwtToken",'');
         let myid = localStorage.getItem("myId")
@@ -98,8 +105,10 @@ const ImageExampleCircular = () => {
         }
         else{
             getInfo().then(()=> {
+                localStorage.setItem("logStatus","true")
                 setOpen(false);  
             }).catch((err) => {
+                localStorage.setItem("logStatus","false")
                 setOpen(true);
                 console.log("no login")
             })    
@@ -154,11 +163,28 @@ const ImageExampleCircular = () => {
             <Button onClick={() => navigate("/login")}>Back to Login</Button>
         </Modal.Actions>
         </Modal>
-        <div style={{display:'flex', justifyContent: 'center',flexDirection:'column', marginTop: '5%'}}>
+        
+        <div style={{display:'flex', justifyContent: 'center',alignSelf:"center,flexEnd,flexEnd", marginTop: '1%'}}>
+            <div style={{flexBasis: "100",paddingLeft:"120px",margin:"auto"}}>  
+                <Image src={avator} size='small' circular centered/>
+            </div>  
             
-            <Image src={avator} size='small' circular centered/>
+            <div style={{flexBasis: "1"}}>
+                <h3 style={{textAlign:'center',marginRight:'0px'}}>logout</h3>
+                <Icon.Group size='large'>
+                    <Icon size='large' color='red' name='dont' />
+                    <Icon size='small' color = 'black' name='user'/>
+                </Icon.Group>
+                    <Checkbox toggle onClick={()=>logout()} checked={localStorage.getItem("logStatus")==="true"}/>
+                    
+                <Icon.Group size='large' >
+                    <Icon loading size='large' name='circle notch' />
+                    <Icon size='small' name='user' />
+                </Icon.Group>
+            </div>
+                </div>
             <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{localStorage.getItem("name")}</h2>
-        </div>
+        
         <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
             <div>
                 <Icon name='time' />
@@ -168,11 +194,8 @@ const ImageExampleCircular = () => {
                 <span>{user.aboutMe} </span>
                 <Icon name='edit outline' link/>
             </div>     
-                    
+            
         </div>
-            <div style={{display:'flex',flexWrap: 'wrap', justifyContent: 'center', marginTop:'5%'}}>
-
-            </div>
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Posted</h2>
             </div>

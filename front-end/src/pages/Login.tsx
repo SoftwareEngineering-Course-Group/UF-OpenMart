@@ -17,6 +17,7 @@ const Login = () => {
           .then(response => {
                 setSta('success')
                 setDisplay(true)
+                localStorage.setItem("logStatus","true")
                 for(var key in response){
                     if(key==="token"){
                         localStorage.setItem("jwtToken",response[key]);
