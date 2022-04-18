@@ -13,38 +13,6 @@ const user =
       aboutMe:'Welcome to come my profile!'
     }
 
-const favorites = [
-    {
-        id:1,
-        name: 'goggle',
-        image:'../images/2cc3723492e356375e6e26cacc12407.jpg',
-        price: 3
-    },
-    {
-        id:2,
-        name: 'straight plate clip',
-        image:'../images/4ff4c153d4a5841bb5cab1a5e8ecfc0.jpg',
-        price: 5
-    },
-    {
-        id:3,
-        name: 'razor',
-        image:'../images/36aaf8b43944fc5b767ede93c7c5696.jpg',
-        price: 8
-    },
-    {
-        id:4,
-        name: 'humidifier',
-        image:'../images/51c8a5a56b2538f409b2efaf9f0fffe.png',
-        price: 15
-    },
-    {
-        id:5,
-        name: 'humidifier',
-        image:'../images/51c8a5a56b2538f409b2efaf9f0fffe.png',
-        price: 15
-    },
-]
 
 
 const ImageExampleCircular = () => {
@@ -60,6 +28,16 @@ const ImageExampleCircular = () => {
     const showError = () =>{
 
     }
+    const [favorites,setF] = useState([{
+        ID : -1,
+        Catagory: "",  
+        Name: "",  
+        Description: "",  
+        Price: 0, 
+        CreatedAt: null,  
+        Status:   "",
+        Image: ""
+    }])
     const [posted,setPosted] = useState([{
         ID : -1,
         Catagory: "",  
@@ -138,6 +116,30 @@ const ImageExampleCircular = () => {
             console.log("err in get list "+err )
         })    
         console.log(userPosts)
+        let favorites: any[] = []
+        var temp=localStorage.getItem('myLove');
+        if(temp!=null){
+            var loves=JSON.parse(temp);
+            console.log(loves)
+            for(var j = 0; j < loves.length; j++) {
+                if(loves[j]!=null){
+                    getItembyId(loves[j]).then((res: any) =>{
+                        res.Image = SERVER_ORIGIN+res.Files[0];
+                        // console.log(response[j].Image);
+                        favorites.push(res)
+                        console.log(favorites)
+                        // return response
+                    }).catch((err) => {
+                        console.log(err)
+                        console.log("err in getItemsF")
+                    })      
+                }
+                
+            }
+            setF(favorites)   
+           
+        }
+
     },[]
     )
     
@@ -210,7 +212,7 @@ const ImageExampleCircular = () => {
             </div>
             <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
                 {    
-                    favorites.map((favorite)=>(<ProfileImage image={favorite.image} identifier = {favorite.id} key={favorite.id}/>))
+                    favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} key={favorite.ID}/>))
                 }
             </div>
             <footer>

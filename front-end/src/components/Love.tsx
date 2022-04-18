@@ -4,31 +4,36 @@ import {Icon } from 'semantic-ui-react'
 
 const Love = (item:any) => {
     const [love, setlove] = useState(false);
+    var itemId=item.itemId;
     useEffect(()=>{
        let loves=localStorage.getItem('myLove');
        console.log(loves);
-       if(loves!=null&&loves.includes(item.itemId)){
-            let mylove=JSON.parse(loves);
+       if(loves!=null&&JSON.parse(loves).includes(item.itemId)){
             setlove(true);
        }
 
       },[love])
     const handleClick=() =>{
         setlove(!love);
-        var loves=localStorage.getItem('myLove');
-        if (!Array.isArray(loves)){
-            return
-        }
-        if(loves!=null){
-            const _key = loves.some((item) => item == item.itemId);
+        var temp=localStorage.getItem('myLove');
+        if(temp==null){
+            localStorage.setItem("myLove",JSON.stringify([item.id]))
+        }else{
+            console.log(JSON.parse(temp))
+            var loves=JSON.parse(temp);
+            const _key = loves.some((item: any) => item == itemId);
             console.log(_key);
             if (_key) {
-                localStorage.setItem("myLove",JSON.stringify(loves.filter((item) => item != item.itemId)));
+                localStorage.setItem("myLove",JSON.stringify(loves.filter((item:any) => item != itemId)));
             } else {
                 localStorage.setItem("myLove",JSON.stringify([...loves, item.itemId]))
             }
             console.log(localStorage.getItem('myLove'));
+
         }
+        //if (!Array.isArray(localStorage.getItem('myLove'))){
+        
+        
         
     }
     var loveIcon:any;
