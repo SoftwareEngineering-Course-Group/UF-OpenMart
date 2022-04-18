@@ -123,11 +123,14 @@ const ImageExampleCircular = () => {
             console.log(loves)
             for(var j = 0; j < loves.length; j++) {
                 if(loves[j]!=null){
-                    getItembyId(loves[j]).then((res: any) =>{
+                    let index=loves[j]
+                    getItembyId(index).then((res: any) =>{
                         res.Image = SERVER_ORIGIN+res.Files[0];
                         // console.log(response[j].Image);
+                        res.ID=Number(index);
+                        console.log(res);
                         favorites.push(res)
-                        console.log(favorites)
+                        
                         // return response
                     }).catch((err) => {
                         console.log(err)
@@ -212,7 +215,7 @@ const ImageExampleCircular = () => {
             </div>
             <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
                 {    
-                    favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} key={favorite.ID}/>))
+                    favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} />))
                 }
             </div>
             <footer>

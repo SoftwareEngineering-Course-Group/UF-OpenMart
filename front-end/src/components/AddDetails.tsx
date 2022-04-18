@@ -109,7 +109,7 @@ const AddDetails= ()=> {
              <select {...register("catagory")} style={{width:'25%'}}>
               <option value="" disabled selected hidden>Please Choose...</option>
               <option value="furniture">Furniture</option>
-              <option value="dn">Daily necessity</option>
+              <option value="daily necessity">Daily necessity</option>
               <option value="kitchenware">Kitchenware</option>
               <option value="other">Other</option>
             </select>
