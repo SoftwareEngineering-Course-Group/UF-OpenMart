@@ -1,10 +1,9 @@
-import React,{useState,useLayoutEffect,useEffect} from 'react'
-import { Image,Icon,List,Button,Grid, Modal, Checkbox, Message } from 'semantic-ui-react'
+import React,{useState,useEffect} from 'react'
+import { Image,Icon,Button, Modal, Checkbox, Message } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
 import { getInfo, getItembyId, getPost } from '../utils';
-import img from '../albert-alberta-uf-mascots-cropped-1000x610-1.jpeg';
-import { Route, Routes, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import avator from '../avator.png'
 
 const SERVER_ORIGIN = "http://localhost:12345";

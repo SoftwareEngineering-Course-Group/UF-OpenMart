@@ -4,7 +4,6 @@ import {Icon } from 'semantic-ui-react'
 
 const Love = (item:any) => {
     const [love, setlove] = useState(false);
-    var itemId=item.itemId;
     useEffect(()=>{
        let loves=localStorage.getItem('myLove');
        console.log(loves);
@@ -14,7 +13,7 @@ const Love = (item:any) => {
        else{
            setlove(false)
        }
-      },[love])
+    },[love])
     const handleClick=() =>{
         setlove(!love);
         let temp=localStorage.getItem('myLove');
@@ -24,10 +23,10 @@ const Love = (item:any) => {
         }else{
             console.log(JSON.parse(temp))
             var loves=JSON.parse(temp);
-            const _key = loves.some((item: any) => item == itemId);
+            const _key = loves.some((item: any) => item === item.itemId);
             console.log(_key);
             if (_key) {
-                localStorage.setItem("myLove",JSON.stringify(loves.filter((item:any) => item != itemId)));
+                localStorage.setItem("myLove",JSON.stringify(loves.filter((item:any) => item !== item.itemId)));
             } else {
                 localStorage.setItem("myLove",JSON.stringify([...loves, item.itemId]))
             }

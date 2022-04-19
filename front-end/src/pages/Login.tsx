@@ -1,11 +1,10 @@
 import { Button, Form, Image,Message,Icon } from 'semantic-ui-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getInfo, login } from '../utils';
 import { useForm } from "react-hook-form";
 // import history from '../history';
 import {useNavigate} from "react-router-dom"
 import Menu from '../components/Menu'
-import { update } from 'lodash';
 const Login = () => {
     
     const[sta , setSta] = useState('success')
@@ -55,7 +54,7 @@ const Login = () => {
             //   console.log(displayMoel)
           })
       }
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit} = useForm();
       
       return (
         <>

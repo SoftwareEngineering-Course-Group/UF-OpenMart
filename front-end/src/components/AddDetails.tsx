@@ -1,4 +1,4 @@
-import React, {useReducer, useState } from "react";
+import {useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate  } from "react-router-dom";
 import { postItem,postImages } from '../utils';
@@ -6,11 +6,7 @@ import { postItem,postImages } from '../utils';
 import {
     Button,
     Form,
-    Input,
     Icon,
-    Image,
-    TextArea,
-    Select,
   } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage";
 
@@ -57,13 +53,7 @@ const AddDetails= ()=> {
         console.log(imagePreviewUrls);
 
     }
-    let postData = {
-        id : -1,
-        catagory: "",  
-        name: "",  
-        description: "",  
-        price: 0, 
-    }
+
     const images=(data: any)=>{//post images
       console.log(postFiles);
       console.log(data);
@@ -94,7 +84,7 @@ const AddDetails= ()=> {
           
       })
     }
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit} = useForm();
       
     return (
       <div>
