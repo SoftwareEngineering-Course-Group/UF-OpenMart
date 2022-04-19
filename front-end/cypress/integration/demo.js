@@ -4,14 +4,14 @@
 // If you're unfamiliar with how Cypress works,
 // check out the link below and learn how to write your first test:
 // https://on.cypress.io/writing-first-test
-// describe('First Test', () => {
-//     it('Visits the home page and go to profile page', () => {
-//       cy.visit('localhost:3000')
-//       cy.get('a[href*="profile"]').click()
-//       cy.url().should('include', '/profile')
+describe('First Test', () => {
+    it('Visits the home page and go to profile page', () => {
+      cy.visit('localhost:3000')
+      cy.get('a[href*="profile"]').click()
+      cy.url().should('include', '/profile')
      
-//     })
-// })
+    })
+})
 Cypress.Commands.add('login', () => { 
     cy.request({
       method: 'POST',
