@@ -77,11 +77,10 @@ const ImageExampleCircular = () => {
                 })         
             }
             console.log(userPosts[0].Image)
-            setPosted(userPosts)   
         }).catch((err) => {
-            setPosted(userPosts)
             console.log("err in get list "+err )
         })
+        setPosted(userPosts)
         let favorites : any[]=[]
         var temp=localStorage.getItem('myLove');
         if(temp!=null){
@@ -168,11 +167,29 @@ const ImageExampleCircular = () => {
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Posted</h2>
             </div>
+<<<<<<< HEAD
+
+            {
+                posted.length===0 ?(
+                <div style = {{display:'flex', justifyContent: 'center', marginTop:'2%'}}>
+                    <Message
+                    style={{width:'50%', textAlign:'center'}}
+                    success
+                    header={'no items in this category'}
+                    // content={'no items in this category'} 
+                    color= {'green'}
+                    />
+                </div>
+                ):(
+            <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+=======
             <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+>>>>>>> 85bd50c68f972d2bb70ca659409b754893c8c01c
                 {
                     posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
                 }
-            </div>
+            </div>)
+            }
 
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Favorites</h2>
@@ -191,7 +208,7 @@ const ImageExampleCircular = () => {
                 ):(
                 <div className='favorites' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
                     {    
-                        favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} />))
+                        favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} key = {favorite.ID}/>))
                     }
                 </div>
                 )
