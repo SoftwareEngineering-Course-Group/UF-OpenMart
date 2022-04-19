@@ -11,13 +11,16 @@ const Love = (item:any) => {
        if(loves!=null&&JSON.parse(loves).includes(item.itemId)){
             setlove(true);
        }
-
+       else{
+           setlove(false)
+       }
       },[love])
     const handleClick=() =>{
         setlove(!love);
-        var temp=localStorage.getItem('myLove');
-        if(temp==null){
-            localStorage.setItem("myLove",JSON.stringify([item.id]))
+        let temp=localStorage.getItem('myLove');
+        if(temp===null){
+            localStorage.setItem("myLove",JSON.stringify([item.itemId]))
+            console.log(localStorage.getItem("myLove"))
         }else{
             console.log(JSON.parse(temp))
             var loves=JSON.parse(temp);
@@ -31,6 +34,7 @@ const Love = (item:any) => {
             console.log(localStorage.getItem('myLove'));
 
         }
+        console.log("click: "+temp)
         //if (!Array.isArray(localStorage.getItem('myLove'))){
         
         

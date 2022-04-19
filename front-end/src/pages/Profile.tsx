@@ -1,5 +1,5 @@
 import React,{useState,useLayoutEffect,useEffect} from 'react'
-import { Image,Icon,List,Button,Grid, Modal, Checkbox } from 'semantic-ui-react'
+import { Image,Icon,List,Button,Grid, Modal, Checkbox, Message } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
 import { getInfo, getItembyId, getPost } from '../utils';
@@ -13,21 +13,9 @@ const user =
       aboutMe:'Welcome to come my profile!'
     }
 
-
-
 const ImageExampleCircular = () => {
     const [open, setOpen] = React.useState(true)
-    const getPosted = () => {
-
-    } 
-
-    const getFavorite=() =>{
-
-    }
     const navigate = useNavigate();
-    const showError = () =>{
-
-    }
     const [favorites,setF] = useState([{
         ID : -1,
         Catagory: "",  
@@ -39,25 +27,6 @@ const ImageExampleCircular = () => {
         Image: ""
     }])
     const [posted,setPosted] = useState([{
-        ID : -1,
-        Catagory: "",  
-        Name: "",  
-        Description: "",  
-        Price: 0, 
-        CreatedAt: null,  
-        Status:   "",
-        Image: ""
-    }])
-    const [items,setItems] = useState([{
-        Files:[""],
-        Catagory: "",  
-        Name: "",  
-        Description: "",  
-        Price: 0, 
-        CreatedAt: null,  
-        Status:   "",
-    }])
-    const [curr,setCurr] = useState ([{
         ID : -1,
         Catagory: "",  
         Name: "",  
@@ -100,10 +69,8 @@ const ImageExampleCircular = () => {
                     response[j].Image = SERVER_ORIGIN+res.Files[0];
                     // console.log(response[j].Image);
                     if(String(response[j].UserID)===String(myid) ){
-                        console.log(response[j].Image)
                         userPosts.push(response[j])
                     }
-                    console.log(userPosts)
                     // return response
                 }).catch((err) => {
                     console.log(err)
@@ -113,10 +80,10 @@ const ImageExampleCircular = () => {
             console.log(userPosts[0].Image)
             setPosted(userPosts)   
         }).catch((err) => {
+            setPosted(userPosts)
             console.log("err in get list "+err )
-        })    
-        console.log(userPosts)
-        let favorites: any[] = []
+        })
+        let favorites : any[]=[]
         var temp=localStorage.getItem('myLove');
         if(temp!=null){
             var loves=JSON.parse(temp);
@@ -139,13 +106,11 @@ const ImageExampleCircular = () => {
                 }
                 
             }
-            setF(favorites)   
-           
         }
-
+        setF(favorites)
+        console.log(favorites)
     },[]
     )
-    
     // console.log(posted)
     
     return(
@@ -213,11 +178,25 @@ const ImageExampleCircular = () => {
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Favorites</h2>
             </div>
-            <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
-                {    
-                    favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} />))
-                }
-            </div>
+            {
+                favorites.length===0 ?(
+                <div style = {{display:'flex', justifyContent: 'center', marginTop:'2%'}}>
+                    <Message
+                    style={{width:'50%', textAlign:'center'}}
+                    success
+                    header={'no items in this category'}
+                    // content={'no items in this category'} 
+                    color= {'green'}
+                    />
+                </div>
+                ):(
+                <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
+                    {    
+                        favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} />))
+                    }
+                </div>
+                )
+            }
             <footer>
             <Menu/>
             </footer>
