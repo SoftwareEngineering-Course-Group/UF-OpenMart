@@ -8,7 +8,7 @@ import {
     Form,
     Icon,
   } from 'semantic-ui-react'
-import ProfileImage from "./ProfileImage";
+import AddImage from "./AddImage";
 
 let formData = new FormData();
 var curImages: any[]=[];
@@ -121,7 +121,7 @@ const AddDetails= ()=> {
   
         </Form.Field>
         <div  style={{display:'flex',flexWrap:'wrap',paddingBottom:'10px'}}>
-            {imagePreviewUrls.map((url,index)=>(< ProfileImage key={index} tabkey={index} image={url} delete={true} click={handleClick}/>))}
+            {imagePreviewUrls.map((url,index)=>(< AddImage key={index} tabkey={index} image={url} delete={true} click={handleClick}/>))}
         </div>
         
         <Button htmltype='submit'>Submit</Button>
