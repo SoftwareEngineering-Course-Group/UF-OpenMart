@@ -76,11 +76,13 @@ const ImageExampleCircular = () => {
                     console.log("err in getItems")
                 })         
             }
+            setPosted(userPosts)
             console.log(userPosts[0].Image)
         }).catch((err) => {
+            setPosted(userPosts)
             console.log("err in get list "+err )
         })
-        setPosted(userPosts)
+        
         let favorites : any[]=[]
         var temp=localStorage.getItem('myLove');
         if(temp!=null){
@@ -167,8 +169,6 @@ const ImageExampleCircular = () => {
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Posted</h2>
             </div>
-<<<<<<< HEAD
-
             {
                 posted.length===0 ?(
                 <div style = {{display:'flex', justifyContent: 'center', marginTop:'2%'}}>
@@ -181,14 +181,11 @@ const ImageExampleCircular = () => {
                     />
                 </div>
                 ):(
-            <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
-=======
-            <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
->>>>>>> 85bd50c68f972d2bb70ca659409b754893c8c01c
-                {
-                    posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
-                }
-            </div>)
+                <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+                    {
+                        posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
+                    }
+                </div>)
             }
 
             <div style={{display:'flex',margin:'3%'}}>
