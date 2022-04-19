@@ -41,7 +41,7 @@ const Love = (item:any) => {
         loveIcon=(<Icon name='heart outline' size='large' color='red' link style={{float:'right'}}/>);
     }
     return(    
-        <div onClick={handleClick}>{loveIcon}</div>
+        <div className='love' onClick={handleClick}>{loveIcon}</div>
                 
 )}
 
