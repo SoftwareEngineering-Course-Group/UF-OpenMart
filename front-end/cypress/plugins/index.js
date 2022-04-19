@@ -27,5 +27,11 @@ module.exports = (on, config) => {
       return null
     },
   })
+  // on('task', {
+  //   showUserId() {
+  //     localStorage.getItem('myId')
+  //     return null
+  //   },
+  // })
 
 }

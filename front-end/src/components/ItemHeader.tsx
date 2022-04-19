@@ -27,7 +27,7 @@ function ItemHeader(item:any) {
     }) 
   },[])
   return (
-    <div style={{margin:'15px',display:'flex'}}>
+    <div className='ih' style={{margin:'15px',display:'flex'}}>
          <Header as='h2' style={{flex:1}}>
             <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> {email}
         </Header>

@@ -167,6 +167,7 @@ const ImageExampleCircular = () => {
             <div style={{display:'flex',margin:'3%'}}>
                 <h2>Posted</h2>
             </div>
+<<<<<<< HEAD
 
             {
                 posted.length===0 ?(
@@ -181,6 +182,9 @@ const ImageExampleCircular = () => {
                 </div>
                 ):(
             <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+=======
+            <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
+>>>>>>> 85bd50c68f972d2bb70ca659409b754893c8c01c
                 {
                     posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
                 }
@@ -202,7 +206,7 @@ const ImageExampleCircular = () => {
                     />
                 </div>
                 ):(
-                <div  style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
+                <div className='favorites' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%',paddingBottom:'70px'}}>
                     {    
                         favorites.map((favorite)=>(<ProfileImage image={favorite.Image} identifier = {favorite.ID} key = {favorite.ID}/>))
                     }
