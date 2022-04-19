@@ -26,6 +26,7 @@ Cypress.Commands.add('login', () => {
         window.localStorage.setItem('jwtToken', resp.body.token)
         window.localStorage.setItem('user-id', resp.body.id)
         window.localStorage.setItem('myId', resp.body.id)
+        window.localStorage.setItem('name', resp.body.name)
     })
   
   })
@@ -80,10 +81,13 @@ describe('add to favorites', () => {
         cy.show()
       })
     it('love', () => {
+        cy.wait(1000)
         cy.get('.love i').click()
         cy.visit('localhost:3000/profile')
         cy.scrollTo(0, 500)
+        cy.wait(1000)
         cy.get('.favorites div:first').click()
+        cy.wait(1000)
     })
 })
 describe('delete', () => {
