@@ -12,23 +12,28 @@
 
 
 ## Table of Contents
-1. [User Story](#UserStory)
+1. [Project Description](#ProjectDescription)
 
-2. [Description](#Description)
+2. [User Story](#UserStory)
 
-3. [Work be Done](#Work)
+3. [Description](#Description)
 
-4. [Results and Performance](#Test)
+4. [Work be Done](#Work)
 
-5. [How to Use](#Use)
+5. [Results and Performance](#Test)
 
-6. [Other Info](#Other Info)
+6. [How to Use](#Use)
 
+7. [Other Info](#Other Info)
 
+<a name="ProjectDescription"></a>·
+I. Project Description
+----
+UF-OpenMart is an application that can be used by students at the University of Florida to sell and buy second-handed merchandise. We preserve second-handed items people want to sell and display them in different categories and orders. You can create your account and manage your merchandise properly. It's also easy to favorite some items you want, or you can put some comments below the items. If you want to sell something you don't want but is still functional, you can just click the post icon and put the information on the page.
 
 <a name="UserStory"></a>·
 
-I. User Story
+II. User Story
 ----
 #### As a customer:
 * I want to find a market that list all the used items with fair price.
@@ -52,7 +57,7 @@ I. User Story
 
 <a name="Description"></a>·
 
-II. Description
+III. Description
 ----
 ### Backend stack:
 * Framework: `Gin`
@@ -66,7 +71,7 @@ II. Description
 
 
 <a name="Work"></a>·
-III. Work Be Done
+VI. Work Be Done
 ----
 ### Sprint1
 #### Backend accomplishment
@@ -115,6 +120,14 @@ III. Work Be Done
 * Add comment function(have not connected to backend).
 * Get item randomly and show on home page.
 * Details in https://youtu.be/QgN9Ggf3ZKA
+
+----
+### Sprint4
+#### Backend accomplishment
+* 
+
+#### Frontend accomplishment
+* 
 
 <a name="Use"></a>·
 III. How To Use
