@@ -121,7 +121,7 @@ IV. Work Be Done
 #### Backend accomplishment
 * More APIs for Comment module and item module as front-end needed
 * All the developed APIs with corresponding doc
-* More gotest for Unittest
+* More gotest for Unittest in back_end/main_test.go
 * All the API tests by Postman and Curl
 * read.md in 'back_end/' file shows how to run
 * More screenshots for postman test result in '/backend_test'
@@ -138,7 +138,9 @@ IV. Work Be Done
 ----
 ### Sprint4
 #### Backend accomplishment
-
+* Documenting the work done and how to run it: read.md in 'back_end/' file shows how to run
+* Screenshots or video:'/backend_test'
+* Adding more test cases for all the new functionality implemented in Sprint 4: More gotest for Unittest in back_end/main_test.go
 
 #### Frontend accomplishment
 * Filter of items in home page
