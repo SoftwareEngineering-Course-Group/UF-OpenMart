@@ -19,7 +19,7 @@ function ItemHeader(item:any) {
   useEffect(()=>{
     console.log(item.userId)
     getName((String)(item.userId)).then((responce:any)=>{
-      setEmail(responce.email)
+      setEmail(responce.name)
       console.log(email)
     }).catch((err) => {
         console.log(err)
@@ -28,7 +28,11 @@ function ItemHeader(item:any) {
   },[])
   return (
     <div className='ih' style={{margin:'15px',display:'flex'}}>
-         <Header as='h2' style={{flex:1}}>
+         <Header as='h2' style={{flex:1}} onClick = {()=>{
+          
+            navi(`/OtherProfile/`,{replace : true,state : { id : item.userId}})
+  
+        }}>
             <Image circular src='https://react.semantic-ui.com/images/avatar/large/patrick.png' /> {email}
         </Header>
         {

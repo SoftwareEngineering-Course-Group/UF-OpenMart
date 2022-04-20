@@ -6,7 +6,7 @@ import Add from './pages/Add';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import RegisterPage from './pages/Register';
-
+import OtherProfile from './pages/Otherprofile';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/OtherProfile" element={<OtherProfile/>} />
       </Routes>
     </div>
   );
