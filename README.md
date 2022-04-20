@@ -30,9 +30,13 @@ I. Project Description
 UF-OpenMart is an application that can be used by students at the University of Florida to sell and buy second-handed merchandise. We preserve second-handed items people want to sell and display them in different categories and orders. You can create your account and manage your merchandise properly. It's also easy to favorite some items you want, or you can put some comments below the items. If you want to sell something you don't want but is still functional, you can just click the post icon and put the information on the page.
 
 Project functional video: https://youtu.be/14N0P9JDXI8
+
 [Cypress test](#Test)
+
 API doc: https://github.com/SoftwareEngineering-Course-Group/UF-OpenMart/tree/main/API%20doc
+
 Project Board: https://github.com/SoftwareEngineering-Course-Group/UF-OpenMart/projects
+
 
 <a name="UserStory"></a>
 
