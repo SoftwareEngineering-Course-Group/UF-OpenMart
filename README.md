@@ -30,9 +30,11 @@ I. Project Description
 UF-OpenMart is an application that can be used by students at the University of Florida to sell and buy second-handed merchandise. We preserve second-handed items people want to sell and display them in different categories and orders. You can create your account and manage your merchandise properly. It's also easy to favorite some items you want, or you can put some comments below the items. If you want to sell something you don't want but is still functional, you can just click the post icon and put the information on the page.
 
 Project functional video: 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/14N0P9JDXI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Cypress test video: 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9FSk1DHtsPE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 API doc: https://github.com/SoftwareEngineering-Course-Group/UF-OpenMart/tree/main/API%20doc
@@ -94,7 +96,9 @@ IV. Work Be Done
 * Deploying the test backend in VPS
 #### Frontend accomplishment
 * Details in https://www.youtube.com/watch?v=Y6CHfpEtx-E&t=99s
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Y6CHfpEtx-E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 * UI for 6 pages including Home, Profile, Detail, Login, Register.
 * login and register function.
 * realizes jumping the pages and  simple interaction with users.
@@ -130,6 +134,7 @@ IV. Work Be Done
 * Add comment function(have not connected to backend).
 * Get item randomly and show on home page.
 * Details in https://youtu.be/QgN9Ggf3ZKA
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QgN9Ggf3ZKA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ----
