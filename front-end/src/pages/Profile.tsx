@@ -160,7 +160,9 @@ const ImageExampleCircular = () => {
                 <h2>Posted</h2>
             </div>
             {
-                posted.length===0 ?(
+                posted.filter((item:any)=>
+                item.Catagory!==null && item.Catagory!==""
+              ).length===0 ?(
                 <div style = {{display:'flex', justifyContent: 'center', marginTop:'2%'}}>
                     <Message
                     style={{width:'50%', textAlign:'center'}}
