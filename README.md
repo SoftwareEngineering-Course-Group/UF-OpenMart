@@ -128,7 +128,7 @@ VI. Work Be Done
 
 #### Frontend accomplishment
 * Filter of items in home page
-* Caategory of items
+* Category of items
 * Log out button and function
 * Comments function connected to back-end
 * Add to favorites function
