@@ -171,3 +171,5 @@ VI. How To Use
 * Set up development environment for React
 * Run npm start in the project folder and open http://localhost:3000 in the browser
 
+# Bonus part
+VPS server IP address for back-end: jsmicro.cn:12345
