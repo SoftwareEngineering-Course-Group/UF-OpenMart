@@ -16,7 +16,7 @@
 
 2. [User Story](#UserStory)
 
-3. [Description](#Description)
+3. [Development Environment](#Development Environment)
 
 4. [Work be Done](#Work)
 
@@ -57,7 +57,7 @@ II. User Story
 
 <a name="Description"></a>
 
-III. Description
+III. Development Environment
 ----
 ### Backend stack:
 * Framework: `Gin`
