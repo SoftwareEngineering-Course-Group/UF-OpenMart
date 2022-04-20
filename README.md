@@ -26,12 +26,12 @@
 
 7. [Other Info](#Other Info)
 
-<a name="ProjectDescription"></a>·
+<a name="ProjectDescription"></a>
 I. Project Description
 ----
 UF-OpenMart is an application that can be used by students at the University of Florida to sell and buy second-handed merchandise. We preserve second-handed items people want to sell and display them in different categories and orders. You can create your account and manage your merchandise properly. It's also easy to favorite some items you want, or you can put some comments below the items. If you want to sell something you don't want but is still functional, you can just click the post icon and put the information on the page.
 
-<a name="UserStory"></a>·
+<a name="UserStory"></a>
 
 II. User Story
 ----
@@ -55,7 +55,7 @@ II. User Story
 * so that the market need to connect to `WEB3` wallet.
 ### 
 
-<a name="Description"></a>·
+<a name="Description"></a>
 
 III. Description
 ----
@@ -70,7 +70,7 @@ III. Description
 * UI: 'semantic-UI'
 
 
-<a name="Work"></a>·
+<a name="Work"></a>
 VI. Work Be Done
 ----
 ### Sprint1
@@ -130,7 +130,9 @@ VI. Work Be Done
 * 
 
 <a name="Use"></a>·
+
 III. How To Use
+----
 #### Backend
 * read.md in 'back_end/' file shows how to run in local
 
