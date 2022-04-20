@@ -1,8 +1,6 @@
-import React from 'react';
 import HeaderAvatar from '../components/HeaderAvatar'
 import Menu from '../components/Menu'
 import AddDetails from '../components/AddDetails'
-import imgBg from '../2021-03_About-pg_2000x800.jpg';
 
   function Add() {
     return (

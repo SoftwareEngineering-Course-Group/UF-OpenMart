@@ -2,7 +2,6 @@ import { Button, Form, Image,Message,Icon } from 'semantic-ui-react';
 import { useState } from 'react';
 import { getInfo, login } from '../utils';
 import { useForm } from "react-hook-form";
-// import history from '../history';
 import {useNavigate} from "react-router-dom"
 import Menu from '../components/Menu'
 const Login = () => {

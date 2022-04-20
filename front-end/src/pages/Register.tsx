@@ -17,19 +17,14 @@ const RegisterPage = () => {
       .then(() => {
         setSta('success')
         setDisplay(true)
-        // history.push('/login');
         navi('/login')
-      }).catch((err: any) => {
+      }).catch(() => {
           console.log("failed to register")
           setSta('failed')
-          setDisplay(true)
-          // history.push('/login');
-          // navi('/login')
-          // console.log(data)
-          
+          setDisplay(true)       
       })
   }
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
       
       return (
         <>
@@ -52,7 +47,6 @@ const RegisterPage = () => {
         <Form.Field width={8}>
           <label>Email</label>
           <input {...register("email")} placeholder='email' />
-          {/* {errors.input1 && <Label pointing color='red'>{errors.input1}</Label>} */}
         </Form.Field >
         <Form.Field width={8}>
           <label>Password</label>

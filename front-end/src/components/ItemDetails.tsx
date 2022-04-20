@@ -1,5 +1,4 @@
-import React,{useState} from 'react'
-import { Image,Card,Icon } from 'semantic-ui-react'
+import { Image,Card } from 'semantic-ui-react'
 import Love from '../components/Love'
 
 const ItemDetails = (item:any) => {

@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image,Icon, Modal, Button } from 'semantic-ui-react'
-import { Link, useNavigate } from 'react-router-dom';
-import Love from '../components/Love'
+import React from 'react'
+import { Card, Image, Modal, Button } from 'semantic-ui-react'
+import { useNavigate } from 'react-router-dom';
 import { getInfo } from '../utils';
 
 const CardExampleCard = (props: any) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false)
-  const [item, setItem] = useState(props)
-  useEffect(()=>{
-    // console.log(item)
-  },[])
-  const loveHandler =()=>{
-    
-  }
 
   return (
   <>
           <Modal
               centered={false}
               open={open}
-              // onClose={() => setOpen(false)}
-              // onOpen={() => setOpen(true)}
-              // trigger={<Button>Show Modal</Button>}
           >
           <Modal.Header>Failed to access</Modal.Header>
           <Modal.Content>
@@ -51,7 +40,6 @@ const CardExampleCard = (props: any) => {
           </Card.Content>
         </Card>
   </>
-  // navigate(`/item/${props.ID}`,{replace : true,state : { id : props.identifier }})
   
   );
 }

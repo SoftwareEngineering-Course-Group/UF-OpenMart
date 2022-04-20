@@ -44,7 +44,6 @@ const ImageExampleCircular = () => {
     })
 
   useEffect(() => {
-        // localStorage.setItem("jwtToken",'');
         let myid = localStorage.getItem("myId")
         if(localStorage.getItem("jwtToken")==='' || localStorage.getItem("jwtToken")===null){
             setOpen(true);
@@ -66,11 +65,9 @@ const ImageExampleCircular = () => {
             for(var j = 0; j < response.length; j++) {
                     await getItembyId(response[j].ID).then((res: any) =>{
                     response[j].Image = SERVER_ORIGIN+res.Files[0];
-                    // console.log(response[j].Image);
                     if(String(response[j].UserID)===String(myid) ){
                         userPosts.push(response[j])
                     }
-                    // return response
                 }).catch((err) => {
                     console.log(err)
                     console.log("err in getItems")
@@ -93,12 +90,9 @@ const ImageExampleCircular = () => {
                     let index=loves[j]
                     getItembyId(index).then((res: any) =>{
                         res.Image = SERVER_ORIGIN+res.Files[0];
-                        // console.log(response[j].Image);
                         res.ID=Number(index);
                         console.log(res);
                         favorites.push(res)
-                        
-                        // return response
                     }).catch((err) => {
                         console.log(err)
                         console.log("err in getItemsF")
@@ -111,7 +105,6 @@ const ImageExampleCircular = () => {
         console.log(favorites)
     },[]
     )
-    // console.log(posted)
     
     return(
         
@@ -119,9 +112,6 @@ const ImageExampleCircular = () => {
         <Modal
         centered={false}
         open={open}
-        // onClose={() => setOpen(false)}
-        // onOpen={() => setOpen(true)}
-        // trigger={<Button>Show Modal</Button>}
         >
         <Modal.Header>Failed to access</Modal.Header>
         <Modal.Content>
@@ -176,7 +166,6 @@ const ImageExampleCircular = () => {
                     style={{width:'50%', textAlign:'center'}}
                     success
                     header={'no items in this category'}
-                    // content={'no items in this category'} 
                     color= {'green'}
                     />
                 </div>
@@ -198,7 +187,6 @@ const ImageExampleCircular = () => {
                     style={{width:'50%', textAlign:'center'}}
                     success
                     header={'no items in this category'}
-                    // content={'no items in this category'} 
                     color= {'green'}
                     />
                 </div>

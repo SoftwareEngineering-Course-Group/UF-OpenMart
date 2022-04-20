@@ -1,12 +1,6 @@
-import React from 'react'
-import { Header, Image, Button } from 'semantic-ui-react'
-import { deleteItem } from '../utils';
+import { Header, Image} from 'semantic-ui-react'
 function HeaderAvatar() {
 
-  const onFinish = (data: any) => {
-    console.log(data);
-    
-  }
   return (
     <div style={{margin:'15px',display:'flex'}}>
          <Header as='h2' >

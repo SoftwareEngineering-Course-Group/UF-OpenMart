@@ -1,6 +1,5 @@
-import { Content } from 'antd/lib/layout/layout';
-import React, { Component, useEffect, useState } from 'react'
-import { Input, Menu, Segment } from 'semantic-ui-react'
+import React, {  useState } from 'react'
+import { Input, Menu } from 'semantic-ui-react'
 
 type selfProps = {
   setCate: Function;
@@ -20,9 +19,7 @@ const MenuExamplePointing: React.FC<selfProps> =(cate) =>{
     console.log("search: "+cont)
     setTarget(cont)
   }
-  // useEffect(()=>{
-  //   console.log(content)
-  // },[content])
+  
   return (
     <div>
       <Menu pointing>

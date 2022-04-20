@@ -1,4 +1,3 @@
-import React,{Component} from 'react';
 import { Icon } from 'semantic-ui-react'
 
 const Back =()=> {

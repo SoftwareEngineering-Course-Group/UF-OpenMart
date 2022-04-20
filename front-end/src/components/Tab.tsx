@@ -1,4 +1,3 @@
-import React from 'react'
 import { Tab } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
 const panes = [

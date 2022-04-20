@@ -1,8 +1,5 @@
-import React from 'react';
-import { Icon,Grid,Segment} from 'semantic-ui-react';
-import { Link,Route,Routes,useNavigate } from 'react-router-dom';
-import Item from '../pages/Item';
-
+import { Icon } from 'semantic-ui-react';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileImage(props:any) {
   const navigate = useNavigate();

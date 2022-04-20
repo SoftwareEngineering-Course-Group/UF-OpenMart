@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Dropdown, DropdownMenu, Menu } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 
 const tagoptions = [
   { text: 'Posted Time', value: 1 },

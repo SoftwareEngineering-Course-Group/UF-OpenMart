@@ -1,11 +1,6 @@
-import React from 'react';
-import { Icon,Grid,Segment} from 'semantic-ui-react';
-import { Link,Route,Routes,useNavigate } from 'react-router-dom';
-import Item from '../pages/Item';
-
+import { Icon} from 'semantic-ui-react';
 
 function AddImage(props:any) {
-  const navigate = useNavigate();
   return (
     <div id={props.tabkey} style={{width:'24%',position: 'relative',paddingBottom: '25%',margin:'0% 1% 1% 0%',cursor: 'pointer'}}>
         <div style={{ 

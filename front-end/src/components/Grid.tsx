@@ -1,10 +1,8 @@
-import _ from 'lodash'
 import React, { useState,useEffect } from 'react';
 import { Button, Grid, Message, Modal } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
 import { getCategory, getItembyId, getRandom, getSearch } from '../utils'
 import { useNavigate } from 'react-router';
-// import items from '../pages/Home'
 const SERVER_ORIGIN = "http://localhost:12345";
 
 const GridForItems= (pattern:any) => {
@@ -203,9 +201,6 @@ const GridForItems= (pattern:any) => {
           <Modal
               centered={false}
               open={open}
-              // onClose={() => setOpen(false)}
-              // onOpen={() => setOpen(true)}
-              // trigger={<Button>Show Modal</Button>}
           >
           <Modal.Header>Failed to access</Modal.Header>
           <Modal.Content>

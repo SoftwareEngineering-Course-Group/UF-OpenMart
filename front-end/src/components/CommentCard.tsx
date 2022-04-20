@@ -1,25 +1,8 @@
-import React, { useEffect } from 'react'
-import { Comment,} from 'semantic-ui-react'
+import { Comment } from 'semantic-ui-react'
 
 const CommentCard = (comment: any) => {
-    var replyComments;
-    var empty;
     console.log(comment.avatar)
-    const [comments, setCom] = React.useState()
-    // if (comment.reply.length!=0) {
-    //     replyComments = (<Comment.Group>
-    //     {comment.reply.map((reply:any)=>(<CommentCard
-    //             id={reply.id}
-    //             avatar={reply.avatar}
-    //             author={reply.author}
-    //             content={reply.content}
-    //             reply={reply.reply}
-    //         />))}
-    //     </Comment.Group>);
-    // } 
-
     return(
-
     <Comment id={comment.id}>
         <Comment.Avatar src={comment.avatar} />
         <Comment.Content>
@@ -34,9 +17,7 @@ const CommentCard = (comment: any) => {
           </Comment.Actions>
         </Comment.Content>
     </Comment>
-
-
-  
+ 
 )}
 
 export default CommentCard

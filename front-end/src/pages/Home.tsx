@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Tool from '../components/Tool'
 import AppHeader from '../components/Header'
 import GridForItems from '../components/Grid'
 import Menu from '../components/Menu'
 import imgBg from '../2021-03_About-pg_2000x800.jpg';//支持直接赋值相对路径
-import { getRandom } from '../utils';
 import MenuExamplePointing from '../components/Category';
-import { Checkbox, Icon } from 'semantic-ui-react';
-// const items = [
-//   {
-//     id:1,
-//     name: 'goggle',
-//     image:'../images/2cc3723492e356375e6e26cacc12407.jpg',//不支持直接赋值相对路径
-//     price: 3
-//   },
-// ]
 
-const random = [true]
 const style ={
     bgd:{
         color: 'rgba(0,0,0,1)',

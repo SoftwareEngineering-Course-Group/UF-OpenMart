@@ -1,6 +1,5 @@
-import React, { Component,useState } from 'react'
+import { useState } from 'react'
 import { Icon, Menu} from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
 const style ={
   footer:{
       position: 'fixed',

@@ -5,7 +5,7 @@ import Comments from '../components/Comments'
 import ItemHeader from '../components/ItemHeader'
 import ItemDetails from '../components/ItemDetails';
 import { useLocation,useNavigate,useParams } from 'react-router-dom';
-import { getInfo, getItembyId, getName } from '../utils';
+import { getInfo, getItembyId } from '../utils';
 import { Button, Modal,Icon } from 'semantic-ui-react';
 
 const SERVER_ORIGIN = "http://localhost:12345";
@@ -16,7 +16,6 @@ function Item() {
     }
     const para = useParams();
     const location = useLocation();
-     //使用钩子获取state
     const sta= location.state as stateType;
     const [img, setImg] = React.useState("")
     const [info, setInfo] = React.useState({
@@ -29,14 +28,13 @@ function Item() {
     const [open, setOpen] = useState(false)
     const [countPic, setPic] = React.useState(0)
     const [imgs, setImgs] = React.useState([""])
-    var isMine=(sta.userid==localStorage.getItem("myId"))?true:false;
+    var isMine=(sta.userid===localStorage.getItem("myId"))?true:false;
     const navigate = useNavigate();
     const getItem = ()=>((
         console.log(para),
         getItembyId(para.id).then((res: any) =>{
             setImg(SERVER_ORIGIN+res.Files[countPic]);
             setImgs(res.Files);
-            //console.log(imgs[0])
             let info={name:res.Name,price:res.Price,des:res.Description,date:res.CreatedAt.slice(0, 10)+" "+res.CreatedAt.slice(11, 16)}
             setInfo(info);
             localStorage.setItem("logStatus","true")
@@ -80,9 +78,6 @@ function Item() {
             <Modal
                 centered={false}
                 open={open}
-                // onClose={() => setOpen(false)}
-                // onOpen={() => setOpen(true)}
-                // trigger={<Button>Show Modal</Button>}
                 >
                 <Modal.Header>Failed to access</Modal.Header>
                 <Modal.Content>
