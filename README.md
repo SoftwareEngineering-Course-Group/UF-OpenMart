@@ -16,20 +16,20 @@
 
 2. [User Story](#UserStory)
 
-3. [Development Environment](#Development Environment)
+3. [Development Environment](#DevelopmentEnvironment)
 
 4. [Work be Done](#Work)
 
-5. [Results and Performance](#Test)
+5. [Tests](#Test)
 
 6. [How to Use](#Use)
-
-7. [Other Info](#Other Info)
 
 <a name="ProjectDescription"></a>
 I. Project Description
 ----
 UF-OpenMart is an application that can be used by students at the University of Florida to sell and buy second-handed merchandise. We preserve second-handed items people want to sell and display them in different categories and orders. You can create your account and manage your merchandise properly. It's also easy to favorite some items you want, or you can put some comments below the items. If you want to sell something you don't want but is still functional, you can just click the post icon and put the information on the page.
+
+Project functional video: https://youtu.be/14N0P9JDXI8
 
 <a name="UserStory"></a>
 
@@ -71,7 +71,7 @@ III. Development Environment
 
 
 <a name="Work"></a>
-VI. Work Be Done
+IV. Work Be Done
 ----
 ### Sprint1
 #### Backend accomplishment
@@ -135,9 +135,17 @@ VI. Work Be Done
 * link to poster profile page from item page
 * cypress test
 
-<a name="Use"></a>·
+<a name="Test"></a>·
 
-III. How To Use
+V. Test
+----
+#### Backend
+
+#### Frontend
+* Cypress test video: https://youtu.be/9FSk1DHtsPE
+
+<a name="Use"></a>·
+VI. How To Use
 ----
 #### Backend
 * read.md in 'back_end/' file shows how to run in local
