@@ -62,12 +62,15 @@ const GridForItems= (pattern:any) => {
             }).catch((err) => {
                 console.log(err)
                 console.log("err in getItems")
-            })      
+            }) 
+            
           }
           
           console.log(response);
           setNew(response.slice(0))
-          setItems(response.slice(0));
+          setItems(response.slice(0).filter((item:any)=>
+            item.Catagory!==null && item.Catagory!==""
+          ));
         }
       }).catch((err) => {
           console.log(err)
@@ -102,7 +105,9 @@ const GridForItems= (pattern:any) => {
           }
           console.log(response)
           setNew(response.slice(0))
-          setItems(response.slice(0));
+          setItems(response.slice(0).filter((item:any)=>
+            item.Catagory!==null && item.Catagory!==""
+          ));
         }
       }).catch((err) => {
           console.log(err)
@@ -134,7 +139,9 @@ const GridForItems= (pattern:any) => {
           
           console.log(response);
           setNew(response.slice(0))
-          setItems(response.slice(0));
+          setItems(response.slice(0).filter((item:any)=>
+            item.Catagory!==null && item.Catagory!==""
+          ));
         }
       }).catch((err) => {
           console.log(err)

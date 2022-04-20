@@ -9,6 +9,7 @@ function ItemHeader(item:any) {
   const clickDeleteHandler =()=>{
     deleteItem(item.itemId)
       .then(() => {
+        console.log("dele: "+item.itemId)
         navi('/profile')
       }).catch((err: any) => {
           console.log("failed to delete")

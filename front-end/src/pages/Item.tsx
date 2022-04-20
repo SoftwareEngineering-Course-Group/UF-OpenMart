@@ -31,7 +31,7 @@ function Item() {
     var isMine=(sta.userid===localStorage.getItem("myId"))?true:false;
     const navigate = useNavigate();
     const getItem = ()=>((
-        console.log(para),
+        console.log(sta.userid),
         getItembyId(para.id).then((res: any) =>{
             setImg(SERVER_ORIGIN+res.Files[countPic]);
             setImgs(res.Files);

@@ -138,7 +138,9 @@ const OtherProfile = (user:any) => {
                 ):(
                 <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
                     {
-                        posted.map((post)=>(<ProfileImage image={post.Image} userId ={sta.id} identifier = {post.ID} key={post.ID}/>))
+                        posted.filter((item:any)=>
+                        item.Catagory!==null && item.Catagory!==""
+                      ).map((post)=>(<ProfileImage image={post.Image} userId ={sta.id} identifier = {post.ID} key={post.ID}/>))
                     }
                 </div>)
             }

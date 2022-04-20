@@ -101,5 +101,6 @@ describe('delete', () => {
         cy.get('.posted div:first').click()
         cy.wait(1000)
         cy.get('.ih button').click()
+        cy.visit('localhost:3000/')
     })
 })

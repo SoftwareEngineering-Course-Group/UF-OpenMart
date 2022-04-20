@@ -172,7 +172,9 @@ const ImageExampleCircular = () => {
                 ):(
                 <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
                     {
-                        posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
+                        posted.filter((item:any)=>
+                        item.Catagory!==null && item.Catagory!==""
+                      ).map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} userId={localStorage.getItem("myId")} key={post.ID}/>))
                     }
                 </div>)
             }

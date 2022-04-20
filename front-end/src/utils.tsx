@@ -57,10 +57,9 @@ export const login = (credential: any) => {
   })
 }
 
-export const deleteItem = (idNum: any) => {
-  
+export const deleteItem = (idNum: Number) => {
   let myId = localStorage.getItem('myId');
-  let id = {"id":Number(myId)}
+  let id = {"id":Number(idNum)}
   console.log(id);
   const deleteItemUrl = `${SERVER_ORIGIN}/user/${myId}/item/${idNum}/update`;
   return fetch(deleteItemUrl, {
