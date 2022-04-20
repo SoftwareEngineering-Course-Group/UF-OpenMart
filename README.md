@@ -124,10 +124,16 @@ VI. Work Be Done
 ----
 ### Sprint4
 #### Backend accomplishment
-* 
+
 
 #### Frontend accomplishment
-* 
+* Filter of items in home page
+* Caategory of items
+* Log out button and function
+* Comments function connected to back-end
+* Add to favorites function
+* link to poster profile page from item page
+* cypress test
 
 <a name="Use"></a>·
 
