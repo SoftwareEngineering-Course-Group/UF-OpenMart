@@ -18,7 +18,7 @@ const Comments = (item:any) => {
         console.log("err in getComments")
     }) 
     
-  }, [])
+  }, [comments])
   useEffect(()=>{
   },[comments])
   const submit=(data: any)=>{
