@@ -98,6 +98,25 @@ export const getInfo = () => {
   })
   }
 
+  export const getTargetInfo = (target:Number) => {
+    let inforUrl = `${SERVER_ORIGIN}/user/${target}`
+    return fetch(inforUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + localStorage.getItem('jwtToken')) || ''
+      },
+    }).then((response) => {
+      if (response.status !== 200) {
+        console.log("false to get infor");
+        console.log(localStorage.getItem('jwtToken'))
+        throw Error('Fail get infor');
+      }
+      return response.json();
+    })
+    }
+
+
   export const getPost = () => {
     let myidd = localStorage.getItem('myId');
     let getPostedUrl = `${SERVER_ORIGIN}/user/${myidd}/item/list`;

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Image,Icon,Button, Modal, Checkbox, Message } from 'semantic-ui-react'
 import Menu from '../components/Menu'
 import ProfileImage from '../components/ProfileImage'
-import { getInfo, getItembyId, getPost } from '../utils';
+import { getInfo, getItembyId, getPost, getTargetInfo } from '../utils';
 import { useNavigate,useLocation } from 'react-router';
 import avator from '../avator.png'
 
@@ -15,6 +15,8 @@ const user =
 const OtherProfile = (user:any) => {
     const [open, setOpen] = React.useState(true)
     const navigate = useNavigate();
+    const [name,setName] = useState("")
+    const [email,setEmail] = useState("")
     interface stateType {
         id: string;
     }
@@ -34,11 +36,22 @@ const OtherProfile = (user:any) => {
 
   useEffect(() => {
         let myid = sta.id
+        console.log("myid: "+myid)
         if(localStorage.getItem("jwtToken")==='' || localStorage.getItem("jwtToken")===null){
             setOpen(true);
         }
         else{
-            getInfo().then(()=> {
+            getTargetInfo(Number(myid)).then((response:any)=> {
+                for(var key in response){
+                    if(key==="email"){
+                        setEmail(response[key]);
+                        console.log(response[key]);
+                    }
+                    if(key==="name"){
+                        setName(response[key]);
+                        console.log(response[key]);
+                    }
+                }
                 localStorage.setItem("logStatus","true")
                 setOpen(false);  
             }).catch((err) => {
@@ -97,12 +110,12 @@ const OtherProfile = (user:any) => {
             </div>  
 
                 </div>
-            <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{localStorage.getItem("name")}</h2>
+            <h2 style={{display:'flex', justifyContent: 'center',marginTop:'3%'}}>{name}</h2>
         
         <div style={{textAlign:'center', margin:'2% 12% 0% 12%'}}>
             <div>
                 <Icon name='time' />
-                <span>email: {localStorage.getItem("email")}</span>
+                <span>email: {email}</span>
             </div>
             <div>
                 <span>{user.aboutMe} </span>
@@ -125,7 +138,7 @@ const OtherProfile = (user:any) => {
                 ):(
                 <div  className='posted' style={{display:'flex',flexWrap:'wrap',margin:'2% 1% 2% 2%'}}>
                     {
-                        posted.map((post)=>(<ProfileImage image={post.Image} identifier = {post.ID} key={post.ID}/>))
+                        posted.map((post)=>(<ProfileImage image={post.Image} userId ={sta.id} identifier = {post.ID} key={post.ID}/>))
                     }
                 </div>)
             }

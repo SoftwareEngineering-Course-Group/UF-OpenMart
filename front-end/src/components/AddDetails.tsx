@@ -7,6 +7,7 @@ import {
     Button,
     Form,
     Icon,
+    Modal,
   } from 'semantic-ui-react'
 import AddImage from "./AddImage";
 
@@ -15,6 +16,7 @@ var curImages: any[]=[];
 var postFiles: any[]=[];
 
 const AddDetails= ()=> {
+    const [open, setOpen] = useState(false)
     const [imagePreviewUrls, setImageUrl] = useState<any[]>([])
     const navi = useNavigate();
     const previewFile=(e:any)=> {
@@ -80,6 +82,7 @@ const AddDetails= ()=> {
         
       }).catch((err) => {
               //console.log(formData.getAll('upload[]'));
+              setOpen(true)
               console.log(err)
           
       })
@@ -88,6 +91,21 @@ const AddDetails= ()=> {
       
     return (
       <div>
+        <Modal
+              centered={false}
+              open={open}
+          >
+          <Modal.Header>Failed to access</Modal.Header>
+          <Modal.Content>
+              <Modal.Description>
+              Please login first...
+              </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+              <Button onClick={() => navi("/login")}>Back to Login</Button>
+          </Modal.Actions>
+          </Modal>
+          
         <div style={{margin:'15px',paddingBottom:'70px'}}>
         <Form onSubmit={handleSubmit(images)}>
           <Form.Field>
