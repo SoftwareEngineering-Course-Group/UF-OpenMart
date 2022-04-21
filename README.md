@@ -24,6 +24,8 @@
 
 6. [How to Use](#Use)
 
+（Bonus part at the end of the readme）
+
 <a name="ProjectDescription"></a>
 I. Project Description
 ----
